@@ -1,0 +1,139 @@
+/* App.scss */
+
+/* Variables */
+$navbar-background: #ffffff;
+$navbar-border-color: #000000;
+$button-background: #ffffff;
+$button-text-color: #070707;
+$button-border-color: #00ffff;
+$button-border-radius: 15px;
+$signup-button-color: #ff7f50;
+
+/* Navbar Styles */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar {
+  background-color: $navbar-background;
+  border-bottom: 1px solid $navbar-border-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  width: 100px;
+  font-size: 12px;
+  background-color: $button-background;
+  color: $button-text-color;
+  border: 1px solid $button-border-color;
+  border-radius: $button-border-radius;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+  &:hover {
+    background-color: $button-text-color;
+    color: $button-background;
+    border-color: $button-background;
+  }
+}
+
+.login {
+  @extend .button;
+  margin-right: 20px;
+}
+
+.signup {
+  @extend .button;
+  background-color: $signup-button-color;
+  border-color: $signup-button-color;
+}
+
+/* SplitPage Styles */
+
+.signup-buttons {
+  margin-bottom: 20px;
+}
+
+.facebook-button,
+.linkedin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.facebook-button {
+  background-color: #3b5998;
+  color: #fff;
+  border: 1px solid #3b5998;
+}
+
+.linkedin-button {
+  background-color: #0077b5;
+  color: #fff;
+  border: 1px solid #0077b5;
+}
+
+.facebook-button:hover,
+.linkedin-button:hover {
+  background-color: transparent;
+  color: $button-text-color;
+  border-color: $button-border-color;
+}
+
+// GridComponent.scss
+
+.grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.grid-left, .grid-right {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.grid-left {
+  background-color: red;
+}
+
+.grid-right {
+  background-color: green;
+}
+
+// footer
+.footer {
+  background-color: #000000;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  padding: 4%;
+}
