@@ -8,6 +8,7 @@ $button-text-color: #070707;
 $button-border-color: #00ffff;
 $button-border-radius: 15px;
 $signup-button-color: #ff7f50;
+$signup-button-text-color: #ffffff; // New variable for text color
 
 /* Navbar Styles */
 .navbar-container {
@@ -34,7 +35,7 @@ $signup-button-color: #ff7f50;
   align-items: center;
 }
 
-.button {
+.nav-link {
   width: 100px;
   font-size: 12px;
   background-color: $button-background;
@@ -44,23 +45,28 @@ $signup-button-color: #ff7f50;
   padding: 6px 16px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-
-  &:hover {
-    background-color: $button-text-color;
-    color: $button-background;
-    border-color: $button-background;
-  }
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login {
-  @extend .button;
-  margin-right: 20px;
+.nav-link:hover {
+  background-color: $button-text-color;
+  color: $button-background;
+  border-color: $button-background;
+}
+
+.active {
+  background-color: $button-text-color;
+  color: $button-background;
 }
 
 .signup {
-  @extend .button;
   background-color: $signup-button-color;
-  border-color: $signup-button-color;
+  color: $signup-button-text-color; // Apply white text color
+  border-color: orange;
+  margin-left: 5%;
 }
 
 /* SplitPage Styles */
@@ -101,6 +107,15 @@ $signup-button-color: #ff7f50;
   background-color: transparent;
   color: $button-text-color;
   border-color: $button-border-color;
+}
+
+// Home
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }
 
 // GridComponent.scss

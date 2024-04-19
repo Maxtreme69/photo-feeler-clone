@@ -2,13 +2,13 @@
 
 import React from 'react';
 import '../App.scss';
-import SplitPage from './SplitPage';
+import Signup from '../Components/Signup';
 
 const Grid = () => {
   return (
     <div className="grid-container">
       <div className="grid-left">
-        <SplitPage />
+        <Signup />
       </div>
       <div className="grid-right">
         Right Side Content
