@@ -51,17 +51,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   align-items: center;
 }
 
-.nav-link:hover {
-  background-color: $button-text-color;
-  color: $button-background;
-  border-color: $button-background;
-}
-
-.active {
-  background-color: $button-text-color;
-  color: $button-background;
-}
-
 .signup {
   background-color: $signup-button-color;
   color: $signup-button-text-color; // Apply white text color
@@ -70,7 +59,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 /* SplitPage Styles */
-
 .signup-buttons {
   margin-bottom: 20px;
 }
@@ -85,7 +73,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   margin-bottom: 10px;
   font-size: 14px;
   font-weight: bold;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -110,7 +98,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 // Home
-
 .home-container {
   display: flex;
   justify-content: center;
@@ -119,11 +106,9 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 // GridComponent.scss
-
 .grid-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 80vh;
 }
 
@@ -151,4 +136,70 @@ $signup-button-text-color: #ffffff; // New variable for text color
   font-size: 24px;
   text-align: center;
   padding: 4%;
+}
+
+/* Login.scss */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.login-container {
+  display: grid;
+  place-items: center;
+}
+
+.login-header {
+  margin-top: 20px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+}
+
+.login-paragraph-text {
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid #dbd6d6;
+  padding-top: 25px;
+}
+
+.social-login {
+  height: 20%; /* Adjust the width to control the length of the line */
+  border-right: 1px solid #dbd6d6;
+  padding-right: 50px;
+}
+
+.email-login {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.login-button {
+  width: 50%;
+  padding: 7.5px;
+  border-radius: 20px;
+  background-color: #ff7f50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.placeholder-text {
+  color: #888;
 }

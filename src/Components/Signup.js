@@ -1,5 +1,3 @@
-// SplitPage.js
-
 import React from 'react';
 import { FaFacebook, FaLinkedin } from 'react-icons/fa'; // Import Font Awesome icons
 import '../App.scss';
