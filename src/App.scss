@@ -203,3 +203,118 @@ $signup-button-text-color: #ffffff; // New variable for text color
 .placeholder-text {
   color: #888;
 }
+
+// My Tests Page
+.my-tests-container {
+  height: 80vh;
+  width: 100%;
+  padding: 20px;
+}
+
+.test-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px; /* Add margin to separate from karma container */
+}
+
+.new-test-button,
+.cancel-button,
+.sort-button {
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cancel-button {
+  color: orange; /* Apply orange color to cancel button text */
+}
+
+.karma-container {
+  margin-left: auto; /* Push the karma container to the right */
+  margin-right: 20px; /* Adjust margin as needed */
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+}
+
+
+.new-test-button {
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+  border-radius: 25px;
+  background-color: #ff7f50;
+  border: none;
+  color: white;
+  padding: 5px;
+  width: 100px;
+  margin-right: 20px; /* Add margin to the right */
+  font-size: 16px;
+}
+
+.dropdown-button {
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+  border-radius: 25px;
+  background-color: #f3e9e6;
+  border: none;
+  padding: 5px;
+  width: 100px;
+  border: 1px solid rgb(163, 159, 159);
+  height: 37.5px;
+  width: 100px;
+  font-size: 16px;
+}
+
+.new-test-button {
+  border-radius: 25px;
+  background-color: #ff7f50;
+  border: none;
+  color: white;
+  padding: 5px;
+  width: 150px;
+  height: 37.5px;
+  margin-right: 20px; 
+}
+
+.dropdown-button {
+  border-radius: 25px;
+  background-color: #f3e9e6;
+  border: none;
+  padding: 5px;
+  width: 100px;
+  border: 1px solid black;
+  margin-left: 20px; 
+}
+
+/* DropdownButton.scss */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 100px;
+  font-size: 12px;
+}
+
+.dropdown-container:hover .dropdown-content {
+  display: block;
+}
+
+/* Updated styles for list items */
+.dropdown-content ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+.dropdown-content li {
+  padding: 10px 15px; /* Adjust padding as needed */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Hover transition */
+}
+
+.dropdown-content li:hover {
+  background-color: #ccc; /* Hover background color */
+}

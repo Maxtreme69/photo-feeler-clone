@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Grid from './Pages/Grid';
+import MyTests from './Pages/MyTests';
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -11,12 +12,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Grid />} />
-        </Routes>
+        <div className="navbar-container">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Grid />} />
+            <Route path="/my-tests" element={<MyTests />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
