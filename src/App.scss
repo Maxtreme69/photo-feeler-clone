@@ -318,3 +318,44 @@ $signup-button-text-color: #ffffff; // New variable for text color
 .dropdown-content li:hover {
   background-color: #ccc; /* Hover background color */
 }
+
+// Multi Step Form 
+
+.multi-step-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-list {
+  padding: 0px 50px; /* Adjust the padding as needed for wider spacing */
+  letter-spacing: .15em;
+  font-weight: 500;
+  opacity: .5;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-family: Roboto, sans-serif;
+  line-height: 1.42857143;
+  color: #333;
+  display: flex;
+  width: 100%;
+  max-width: 6000px; /* Adjust max-width as needed */
+  margin-bottom: 20px;
+}
+
+.step {
+  cursor: pointer;
+  padding: 10px 40px;
+  transition: background-color 0.3s ease;
+}
+
+.step.active {
+  color: #3498db; /* Change text color to match underline */
+  border-bottom: 2px solid #3498db; /* Add underline with background color */
+}
+
+.step-content {
+  width: 100%;
+  max-width: 600px; /* Adjust max-width as needed */
+}
+
