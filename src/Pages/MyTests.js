@@ -29,9 +29,6 @@ function MyTests() {
           <button className="cancel-button" onClick={() => setShowNewTest(true)}>
             &lt; Cancel
           </button>
-          <div>
-            <p>choose a photo below or add a new one</p>
-          </div>
           </>
         )}
         <div className="karma-container" onClick={() => setShowNewTest(!showNewTest)}>
