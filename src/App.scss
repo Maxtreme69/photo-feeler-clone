@@ -107,9 +107,9 @@ $signup-button-text-color: #ffffff; // New variable for text color
 
 // GridComponent.scss
 .grid-container {
-  display: flex;
-  justify-content: center;
-  height: 80vh;
+  // display: flex;
+  // justify-content: center;
+  // height: 80vh;
 }
 
 .grid-left, .grid-right {
@@ -160,7 +160,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid #dbd6d6;
   padding-top: 25px;
 }
 
@@ -340,6 +339,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   display: flex;
   width: 100%;
   max-width: 6000px; /* Adjust max-width as needed */
+  border-bottom: 1px solid #dbd6d6;
 }
 
 .step {
@@ -371,3 +371,29 @@ $signup-button-text-color: #ffffff; // New variable for text color
   padding-left: 50px;
 }
 
+.image-grid {
+  width: 100%;
+}
+
+.button-container {
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rectangle {
+  width: calc(16.666% - 20px); /* Adjust width based on your grid layout */
+  height: 200px; /* Adjust height based on your grid layout */
+  margin: 10px;
+  background-color: #ccc; /* Default background color */
+  position: relative;
+}
+
+.rectangle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire rectangle */
+}

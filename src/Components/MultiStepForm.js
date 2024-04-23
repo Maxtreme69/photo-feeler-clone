@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ImageGrid from './ImageGrid';
 import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
 
 function MultiStepForm() {
@@ -30,7 +31,7 @@ function MultiStepForm() {
           className={`step ${currentStep === 1 ? 'active' : ''}`}
           onClick={() => handleStepChange(1)}
         >
-            PHOTO
+          PHOTO
         </div>
         <div
           className={`step ${currentStep === 2 ? 'active' : ''}`}
@@ -52,25 +53,21 @@ function MultiStepForm() {
         </div>
       </div>
       <div className="step-content">
-        {currentStep === 1 && (
-          <div className="step">
-            <h4 id="step-1-text">Choose a photo below or add a new one.</h4>
-            <div onClick={handleUploadClick}  className="upload-box">
-              <div style={{ paddingLeft: '20px' }} className="upload-icon">
-                <FaUpload/>
-              </div>
-              <div className="upload-text">UPLOAD</div>
-              {imageUploaded && (
-                <div className="uploaded-image">
-                  {/* Render the uploaded image here */}
-                  <img src={URL.createObjectURL(selectedImage)} alt="Uploaded" />
-                </div>
-              )}
+        <div className="grid-container">
+        {/* <h4 id="step-1-text">Choose a photo below or add a new one.</h4> */}
+          {/* <div className="upload-box" onClick={handleUploadClick}>
+            <div className="upload-text">UPLOAD</div>
+            <div className="upload-icon">
+              <FaUpload />
             </div>
-            {/* Your photo selection input goes here */}
           </div>
-        )}
-        {/* Remaining steps code remains unchanged */}
+          {imageUploaded && (
+            <div className="uploaded-image">
+              <img src={URL.createObjectURL(selectedImage)} alt="Uploaded" />
+            </div>
+          )} */}
+          <ImageGrid />
+        </div>
       </div>
     </div>
   );
