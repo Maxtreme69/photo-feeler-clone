@@ -397,3 +397,50 @@ $signup-button-text-color: #ffffff; // New variable for text color
   height: 100%;
   object-fit: cover; /* Ensure the image covers the entire rectangle */
 }
+
+// Category
+
+.category-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-section {
+  border-right: 1px solid $navbar-border-color;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.content-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-section::after {
+  content: '';
+  height: 100%;
+  width: 1px;
+  background-color: #ccc; /* Adjust the color as needed */
+  margin-left: 20px; /* Adjust the distance between the sections */
+}
+
+.image-holder img {
+  max-width: 100%;
+  height: auto;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px; /* Move the button group down */
+}
+
+.button-next {
+  margin-top: 20px;
+}

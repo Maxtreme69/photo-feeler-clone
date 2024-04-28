@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import ImageGrid from './ImageGrid';
+import Category from './Category';
 import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
 
 function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [imageUploaded, setImageUploaded] = useState(false); // State to track image upload
   const [selectedImage, setSelectedImage] = useState(null); // State to store the selected image file
 
   const handleStepChange = (step) => {
@@ -19,9 +19,13 @@ function MultiStepForm() {
     input.onchange = (event) => {
       const file = event.target.files[0];
       setSelectedImage(file);
-      setImageUploaded(true);
+      handleStepChange(2); // Change the step to 2 when an image is selected
     };
     input.click();
+  };
+
+  const handleNextClick = () => {
+    handleStepChange(3); // Change the step to 3 when Next is clicked
   };
 
   return (
@@ -53,21 +57,16 @@ function MultiStepForm() {
         </div>
       </div>
       <div className="step-content">
-        <div className="grid-container">
-        {/* <h4 id="step-1-text">Choose a photo below or add a new one.</h4> */}
-          {/* <div className="upload-box" onClick={handleUploadClick}>
-            <div className="upload-text">UPLOAD</div>
-            <div className="upload-icon">
-              <FaUpload />
-            </div>
+        {currentStep === 1 && (
+          <div className="grid-container">
+            <ImageGrid setSelectedImage={setSelectedImage} handleStepChange={handleStepChange} />
           </div>
-          {imageUploaded && (
-            <div className="uploaded-image">
-              <img src={URL.createObjectURL(selectedImage)} alt="Uploaded" />
-            </div>
-          )} */}
-          <ImageGrid />
-        </div>
+        )}
+        {currentStep === 2 && (
+          <div className="category-container">
+            <Category selectedImage={selectedImage} handleNextClick={handleNextClick} />
+          </div>
+        )}
       </div>
     </div>
   );

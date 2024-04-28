@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
 
-function ImageGrid() {
+function ImageGrid({ setSelectedImage, handleStepChange }) {
   const [rectangles, setRectangles] = useState([]);
 
   const addRectangle = (file) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const newRectangles = [...rectangles, { id: rectangles.length, color: getRandomColor(), image: reader.result }];
+      const newRectangles = [
+        ...rectangles,
+        { id: rectangles.length, color: getRandomColor(), image: reader.result },
+      ];
       setRectangles(newRectangles);
+      setSelectedImage(file); // Pass the selected image to the parent component
+      handleStepChange(2); // Change the step to 2 when an image is added
     };
     reader.readAsDataURL(file);
   };
@@ -17,6 +22,11 @@ function ImageGrid() {
     if (rectangles.length > 0) {
       setRectangles(rectangles.slice(0, -1));
     }
+  };
+
+  const handleImageClick = (file) => {
+    setSelectedImage(file);
+    handleStepChange(2); // Change the step to 2 when an image is clicked
   };
 
   const handleImageChange = (event) => {
@@ -35,25 +45,23 @@ function ImageGrid() {
 
   return (
     <div className="image-grid">
-        
       <div className="button-container">
-      <label htmlFor="upload-input" >
-      <div className="upload-box">
-          <div className="upload-text">UPLOAD</div>
-          <div className="upload-icon">
-            <FaUpload />
+        <label htmlFor="upload-input">
+          <div className="upload-box">
+            <div className="upload-text">UPLOAD</div>
+            <div className="upload-icon">
+              <FaUpload />
+            </div>
+            <input
+              id="upload-input"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+            />
           </div>
-          <input
-            id="upload-input"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
-          />
-        </div>
-      </label>
+        </label>
         <button onClick={removeRectangle}>Remove Rectangle</button>
-        
       </div>
       <div className="grid-container">
         {rectangles.map((rectangle) => (
@@ -61,6 +69,7 @@ function ImageGrid() {
             key={rectangle.id}
             className="rectangle"
             style={{ backgroundColor: rectangle.color }}
+            onClick={() => handleImageClick(rectangle.image)}
           >
             {rectangle.image && (
               <img src={rectangle.image} alt="Uploaded" className="rectangle-image" />
@@ -68,8 +77,6 @@ function ImageGrid() {
           </div>
         ))}
       </div>
-
-
     </div>
   );
 }
