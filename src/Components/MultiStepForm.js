@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ImageGrid from './ImageGrid';
 import Category from './Category';
+import DatingDetails from '../Details/Dating';
 import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
 
 function MultiStepForm() {
@@ -65,6 +66,11 @@ function MultiStepForm() {
         {currentStep === 2 && (
           <div className="category-container">
             <Category selectedImage={selectedImage} handleNextClick={handleNextClick} />
+          </div>
+        )}
+        {currentStep === 3 && (
+          <div className="category-container">
+            <DatingDetails selectedImage={selectedImage} handleNextClick={handleNextClick} />
           </div>
         )}
       </div>
