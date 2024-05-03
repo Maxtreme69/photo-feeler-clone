@@ -1,8 +1,7 @@
-// GridComponent.js
-
 import React from 'react';
 import '../App.scss';
-import Signup from '../Components/Signup';
+import Signup from '../Pages/Signup.js';
+import SignUpForm from '../Components/SignUpForm.js';
 
 const Grid = () => {
   return (
@@ -11,7 +10,7 @@ const Grid = () => {
         <Signup />
       </div>
       <div className="grid-right">
-        Right Side Content
+        <SignUpForm />
       </div>
     </div>
   );
