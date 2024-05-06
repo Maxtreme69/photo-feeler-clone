@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 
-function Dating() {
+function Dating({ handleNextStep }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNextContent, setShowNextContent] = useState(false);
-  const [sliderValue, setSliderValue] = useState(24); // Initial value for the slider
+  const [sliderValue, setSliderValue] = useState(24);
 
   const handleCheckboxChange = (event) => {
     setShowDropdown(event.target.checked);
   };
 
   const handleNextButtonClick = () => {
-    setShowDropdown(false); // Hide the dropdown
-    setShowNextContent(true); // Show the next content
+    setShowDropdown(false);
+    setShowNextContent(true);
   };
 
   const handleSliderChange = (event) => {
-    setSliderValue(parseInt(event.target.value)); // Update slider value
+    setSliderValue(parseInt(event.target.value));
+  };
+
+  const handleNext = () => {
+    handleNextStep(); // Call the prop function to handle the next step
   };
 
   return (
@@ -78,7 +82,7 @@ function Dating() {
               onChange={handleSliderChange}
             />
           </div>
-          <button>Next</button>
+          <button onClick={handleNext}>Next</button>
         </>
       )}
     </div>

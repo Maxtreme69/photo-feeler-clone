@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ImageGrid from './ImageGrid';
 import Category from './Category';
 import DatingDetails from '../Details/Dating';
-import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
+import TestSize from './TestSize';
 
 function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -26,7 +26,11 @@ function MultiStepForm() {
   };
 
   const handleNextClick = () => {
-    handleStepChange(3); // Change the step to 3 when Next is clicked
+    if (currentStep === 3) {
+      handleStepChange(4); // Change the step to 4 if in Details step
+    } else {
+      handleStepChange(currentStep + 1);
+    }
   };
 
   return (
@@ -65,12 +69,17 @@ function MultiStepForm() {
         )}
         {currentStep === 2 && (
           <div className="category-container">
-            <Category selectedImage={selectedImage} handleNextClick={handleNextClick} />
+          <Category selectedImage={selectedImage} handleNextClick={handleNextClick} />
           </div>
         )}
         {currentStep === 3 && (
           <div className="category-container">
             <DatingDetails selectedImage={selectedImage} handleNextClick={handleNextClick} />
+          </div>
+        )}
+        {currentStep === 4 && (
+          <div className="category-container">
+            <TestSize selectedImage={selectedImage} handleNextClick={handleNextClick} />
           </div>
         )}
       </div>
