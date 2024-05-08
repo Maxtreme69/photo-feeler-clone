@@ -1,8 +1,9 @@
+// ImageSection.js
 import React from 'react';
 
-function ImageSection({ selectedImage }) {
+function ImageSection({ selectedImage, isStep4 }) {
   return (
-    <div className="image-section">
+    <div className="image-section" style={{ marginRight: isStep4 ? 0 : '25%' }}>
       {selectedImage && (
         <div className="image-holder">
           <h1>Dating</h1>

@@ -408,6 +408,13 @@ $signup-button-text-color: #ffffff; // New variable for text color
   justify-content: center;
 }
 
+.category-container-no-align {
+  display: flex;
+  justify-content: center;
+}
+
+// If step 4, remove margin-right
+// App.scss
 .image-section {
   border-right: 1px solid $navbar-border-color;
   flex: 1;
@@ -417,6 +424,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   padding: 20px;
   margin-right: 25%;
 }
+
 
 .content-section {
   flex: 1;
@@ -430,7 +438,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   height: 100%;
   width: 1px;
   background-color: #ccc; /* Adjust the color as needed */
-  margin-left: 20px; /* Adjust the distance between the sections */
+  margin-left: 20px; 
 }
 
 .image-holder img {
@@ -486,4 +494,69 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+// TestSize.module.scss
+
+.hover-container {
+  /* Hover effect */
+  &:hover {
+    background-color: #f5f5f5; /* Light gray */
+  }
+}
+
+.test-size-container {
+  width: 50%;
+  background-color: #fff; /* Set initial background color */
+  transition: background-color 0.3s ease; /* Add transition for smooth effect */
+
+  p.test-size-text {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+  }
+
+  .flex-container {
+    display: flex;
+    align-items: center;
+
+    .content {
+      border-top: 1px solid black;
+      width: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+
+      h4 {
+        display: inline-block;
+        margin: 0 0 3px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        line-height: 1.42857143;
+        color: #333;
+
+        #free { /* Style the 'Free' span separately */
+          color: orange;
+          margin-left: 5px;
+        }
+      }
+
+      .icon {
+        color: orange;
+        font-family: 'Roboto', sans-serif;
+        font-size: 45px;
+        line-height: 1.42857143;
+        position: relative;
+        top: 17.5px;
+      }
+    }
+  }
+
+  .bottom-text {
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding-bottom: 5px;
+  }
+
+
 }

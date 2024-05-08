@@ -89,8 +89,9 @@ function MultiStepForm() {
           </div>
         )}
         {currentStep === 4 && (
-          <div className="category-container">
-            <TestSize selectedImage={selectedImage}/>
+          <div className="category-container-no-align">
+            <ImageSection selectedImage={selectedImage} isStep4 />
+            <TestSize isStep4={true} />
           </div>
         )}
       </div>
