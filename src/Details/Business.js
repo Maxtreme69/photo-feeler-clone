@@ -21,7 +21,7 @@ function Business({ handleNextStep }) {
       <p>What is your professional title?</p>
       <input value={inputValue} onChange={handleInputChange} />
       <div>
-        <button onClick={handleBusinessNextClick} disabled={!inputValue.trim()}>
+        <button className="new-test-button" onClick={handleBusinessNextClick} disabled={!inputValue.trim()}>
           Next
         </button>
       </div>

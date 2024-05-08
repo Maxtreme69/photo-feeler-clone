@@ -11,6 +11,8 @@ function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null); // State to store the selected image file
   const [selectedCategory, setSelectedCategory] = useState(null); // State to store the selected category
+  const [activeButton, setActiveButton] = useState('');
+
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -30,8 +32,9 @@ function MultiStepForm() {
   };
 
   const handleNextClick = (selectedComponent) => {
-    setSelectedCategory(selectedComponent); // Set the selected category in state
-    handleStepChange(3); // Change to step 3 ('Details') on MultiStepForm
+    setActiveButton(selectedComponent); // Set the active button
+    setSelectedCategory(selectedComponent); 
+    handleStepChange(3);
   };
 
   return (
@@ -82,7 +85,7 @@ function MultiStepForm() {
         )}
         {currentStep === 3 && selectedCategory && (
           <div className="category-container">
-            <ImageSection selectedImage={selectedImage} />
+            <ImageSection selectedImage={selectedImage} activeButton={activeButton} />
             {selectedCategory === 'Dating' && <Dating handleNextStep={handleStepChange} />} 
             {selectedCategory === 'Social' && <Social handleNextStep={handleStepChange}/>}
             {selectedCategory === 'Business' && <Business handleNextStep={handleStepChange} />}
@@ -90,7 +93,7 @@ function MultiStepForm() {
         )}
         {currentStep === 4 && (
           <div className="category-container-no-align">
-            <ImageSection selectedImage={selectedImage} isStep4 />
+            <ImageSection selectedImage={selectedImage} activeButton={activeButton} isStep4 />
             <TestSize isStep4={true} />
           </div>
         )}

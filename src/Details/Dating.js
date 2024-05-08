@@ -59,7 +59,7 @@ function Dating({ handleNextStep }) {
               </select>
             </div>
           )}
-          <button onClick={handleNextButtonClick}>Next</button>
+          <button className="new-test-button" onClick={handleNextButtonClick}>Next</button>
         </>
       )}
       {showNextContent && (
@@ -82,7 +82,7 @@ function Dating({ handleNextStep }) {
               onChange={handleSliderChange}
             />
           </div>
-          <button onClick={handleNext}>Next</button>
+          <button className="new-test-button" onClick={handleNext}>Next</button>
         </>
       )}
     </div>

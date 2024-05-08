@@ -48,7 +48,7 @@ function Social({ handleNextStep }) { // Change this line
           </select>
         </div>
       )}
-      <button onClick={handleNext}>Next</button>
+      <button className="new-test-button" onClick={handleNext}>Next</button>
     </div>
   );
 }
