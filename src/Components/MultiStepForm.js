@@ -81,19 +81,16 @@ function MultiStepForm() {
           </div>
         )}
         {currentStep === 3 && selectedCategory && (
-          
           <div className="category-container">
-           <ImageSection 
-              selectedImage={selectedImage}
-            />
-            {selectedCategory === 'Dating' && <Dating />}
-            {selectedCategory === 'Social' && <Social />}
-            {selectedCategory === 'Business' && <Business />}
+            <ImageSection selectedImage={selectedImage} />
+            {selectedCategory === 'Dating' && <Dating handleNextStep={handleStepChange} />} 
+            {selectedCategory === 'Social' && <Social handleNextStep={handleStepChange}/>}
+            {selectedCategory === 'Business' && <Business handleNextStep={handleStepChange} />}
           </div>
         )}
         {currentStep === 4 && (
           <div className="category-container">
-            <TestSize selectedImage={selectedImage} handleNextClick={handleNextClick} />
+            <TestSize selectedImage={selectedImage}/>
           </div>
         )}
       </div>

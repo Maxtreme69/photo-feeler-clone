@@ -19,7 +19,7 @@ function Dating({ handleNextStep }) {
   };
 
   const handleNext = () => {
-    handleNextStep(); // Call the prop function to handle the next step
+    handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
 
   return (

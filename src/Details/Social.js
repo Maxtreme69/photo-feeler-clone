@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
-function Social() {
+function Social({ handleNextStep }) { // Change this line
   const [peopleCount, setPeopleCount] = useState('One');
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleRadioChange = (event) => {
     setPeopleCount(event.target.value);
     setShowDropdown(event.target.value === 'Multiple');
+  };
+
+  const handleNext = () => {
+    handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
 
   return (
@@ -44,7 +48,7 @@ function Social() {
           </select>
         </div>
       )}
-      <button>Next</button>
+      <button onClick={handleNext}>Next</button>
     </div>
   );
 }
