@@ -1,3 +1,5 @@
+// Business.js
+
 import React, { useState } from 'react';
 
 function Business({ handleNextStep }) {
@@ -16,11 +18,11 @@ function Business({ handleNextStep }) {
   };
 
   return (
-    <div>
+    <div className="business-container">
       <h2>Add context</h2>
       <p>What is your professional title?</p>
       <input value={inputValue} onChange={handleInputChange} />
-      <div>
+      <div className="button-container">
         <button className="new-test-button" onClick={handleBusinessNextClick} disabled={!inputValue.trim()}>
           Next
         </button>

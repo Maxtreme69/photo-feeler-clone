@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
+import { FaTrash } from 'react-icons/fa';
 
 function ImageGrid({ setSelectedImage, handleStepChange }) {
   const [rectangles, setRectangles] = useState([]);
@@ -61,8 +62,32 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
             />
           </div>
         </label>
-        <button onClick={removeRectangle}>Remove Rectangle</button>
       </div>
+
+
+      <div className="button-container">
+        <label htmlFor="upload-input">
+          <div className="upload-box">
+            <div className="upload-text">UPLOAD</div>
+            <div className="upload-icon">
+              <FaTrash />
+            </div>
+            <input
+              id="upload-input"
+              type="file"
+              accept="image/*"
+              onChange={removeRectangle}
+              style={{ display: 'none' }}
+            />
+          </div>
+        </label>
+      </div>
+
+
+      {/* <button onClick={removeRectangle}>Remove Rectangle</button> */}
+
+
+
       <div className="grid-container">
         {rectangles.map((rectangle) => (
           <div

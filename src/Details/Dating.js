@@ -1,3 +1,4 @@
+// Dating.js
 import React, { useState } from 'react';
 
 function Dating({ handleNextStep }) {
@@ -23,11 +24,11 @@ function Dating({ handleNextStep }) {
   };
 
   return (
-    <div>
+    <div className={'dating-container'}>
       {!showNextContent && (
         <>
-          <h2>Who is in the photo?</h2>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <h2 className={'dating-title'}>Who is in the photo?</h2>
+          <div className={'form-group'}>
             <label htmlFor="gender">Gender:</label>
             <select id="gender" name="gender">
               <option value="female">Female</option>
@@ -40,7 +41,7 @@ function Dating({ handleNextStep }) {
               ))}
             </select>
           </div>
-          <div style={{ marginTop: '1rem' }}>
+          <div className={'checkbox-group'}>
             <input
               type="checkbox"
               id="multiplePeople"
@@ -50,7 +51,7 @@ function Dating({ handleNextStep }) {
             <label htmlFor="multiplePeople">Multiple people</label>
           </div>
           {showDropdown && (
-            <div style={{ marginTop: '1rem' }}>
+            <div className={'dropdown-container'}>
               <select id="position" name="position">
                 <option value="">Choose one...</option>
                 <option value="left">The one on the left</option>
@@ -59,12 +60,12 @@ function Dating({ handleNextStep }) {
               </select>
             </div>
           )}
-          <button className="new-test-button" onClick={handleNextButtonClick}>Next</button>
+          <button className={'next-button'} onClick={handleNextButtonClick}>Next</button>
         </>
       )}
       {showNextContent && (
         <>
-          <h2>Who can vote on it?</h2>
+          <h2 className={'dating-title'}>Who can vote on it?</h2>
           <div>
             <p>Genders</p>
             <button>Males</button>
@@ -82,7 +83,7 @@ function Dating({ handleNextStep }) {
               onChange={handleSliderChange}
             />
           </div>
-          <button className="new-test-button" onClick={handleNext}>Next</button>
+          <button className={'next-button'} onClick={handleNext}>Next</button>
         </>
       )}
     </div>

@@ -1,6 +1,7 @@
+// Social.js
 import React, { useState } from 'react';
 
-function Social({ handleNextStep }) { // Change this line
+function Social({ handleNextStep }) {
   const [peopleCount, setPeopleCount] = useState('One');
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -14,9 +15,9 @@ function Social({ handleNextStep }) { // Change this line
   };
 
   return (
-    <div>
-      <h2>How many people in this photo?</h2>
-      <div>
+    <div className='social-container'>
+      <h2 className='social-title'>How many people in this photo?</h2>
+      <div className='radio-group'>
         <input
           type="radio"
           id="one"
@@ -26,8 +27,6 @@ function Social({ handleNextStep }) { // Change this line
           onChange={handleRadioChange}
         />
         <label htmlFor="one">One</label>
-      </div>
-      <div>
         <input
           type="radio"
           id="multiple"
@@ -39,7 +38,7 @@ function Social({ handleNextStep }) { // Change this line
         <label htmlFor="multiple">Multiple</label>
       </div>
       {showDropdown && (
-        <div style={{ marginTop: '1rem' }}>
+        <div className='dropdown-container'>
           <select id="position" name="position">
             <option value="">Choose one...</option>
             <option value="left">The one on the left</option>
@@ -48,7 +47,7 @@ function Social({ handleNextStep }) { // Change this line
           </select>
         </div>
       )}
-      <button className="new-test-button" onClick={handleNext}>Next</button>
+      <button className='next-button' onClick={handleNext}>Next</button>
     </div>
   );
 }
