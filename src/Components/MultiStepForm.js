@@ -12,7 +12,7 @@ function MultiStepForm() {
   const [selectedImage, setSelectedImage] = useState(null); // State to store the selected image file
   const [selectedCategory, setSelectedCategory] = useState(null); // State to store the selected category
   const [activeButton, setActiveButton] = useState('');
-
+  const [businessTitle, setBusinessTitle] = useState(''); // State to store the business title
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -35,6 +35,10 @@ function MultiStepForm() {
     setActiveButton(selectedComponent); // Set the active button
     setSelectedCategory(selectedComponent); 
     handleStepChange(3);
+  };
+
+  const handleBusinessTitleChange = (event) => {
+    setBusinessTitle(event.target.value); // Update business title state
   };
 
   return (
@@ -85,15 +89,20 @@ function MultiStepForm() {
         )}
         {currentStep === 3 && selectedCategory && (
           <div className="category-container">
-            <ImageSection selectedImage={selectedImage} activeButton={activeButton} />
+            <ImageSection selectedImage={selectedImage} activeButton={activeButton} businessTitle={businessTitle} />
             {selectedCategory === 'Dating' && <Dating handleNextStep={handleStepChange} />} 
             {selectedCategory === 'Social' && <Social handleNextStep={handleStepChange}/>}
-            {selectedCategory === 'Business' && <Business handleNextStep={handleStepChange} />}
+            {selectedCategory === 'Business' && (
+              <Business 
+                handleNextStep={handleStepChange} 
+                handleBusinessTitleChange={handleBusinessTitleChange} // Pass the business title change handler
+              />
+            )}
           </div>
         )}
         {currentStep === 4 && (
           <div className="category-container-no-align">
-            <ImageSection selectedImage={selectedImage} activeButton={activeButton} isStep4 />
+            <ImageSection selectedImage={selectedImage} activeButton={activeButton} isStep4 businessTitle={businessTitle} />
             <TestSize isStep4={true} />
           </div>
         )}
