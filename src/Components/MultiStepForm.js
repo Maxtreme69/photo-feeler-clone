@@ -13,6 +13,7 @@ function MultiStepForm() {
   const [selectedCategory, setSelectedCategory] = useState(null); // State to store the selected category
   const [activeButton, setActiveButton] = useState('');
   const [businessTitle, setBusinessTitle] = useState(''); // State to store the business title
+  const [socialTitle, setSocialTitle] = useState('');
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -40,6 +41,11 @@ function MultiStepForm() {
   const handleBusinessTitleChange = (event) => {
     setBusinessTitle(event.target.value); // Update business title state
   };
+
+  const handleSocialTitleChange = (title) => {
+    setSocialTitle(title); // Update social title state
+  };
+
 
   return (
     <div className="multi-step-form">
@@ -89,9 +95,19 @@ function MultiStepForm() {
         )}
         {currentStep === 3 && selectedCategory && (
           <div className="category-container">
-            <ImageSection selectedImage={selectedImage} activeButton={activeButton} businessTitle={businessTitle} />
+            <ImageSection 
+              selectedImage={selectedImage} 
+              activeButton={activeButton} 
+              businessTitle={businessTitle} 
+              socialTitle={socialTitle} // Pass the socialTitle prop
+            />            
             {selectedCategory === 'Dating' && <Dating handleNextStep={handleStepChange} />} 
-            {selectedCategory === 'Social' && <Social handleNextStep={handleStepChange}/>}
+            {selectedCategory === 'Social' && (
+            <Social 
+                handleNextStep={handleStepChange} 
+                handleSocialTitleChange={handleSocialTitleChange} // Pass the handleSocialTitleChange function
+              />
+            )}
             {selectedCategory === 'Business' && (
               <Business 
                 handleNextStep={handleStepChange} 
@@ -100,12 +116,12 @@ function MultiStepForm() {
             )}
           </div>
         )}
-        {currentStep === 4 && (
-          <div className="category-container-no-align">
-            <ImageSection selectedImage={selectedImage} activeButton={activeButton} isStep4 businessTitle={businessTitle} />
-            <TestSize isStep4={true} />
-          </div>
-        )}
+          {currentStep === 4 && (
+            <div className="category-container-no-align">
+              <ImageSection selectedImage={selectedImage} activeButton={activeButton} isStep4 businessTitle={businessTitle} socialTitle={socialTitle} /> {/* Pass the socialTitle prop */}
+              <TestSize isStep4={true} />
+            </div>
+          )}
       </div>
     </div>
   );

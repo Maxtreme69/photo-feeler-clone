@@ -1,7 +1,7 @@
 // Social.js
 import React, { useState } from 'react';
 
-function Social({ handleNextStep }) {
+function Social({ handleNextStep, handleSocialTitleChange  }) {
   const [peopleCount, setPeopleCount] = useState('One');
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -10,6 +10,10 @@ function Social({ handleNextStep }) {
     setShowDropdown(event.target.value === 'Multiple');
   };
 
+  const handleDropdownChange = (event) => {
+    handleSocialTitleChange(event.target.value); // Call handleSocialTitleChange with the selected value
+  };
+  
   const handleNext = () => {
     handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
@@ -39,11 +43,11 @@ function Social({ handleNextStep }) {
       </div>
       {showDropdown && (
         <div className='dropdown-container'>
-          <select id="position" name="position">
+          <select id="position" name="position" onChange={handleDropdownChange}>
             <option value="">Choose one...</option>
-            <option value="left">The one on the left</option>
-            <option value="right">The one on the right</option>
-            <option value="middle">The one in the middle</option>
+            <option value="The one on the left">The one on the left</option>
+            <option value="The one on the right">The one on the right</option>
+            <option value="The one in the middle">The one in the middle</option>
           </select>
         </div>
       )}
