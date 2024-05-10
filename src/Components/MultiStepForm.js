@@ -14,28 +14,19 @@ function MultiStepForm() {
   const [activeButton, setActiveButton] = useState('');
   const [businessTitle, setBusinessTitle] = useState(''); // State to store the business title
   const [socialTitle, setSocialTitle] = useState('');
+  const [datingAge, setDatingAge] = useState('');
+  const [datingGender, setDatingGender] = useState('');
+  const [datingMultiplePeople, setDatingMultiplePeople] = useState('');
+  const [slidingValueProps, setSlidingValueProps] = useState('');
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
   };
 
-  const handleUploadClick = () => {
-    // Simulate image selection from file browser
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = (event) => {
-      const file = event.target.files[0];
-      setSelectedImage(file);
-      handleStepChange(2); // Change the step to 2 when an image is selected
-    };
-    input.click();
-  };
-
   const handleNextClick = (selectedComponent) => {
     setActiveButton(selectedComponent); // Set the active button
     setSelectedCategory(selectedComponent); 
-    handleStepChange(3);
+    handleStepChange(3); 
   };
 
   const handleBusinessTitleChange = (event) => {
@@ -46,6 +37,21 @@ function MultiStepForm() {
     setSocialTitle(title); // Update social title state
   };
 
+  const handleDatingAge = (age) => {
+    setDatingAge(age)
+  };
+
+  const handleDatingGender = (gender) => {
+    setDatingGender(gender)
+  };
+
+  const handleDatingMultiplePeople = (people) => {
+    setDatingMultiplePeople(people)
+  }
+
+  const sliderValueProps = (slider) => {
+    setSlidingValueProps(slider)
+  }
 
   return (
     <div className="multi-step-form">
@@ -100,8 +106,20 @@ function MultiStepForm() {
               activeButton={activeButton} 
               businessTitle={businessTitle} 
               socialTitle={socialTitle} // Pass the socialTitle prop
+              datingAge={datingAge}
+              datingGender={datingGender}
+              datingMultiplePeople={datingMultiplePeople}
+              sliderValueProps={slidingValueProps}
             />            
-            {selectedCategory === 'Dating' && <Dating handleNextStep={handleStepChange} />} 
+            {selectedCategory === 'Dating' && 
+            <Dating 
+                handleNextStep={handleStepChange} 
+                handleDatingAge={handleDatingAge} 
+                handleDatingGender={handleDatingGender} 
+                handleDatingMultiplePeople={handleDatingMultiplePeople}
+                sliderValueProps={sliderValueProps} // Corrected prop name
+              />
+              } 
             {selectedCategory === 'Social' && (
             <Social 
                 handleNextStep={handleStepChange} 

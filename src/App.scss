@@ -1,6 +1,4 @@
 /* App.scss */
-
-
 /* Variables */
 $navbar-background: #ffffff;
 $navbar-border-color: #000000;
@@ -23,17 +21,39 @@ $signup-button-text-color: #ffffff; // New variable for text color
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  // padding: 0px 20px;
 }
 
 .logo {
   font-size: 20px;
-  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(22, 17, 17);
+  font-weight: 450;
 }
 
 .buttons-container {
   display: flex;
-  align-items: center;
+  justify-content: space-between; /* Add space between items */
+  align-items: center; /* Align items vertically */
+}
+
+.buttons-container a,
+.buttons-container button,
+.buttons-container .icon {
+  margin-left: 22.5px; /* Add margin between individual items */
+}
+
+.navbar-item-styling {
+  margin-left: 22.5px;
+  text-decoration: none;
+  color: rgb(66, 65, 65);
+  font-size: 17.5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+}
+
+.navbar-item-styling:hover {
+  background-color: lightgrey;
 }
 
 .nav-link {
@@ -52,12 +72,17 @@ $signup-button-text-color: #ffffff; // New variable for text color
   align-items: center;
 }
 
-.signup {
-  background-color: $signup-button-color;
-  color: $signup-button-text-color; // Apply white text color
-  border-color: orange;
-  margin-left: 5%;
+.nav-link:hover {
+  background-color: lightblue; /* Change background color on hover */
 }
+
+
+// .signup {
+//   background-color: $signup-button-color;
+//   color: $signup-button-text-color; // Apply white text color
+//   border-color: orange;
+//   margin-left: 5%;
+// }
 
 /* SplitPage Styles */
 .signup-buttons {
@@ -126,10 +151,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   background-color: red;
 }
 
-.grid-right {
-  
-}
-
 // footer
 .footer {
   background-color: #000000;
@@ -140,7 +161,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 /* Login.scss */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 .login-container {
@@ -216,7 +236,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 10px; /* Add margin to separate from karma container */
+  margin-bottom: 10px; 
 }
 
 .new-test-button,
@@ -240,7 +260,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   margin-right: 20px; /* Adjust margin as needed */
   font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
 }
-
 
 .new-test-button {
   font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
@@ -660,7 +679,7 @@ button:hover {
 }
 
 .dropdown-container {
-  margin-top: 1rem;
+  // margin-top: 1rem;
   font-family: 'Roboto', sans-serif;
 
   select {
@@ -724,7 +743,6 @@ button:hover {
 }
 
 .dropdown-container {
-  margin-top: 1rem;
   font-family: 'Roboto', sans-serif;
 
   select {
