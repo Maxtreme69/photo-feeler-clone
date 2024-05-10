@@ -286,6 +286,25 @@ $signup-button-text-color: #ffffff; // New variable for text color
   font-size: 16px;
 }
 
+.dropdown-button-sort {
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font family */
+  border-radius: 25px;
+  background-color: #f3e9e6;
+  border: none;
+  padding: 5px;
+  width: 100px;
+  border: 1px solid rgb(163, 159, 159);
+  height: 37.5px;
+  width: 100px;
+  font-size: 16px;
+  color: black;
+}
+
+.dropdown-button-sort:hover {
+  background-color: #f3e9e6;
+  border: 1px solid rgb(85, 83, 83);
+}
+
 .new-test-button {
   border-radius: 25px;
   background-color: #ff7f50;
@@ -297,15 +316,15 @@ $signup-button-text-color: #ffffff; // New variable for text color
   margin-right: 20px; 
 }
 
-.dropdown-button {
-  border-radius: 25px;
-  background-color: #f3e9e6;
-  border: none;
-  padding: 5px;
-  width: 100px;
-  border: 1px solid black;
-  margin-left: 20px; 
-}
+// .dropdown-button {
+//   border-radius: 25px;
+//   background-color: #f3e9e6;
+//   border: none;
+//   padding: 5px;
+//   width: 100px;
+//   border: 1px solid black;
+//   margin-left: 20px; 
+// }
 
 /* DropdownButton.scss */
 .dropdown-content {
@@ -370,7 +389,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 .step.active {
-  color: #3498db; /* Change text color to match underline */
+  color: #db7134; /* Change text color to match underline */
   border-bottom: 2px solid #3498db; /* Add underline with background color */
 }
 
@@ -544,7 +563,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #f53d05;
 }
 
 // TestSize.module.scss

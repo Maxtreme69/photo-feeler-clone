@@ -12,6 +12,10 @@ function MyTests() {
     setShowNewTest(false);
   };
 
+  const handleCancelClick = () => {
+    setShowNewTest(true);
+  };
+
   return (
     <div className='my-tests-container'>
       <div className="test-buttons-container">
@@ -22,20 +26,19 @@ function MyTests() {
             </button>
             <DropdownButton />
           </>
-
         )}
         {!showNewTest && (
           <>
-          <button className="cancel-button" onClick={() => setShowNewTest(true)}>
-            &lt; Cancel
-          </button>
+            <button className="cancel-button" onClick={handleCancelClick}>
+              &lt; Cancel
+            </button>
           </>
         )}
         <div className="karma-container" onClick={() => setShowNewTest(!showNewTest)}>
           <p>Karma: <span style={{ color: 'orange' }}>Medium </span><FaQuestionCircle style={{ color: 'grey' }} className="icon" /></p>
         </div>
       </div>
-      <MultiStepForm />
+      {!showNewTest && <MultiStepForm />}
     </div>
   )
 }

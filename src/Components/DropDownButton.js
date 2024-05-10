@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import '../App.scss'; // Import the SCSS file with styles
+import { RiArrowDownSFill } from 'react-icons/ri'; // Import arrow-down icon
 
 const DropdownButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,12 +13,11 @@ const DropdownButton = () => {
 
   return (
     <div className="dropdown-container">
-      <button className="dropdown-button" onClick={toggleDropdown}>
-        Sort
+      <button className="dropdown-button-sort" onClick={toggleDropdown}>
+        Sort <RiArrowDownSFill className="sort-icon" />
       </button>
       {isOpen && (
         <div className="dropdown-content">
-          {/* Dropdown menu items */}
           <ul>
             <li>Last Active</li>
             <li>Total Score</li>
