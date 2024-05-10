@@ -481,12 +481,14 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 .image-title {
-  background: black;
+  background: #393f4f;
   color: white;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 24px;
   width: 100%; /* Make the h1 element take up the entire width */
+  padding: 5px 0;
+  font-weight: 200;
 }
 
 .image-details {

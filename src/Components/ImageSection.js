@@ -5,7 +5,7 @@ function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, soc
     <div className="image-section" style={{ marginRight: isStep4 ? 0 : '25%' }}>
       {selectedImage && (
         <div className="image-holder">
-          <h1 className="image-title">{activeButton}</h1>
+          <h1 className="image-title">{activeButton.toUpperCase()}</h1>
           <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
           {businessTitle && (
             <div>
