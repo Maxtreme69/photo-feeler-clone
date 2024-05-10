@@ -20,19 +20,19 @@ function Category({ handleNextClick: handleNextStep }) {
       case 'Business':
         return (
           <>
-            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px' }}>Traits: <span style={{color: 'blue'}}>Competent</span>, <span style={{color: 'orange'}}>Likable</span>, <span style={{color: 'green'}}>Influential</span></h3>
+            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px', fontWeight: '200' }}>Traits: <span style={{color: '#3062c7'}}>Competent</span>, <span style={{color: '#c29106'}}>Likable</span>, <span style={{color: '#178b56'}}>Influential</span></h3>
           </>
         );
       case 'Social':
         return (
           <>
-            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px' }}>Traits: <span style={{color: 'orange'}}>Confident</span>, <span style={{color: 'green'}}>Authentic</span>, <span tyle={{color: 'purple'}}>Fun</span></h3>
+            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px', fontWeight: '200' }}>Traits: <span style={{color: '#e66b0e'}}>Confident</span>, <span style={{color: '#178b56'}}>Authentic</span>, <span style={{color: '#753e96'}}>Fun</span></h3>
           </>
         );
       case 'Dating':
         return (
           <>
-            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px' }}>Traits: <span style={{color: 'green'}}>Smart</span>, <span style={{color: 'blue'}}>Trustworthy</span>, <span style={{color: 'red'}}>Attractive</span></h3>
+            <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px', fontWeight: '200' }}>Traits: <span style={{color: '#178b56'}}>Smart</span>, <span style={{color: '#3062c7'}}>Trustworthy</span>, <span style={{color: '#d14b0f'}}>Attractive</span></h3>
           </>
         );
       default:
@@ -46,26 +46,29 @@ function Category({ handleNextClick: handleNextStep }) {
       <div className="content-section">
         {!selectedComponent && (
           <>
-            <h2 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '18px' }}>What category of test is this?</h2>
-            <p style={{ fontFamily: 'Roboto, sans-serif', fontSize: '14px' }}>Each category tests different traits.</p>
+            <h4 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '18px', marginBottom: '0px', fontWeight: '200' }}>What category of test is this?</h4>
+            <p style={{ fontFamily: 'Roboto, sans-serif', fontSize: '14px', fontWeight: '100' }}>Each category tests different traits.</p>
             <div className="button-group">
-              <button
-                className={activeButton === 'Business' ? 'active' : ''}
+              <button 
+                style={{ borderRadius: '25px 0 0 25px' }}
+                className={activeButton === 'Business' ? 'active-business' : ''}
                 onClick={() => handleButtonClick('Business')}
               >
-                Business
+                BUSINESS
               </button>
               <button
-                className={activeButton === 'Social' ? 'active' : ''}
+                style={{ borderRadius: '0' }}
+                className={activeButton === 'Social' ? 'active-social' : ''}
                 onClick={() => handleButtonClick('Social')}
               >
-                Social
+                SOCIAL
               </button>
               <button
-                className={activeButton === 'Dating' ? 'active' : ''}
+                style={{ borderRadius: '0 25px 25px 0' }}
+                className={activeButton === 'Dating' ? 'active-dating' : ''}
                 onClick={() => handleButtonClick('Dating')}
               >
-                Dating
+                DATING
               </button>
             </div>
             {renderTraits()} {/* Render traits based on active button */}

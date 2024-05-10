@@ -22,28 +22,32 @@ function Social({ handleNextStep, handleSocialTitleChange  }) {
     <div className='social-container'>
       <h2 className='social-title'>How many people in this photo?</h2>
       <div className='radio-group'>
-        <input
-          type="radio"
-          id="one"
-          name="peopleCount"
-          value="One"
-          checked={peopleCount === 'One'}
-          onChange={handleRadioChange}
-        />
-        <label htmlFor="one">One</label>
-        <input
-          type="radio"
-          id="multiple"
-          name="peopleCount"
-          value="Multiple"
-          checked={peopleCount === 'Multiple'}
-          onChange={handleRadioChange}
-        />
-        <label htmlFor="multiple">Multiple</label>
+        <div>
+          <input
+            type="radio"
+            id="one"
+            name="peopleCount"
+            value="One"
+            checked={peopleCount === 'One'}
+            onChange={handleRadioChange}
+          />
+          <label style={{ paddingRight: '27.5px' }} htmlFor="one">One</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="multiple"
+            name="peopleCount"
+            value="Multiple"
+            checked={peopleCount === 'Multiple'}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="multiple">Multiple</label>
+        </div>
       </div>
       {showDropdown && (
         <div className='dropdown-container'>
-          <select id="position" name="position" onChange={handleDropdownChange}>
+          <select className='social-input' id="position" name="position" onChange={handleDropdownChange}>
             <option value="">Choose one...</option>
             <option value="The one on the left">The one on the left</option>
             <option value="The one on the right">The one on the right</option>
@@ -51,7 +55,7 @@ function Social({ handleNextStep, handleSocialTitleChange  }) {
           </select>
         </div>
       )}
-      <button className='next-button' onClick={handleNext}>Next</button>
+      <button className="new-test-button" onClick={handleNext}>Next</button>
     </div>
   );
 }

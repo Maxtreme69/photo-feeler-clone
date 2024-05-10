@@ -40,15 +40,14 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
     <div className={'dating-container'}>
       {!showNextContent && (
         <>
+        <div className="dating-centre-container">
           <h2 className={'dating-title'}>Who is in the photo?</h2>
           <div className={'form-group'}>
-            <label htmlFor="gender">Gender:</label>
-            <select id="gender" name="gender" onChange={handleDatingGenderItem}>
+            <select style={{ backgroundColor: 'white' }} id="gender" name="gender" onChange={handleDatingGenderItem}>
               <option value="female">Female</option>
               <option value="male">Male</option>
             </select>
-            <label htmlFor="age">Age:</label>
-            <select id="age" name="age" onChange={handleDatingAgeItem}>
+            <select style={{ backgroundColor: 'white' }} id="age" name="age" onChange={handleDatingAgeItem}>
               {[...Array(82)].map((_, index) => (
                 <option key={index} value={index + 18}>{index + 18}</option>
               ))}
@@ -65,7 +64,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
           </div>
           {showDropdown && (
             <div className={'dropdown-container'}>
-              <select id="position" name="position" onChange={handleDatingMultiplePeopleItem}>
+              <select style={{ backgroundColor: 'white' }} id="position" name="position" onChange={handleDatingMultiplePeopleItem}>
                 <option value="">Choose one...</option>
                 <option value="The one on the left">The one on the left</option>
                 <option value="The one on the right">The one on the right</option>
@@ -73,7 +72,8 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
               </select>
             </div>
           )}
-          <button className={'next-button'} onClick={handleNextButtonClick}>Next</button>
+          <button style={{ marginTop: '20px' }} className="new-test-button" onClick={handleNextButtonClick}>Next</button>
+          </div>
         </>
       )}
       {showNextContent && (
@@ -96,7 +96,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
               onChange={handleSliderValueChange} 
             />
           </div>
-          <button className={'next-button'} onClick={handleNext}>Next</button>
+          <button className="new-test-button" onClick={handleNext}>Next</button>
         </>
       )}
     </div>
