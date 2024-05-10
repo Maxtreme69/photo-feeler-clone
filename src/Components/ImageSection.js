@@ -30,24 +30,23 @@ function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, soc
             {(datingGender && datingAge) || sliderValueProps ? (
               <div>
                 <div className="dating-subject-details">
-                {datingGender && datingAge && (
+                  {datingGender && datingAge && (
                     <div>
                       <h5 className="image-details">SUBJECT</h5>
                       <p className="image-details" style={{ color: 'black' }}> - {datingAge}/{datingGender.toUpperCase()}</p>
+                      {sliderValueProps && (
+                        <div>
+                          <h5 className="image-details">VOTERS</h5>
+                          <p className="image-details" style={{ color: 'black' }}>AGE - ≤ {sliderValueProps}</p>
+                        </div>
+                      )}
                     </div>
-                )}
-                {sliderValueProps && (
-                  <div>
-                    <h5 className="image-details">VOTERS</h5>
-                    <p className="image-details" style={{ color: 'black' }}>AGE - ≤ {sliderValueProps}</p>
-                  </div>
-                )}
+                  )}
                 </div>
               </div>
             ) : null}
           </div>
         </div>
-        
       )}
     </div>
   );
