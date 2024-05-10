@@ -438,7 +438,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
 // App.scss
 
 .image-section {
-  border: 1px solid #ccc; /* Light gray thin border */
+  // border: 1px solid #ccc; 
   max-width: 400px; /* Adjust width as needed */
   // height: 300px; /* Adjust height as needed */
   display: flex;
@@ -446,6 +446,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   align-items: center;
   padding: 10px;
   margin-right: 25%;
+  margin: 20px;
 
   .image-holder {
     width: 100%;
@@ -455,6 +456,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
       max-width: 100%;
       max-height: 100%;
       object-fit: contain; /* Ensure the image scales appropriately */
+      border: 1px solid #ccc; 
     }
   }
 }
@@ -465,14 +467,22 @@ $signup-button-text-color: #ffffff; // New variable for text color
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 24px;
+  width: 100%; /* Make the h1 element take up the entire width */
 }
 
 .image-details {
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 200;
-  color: rgb(192, 182, 182);
+  color: rgb(122, 119, 119);
   margin: 0px;
+}
+
+.dating-subject-details {
+  border: 1px solid #CCC;
+  padding: 5px;
+  display: flex;
+  background-color: #e6e6e6;
 }
 
 .content-section {
@@ -480,14 +490,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.image-section::after {
-  content: '';
-  height: 100%;
-  width: 1px;
-  background-color: #ccc; /* Adjust the color as needed */
-  margin-left: 20px; 
 }
 
 .image-holder img {
@@ -558,6 +560,7 @@ button:hover {
   width: 50%;
   background-color: #fff; /* Set initial background color */
   transition: background-color 0.3s ease; /* Add transition for smooth effect */
+  padding-left: 20px;;
 
   p.test-size-text {
     font-family: 'Roboto', sans-serif;
@@ -569,7 +572,7 @@ button:hover {
     align-items: center;
 
     .content {
-      border-top: 1px solid black;
+      border-top: 1px solid rgb(233, 228, 228);
       width: 100%;
       margin: 0;
       display: flex;
@@ -595,16 +598,16 @@ button:hover {
         font-size: 45px;
         line-height: 1.42857143;
         position: relative;
-        top: 17.5px;
-      }
+        top: 12px;      }
     }
   }
 
   .bottom-text {
     font-family: 'Roboto', sans-serif;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(233, 228, 228);
     width: 100%;
     padding-bottom: 5px;
+    margin: 0px;
   }
 }
 

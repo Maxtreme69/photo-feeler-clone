@@ -1,4 +1,3 @@
-// ImageSection.js
 import React from 'react';
 
 function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, socialTitle, datingAge, datingGender, datingMultiplePeople, sliderValueProps }) {
@@ -8,40 +7,47 @@ function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, soc
         <div className="image-holder">
           <h1 className="image-title">{activeButton}</h1>
           <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-          {businessTitle && ( // Render business title if not empty
-            <div> 
+          {businessTitle && (
+            <div>
               <h5 className="image-details">Business Title</h5>
-              <p className="image-details" style={{ color: 'black'}}>{businessTitle}</p>
+              <p className="image-details" style={{ color: 'black' }}>{businessTitle}</p>
             </div>
           )}
-          {socialTitle && ( // Render social title if not empty
-            <div> 
+          {socialTitle && (
+            <div>
               <h5 className="image-details">Social Title</h5>
-              <p className="image-details" style={{ color: 'black'}}>{socialTitle}</p>
+              <p className="image-details" style={{ color: 'black' }}>{socialTitle}</p>
             </div>
           )}
 
-          <div> 
+          <div>
             {datingMultiplePeople && (
               <div>
-                <h5 className="image-details">Subject</h5>
-                <p className="image-details" style={{ color: 'black'}}>{datingMultiplePeople}</p>
+                <h5 className="image-details">SUBJECT</h5>
+                <p className="image-details" style={{ color: 'black' }}>{datingMultiplePeople}</p>
               </div>
             )}
-            {datingGender && datingAge && (
+            {(datingGender && datingAge) || sliderValueProps ? (
               <div>
-                <h5 className="image-details">Subject</h5>
-                <p className="image-details" style={{ color: 'black'}}> - {datingAge}/{datingGender}</p>
+                <div className="dating-subject-details">
+                {datingGender && datingAge && (
+                    <div>
+                      <h5 className="image-details">SUBJECT</h5>
+                      <p className="image-details" style={{ color: 'black' }}> - {datingAge}/{datingGender.toUpperCase()}</p>
+                    </div>
+                )}
+                {sliderValueProps && (
+                  <div>
+                    <h5 className="image-details">VOTERS</h5>
+                    <p className="image-details" style={{ color: 'black' }}>AGE - ≤ {sliderValueProps}</p>
+                  </div>
+                )}
+                </div>
               </div>
-            )}
+            ) : null}
           </div>
-          {sliderValueProps && ( // Render VOTERS section only when slider value changes
-            <div>
-              <h5 className="image-details">VOTERS</h5>
-              <p className="image-details" style={{ color: 'black'}}>AGE - ≤ {sliderValueProps}</p>
-            </div>
-          )}
         </div>
+        
       )}
     </div>
   );
