@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MultiStepFormActiveTest from './MultiStepFormActiveTest.js';
 import Rating from './Rating.js';
+import CommentComponent from './CommentComponent.js';
 
 export const ActiveTest = () => {
   const [showRating, setShowRating] = useState(false);
@@ -34,6 +35,7 @@ export const ActiveTest = () => {
         </>
       )}
       {showRating && <Rating />}
+      <CommentComponent />
     </div>
   );
 };
