@@ -76,7 +76,7 @@ function Category({ handleNextClick: handleNextStep }) {
         )}
 
         {!selectedComponent && (
-          <div className="button-next">
+          <div>
             <button className="new-test-button" onClick={handleNextClick} disabled={!activeButton}>
               Next
             </button>

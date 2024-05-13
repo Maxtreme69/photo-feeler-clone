@@ -4,6 +4,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNextContent, setShowNextContent] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // Local state for the slider value
+  const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
 
   const handleCheckboxChange = (event) => {
     setShowDropdown(event.target.checked);
@@ -29,6 +30,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   };
 
   const handleDatingGenderItem = (event) => {
+    setSelectedGender(event.target.value); // Update selected gender state
     handleDatingGender(event.target.value);
   };
 
@@ -80,11 +82,26 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
         <>
           <h2 className={'dating-title'}>Who can vote on it?</h2>
           <div>
-            <p>Genders</p>
-            <button>Males</button>
-            <button>Females</button>
-            <button>Both</button>
-            <p>Ages: up to {sliderValue}</p> {/* Display the local state value */}
+            <p className='dating-paragraph'>Genders</p>
+            <button
+              className={`gender-button male-button ${selectedGender === 'males' ? 'active' : ''}`}
+              onClick={() => setSelectedGender('males')}
+            >
+              Males
+            </button>
+            <button
+              className={`gender-button female-button ${selectedGender === 'females' ? 'active' : ''}`}
+              onClick={() => setSelectedGender('females')}
+            >
+              Females
+            </button>
+            <button
+              className={`gender-button both-button ${selectedGender === 'both' ? 'active' : ''}`}
+              onClick={() => setSelectedGender('both')}
+            >
+              Both
+            </button>
+            <p className='dating-paragraph'><span style={{ color: 'black' }}>Ages:</span> up to {sliderValue}</p> {/* Display the local state value */}
             <input
               type="range"
               id="ageSlider"

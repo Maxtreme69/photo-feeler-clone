@@ -1,9 +1,8 @@
 import React from 'react'
-import ImageGrid from '../Components/ImageGrid'
 
 function Home() {
   return (
-    <div style={{backgroundColor: 'green'}} className='home-container'>
+    <div className='home-container'>
         Home
     </div>
   )
