@@ -989,3 +989,55 @@ button:hover {
 .orange-text {
   color: orange;
 }
+
+// Rating Component
+.rating-table {
+  justify-content: center;
+  th {
+    color: #333;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    padding-bottom: 0;
+    font-size: 19px;
+    font-weight: 200;
+  }
+
+  td {
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    color: #a3a3a3;;
+    text-align: left;
+    margin-left: 15px;
+    font-weight: 500;
+  }
+}
+
+/* Rating Button Component CSS */
+.rating-style-button-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  // background-color: #0077b5; /* Blue background color */
+  padding: 10px 10px 10px 10px; /* Add padding for spacing */
+  border-top: 1px solid white; /* Add top border */
+  border-bottom: 1px solid white; /* Add bottom border */
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.rating-style-button-component div {
+  background-color: #0077b5; /* Blue background color */
+  text-align: left;
+  color: white; /* Text color */
+  padding: 10px; /* Padding for each item */
+  margin-bottom: 5px; /* Space between items */
+}
+
+
+.rating-style-button-component div span {
+  margin-right: 5px; /* Space between number and text */
+  border-right: 1px solid #e4e4e4;
+  padding: 10px 10px 10px 10px;
+}
