@@ -34,8 +34,7 @@ export const ActiveTest = () => {
           </div>
         </>
       )}
-      {showRating && <Rating />}
-      <CommentComponent />
+      {showRating && <><Rating /> <CommentComponent /></> }
     </div>
   );
 };

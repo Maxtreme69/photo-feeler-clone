@@ -680,7 +680,7 @@ button:hover {
 }
 
 .test-size-container {
-  width: 50%;
+  width: 53%;
   background-color: #fff; /* Set initial background color */
   transition: background-color 0.3s ease; /* Add transition for smooth effect */
   padding-left: 20px;;
@@ -1064,5 +1064,79 @@ button:hover {
     width: 100%;
     height: 60px;
     font-family: 'Roboto', sans-serif;
-  }
+    outline: none; /* Remove highlighting effect */
+    color: #555;
+  }  
+
+  /* CommentComponent.css */
+
+  // .comment-component-container {
+  //   /* Add your container styles here */
+  // }
+  
+    .comment-component-container {
+      // Add your container styles here
+    }
+    
+    .comment-tabs {
+      display: flex;
+    
+      .tab {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: solid 1px rgb(221, 210, 210);
+        font-size: 14px;
+    
+        &.quick-notes {
+          color: gray;
+        }
+    
+        &.active {
+          border: solid 1px rgb(221, 210, 210);
+          border-bottom: 2px solid white;
+          border-top-left-radius: 2.5px;
+          border-top-right-radius: 2.5px;
+        }
+      }
+    
+      .separator {
+        width: 63.112%;
+        border-bottom: solid 1px rgb(221, 210, 210);
+      }
+    }
+    
+    .buttons-row {
+      display: flex;
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 0;
+    
+      button {
+        padding: 5px 7px;
+        background-color: #edf5f7;
+        color: black;
+        font-size: 12px;
+        
+        &.selected {
+          background-color: #393f4f;
+          color: white;
+        }
+    
+        &:hover {
+          background-color: #393f4f;
+          color: white;
+        }
+      }
+    
+      &:last-child {
+        margin-top: 5px;
+      }
+    }
+    
+    .suggestions-section {
+      margin-top: 10px;
+      font-size: 14px;
+      // Add additional styles for suggestions section
+    }
+    
 }
