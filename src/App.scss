@@ -1138,5 +1138,28 @@ button:hover {
       font-size: 14px;
       // Add additional styles for suggestions section
     }
-    
-}
+  }
+
+  // Image section vote styles
+  .image-section-vote {
+      
+   .title {
+      background-color: rgb(36, 33, 33);
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 10px;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+    }
+      
+    .image-container {
+      border: solid 1px gray;
+      
+      img {
+        width: 400px;
+        height: 500px;
+        margin: 20px;
+      }
+    }
+  }

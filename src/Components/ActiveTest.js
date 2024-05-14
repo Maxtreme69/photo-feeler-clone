@@ -3,11 +3,12 @@ import MultiStepFormActiveTest from './MultiStepFormActiveTest.js';
 import Rating from './Rating.js';
 import CommentComponent from './CommentComponent.js';
 
-export const ActiveTest = () => {
+export const ActiveTest = ({ onVoteClick }) => { // Add onVoteClick prop
   const [showRating, setShowRating] = useState(false);
 
   const handleVoteClick = () => {
     setShowRating(true);
+    onVoteClick(); // Call the callback function
   };
 
   return (
@@ -34,7 +35,12 @@ export const ActiveTest = () => {
           </div>
         </>
       )}
-      {showRating && <><Rating /> <CommentComponent /></> }
+      {showRating && (
+        <>
+          <Rating />
+          <CommentComponent />
+        </>
+      )}
     </div>
   );
 };
