@@ -1068,16 +1068,26 @@ button:hover {
     color: #555;
   }  
 
-  /* CommentComponent.css */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem; // Add some space above the button container
+  }
 
-  // .comment-component-container {
-  //   /* Add your container styles here */
-  // }
-  
-    .comment-component-container {
-      // Add your container styles here
-    }
+  .skip-button {
+    display: flex;
+    align-items: center;
+    margin-left: 67.5%;
+    cursor: pointer;
+    color: #a3a3a3;
     
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+
+
     .comment-tabs {
       display: flex;
     

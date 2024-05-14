@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
 const CommentComponent = () => {
   const [activeTab, setActiveTab] = useState(1); // Set "Feelings" tab as default
@@ -107,6 +109,13 @@ const CommentComponent = () => {
         </div>
       </>
       )}
+      <div className="button-container">
+        <div className="skip-button">
+          <FontAwesomeIcon icon={faForwardStep} />
+          <p>Skip</p>
+        </div>
+        <button className="new-test-button">Submit Vote</button>
+      </div>
     </div>
   );
 };
