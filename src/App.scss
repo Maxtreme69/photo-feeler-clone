@@ -1018,28 +1018,24 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  // background-color: #0077b5; /* Blue background color */
-  padding: 10px 10px 10px 10px; /* Add padding for spacing */
-  border-top: 1px solid white; /* Add top border */
-  border-bottom: 1px solid white; /* Add bottom border */
+  padding: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
   font-size: 14px;
   cursor: pointer;
 }
 
-
 .rating-style-button-component div {
-  background-color: #0077b5; /* Blue background color */
   text-align: left;
-  color: white; /* Text color */
-  padding: 10px; /* Padding for each item */
-  margin-bottom: 5px; /* Space between items */
+  color: white;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
-
 .rating-style-button-component div span {
-  margin-right: 5px; /* Space between number and text */
+  margin-right: 5px;
   border-right: 1px solid #e4e4e4;
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
 }
 
 // Comment Container
@@ -1252,3 +1248,59 @@ button:hover {
     color: rgb(22, 21, 21);
   }
   
+  .image-card-container {
+    padding: 15px;
+    font-family: 'Roboto', sans-serif;
+    transition: box-shadow 0.3s ease; /* Add transition for smooth effect */
+    width: 20%;
+    border: solid 1px rgb(231, 224, 224);
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align items vertically */
+
+    .image-card-details-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center content horizontally */
+    }
+
+    div {
+      font-size: 11px;
+      letter-spacing: .15em;
+    }
+
+    img {
+      width: 200px;
+      height: 250px;
+      margin: auto; /* Center the image horizontally */
+    }
+  
+    .card-category-votes-title {
+      display: flex;
+      font-family: 'Roboto', sans-serif;
+  
+      span {
+        margin-top: 12.5px;
+        padding: 5px 27.8px;
+        background-color: #0077b5;
+        // width: 57px;
+        font-size: 11px;
+      }
+
+      #span-dating {
+        background-color: #393f4f;
+        color: white;
+      }
+
+      #span-votes {
+        background-color: #f0f8fa;
+        color: grey;
+      }
+    }
+
+    /* Apply box shadow when hovered */
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
