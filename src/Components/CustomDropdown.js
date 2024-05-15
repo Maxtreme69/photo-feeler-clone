@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
-const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton, onOptionClick }) => {
+const CustomDropdown = ({ options, onOptionSelect, activeButton, onOptionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option) => {
-    onOptionSelect(option);
-    setIsOpen(false);
-    onOptionClick(option); // Call the onOptionClick function passed from ImageSectionVote
+    if (option !== activeButton) {
+      onOptionSelect(option);
+      setIsOpen(false);
+      if (typeof onOptionClick === 'function') {
+        onOptionClick(option); // Call the onOptionClick function if it's a function
+      }
+    }
   };
 
   return (
@@ -19,7 +23,7 @@ const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton,
           {options.map((option, index) => (
             <div
               key={index}
-              className="custom-dropdown-option"
+              className={`custom-dropdown-option ${option === activeButton ? 'disabled' : ''}`}
               onClick={() => handleOptionClick(option)}
             >
               {option}

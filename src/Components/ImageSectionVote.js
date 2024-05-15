@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import CustomDropdown from '../Components/CustomDropdown';
+import CustomDropdown from './CustomDropdown';
 
-const ImageSectionVote = () => {
-  const [activeButton, setActiveButton] = useState('DATING'); // Set initial activeButton state
+const ImageSectionVote = ({ activeButton }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
 
   useEffect(() => {
-    setSelectedOption(getRandomImage(activeButton));
-  }, [activeButton]);
+    setSelectedOption(getRandomImage(selectedCategory));
+  }, [selectedCategory]);
 
   const getRandomImage = (category) => {
-    const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp|jpg)$/);
+    const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
     const availableImages = imagesContext.keys().filter((key) => key.startsWith(`./${category.toLowerCase()}`));
     const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
     if (unusedImages.length === 0) return null;
@@ -19,15 +19,9 @@ const ImageSectionVote = () => {
     return imagesContext(unusedImages[randomIndex]);
   };
 
-  const handleImageSubmit = () => {
-    if (selectedOption) {
-      setSubmittedImages([...submittedImages, selectedOption]);
-    }
-  };
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(null); // Reset selectedOption when a new option is clicked
-    setActiveButton(option); // Update activeButton to the newly selected option
+  const handleOptionSelect = (option) => {
+    setSelectedOption(null); // Reset selectedOption when a new option is selected
+    setSelectedCategory(option.toLowerCase()); // Update selectedCategory to the newly selected option
   };
 
   return (
@@ -36,17 +30,13 @@ const ImageSectionVote = () => {
         <CustomDropdown
           options={['DATING', 'SOCIAL', 'BUSINESS']}
           selectedOption={selectedOption}
-          onOptionSelect={setSelectedOption}
-          activeButton={activeButton}
-          onOptionClick={handleOptionClick} // Pass the handleOptionClick function to CustomDropdown
+          onOptionSelect={handleOptionSelect} // Use handleOptionSelect to update selectedCategory
+          activeButton={selectedCategory.toUpperCase()} // Pass selectedCategory as activeButton
         />
       </div>
       <div className="image-container">
         {selectedOption && <img src={selectedOption} alt="Selected Option" />}
       </div>
-      <button className="submit-button" onClick={handleImageSubmit}>
-        Submit Vote
-      </button>
     </div>
   );
 };

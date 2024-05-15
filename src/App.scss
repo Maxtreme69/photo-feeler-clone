@@ -1242,6 +1242,12 @@ button:hover {
     background-color: white;
     color: black;
   }
+
+  .custom-dropdown-option.disabled {
+    color: gray;
+    pointer-events: none; /* Prevent clicking on the disabled option */
+  }
+  
   
   .custom-dropdown-option:hover {
     background-color: rgba(138, 206, 233, 0.2);
