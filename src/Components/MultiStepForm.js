@@ -149,7 +149,7 @@ function MultiStepForm() {
                 socialTitle={socialTitle}
               />
             ) : (
-              <ImageSectionVote />
+              <ImageSectionVote activeButton={activeButton}/>
             )}
             <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
           </div>

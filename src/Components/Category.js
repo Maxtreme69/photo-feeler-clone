@@ -12,6 +12,7 @@ function Category({ handleNextClick: handleNextStep }) {
     if (activeButton) {
       setSelectedComponent(activeButton); // Update selectedComponent with the active button
       handleNextStep(activeButton); 
+      console.log(activeButton);
     }
   };
 

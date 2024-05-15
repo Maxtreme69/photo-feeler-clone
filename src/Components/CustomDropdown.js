@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
-const CustomDropdown = ({ options, selectedOption, onOptionSelect }) => {
+const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton, onOptionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option) => {
     onOptionSelect(option);
     setIsOpen(false);
+    onOptionClick(option); // Call the onOptionClick function passed from ImageSectionVote
   };
 
   return (
     <div className="custom-dropdown">
       <div className="custom-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption}
+        {activeButton}
       </div>
       {isOpen && (
         <div className="custom-dropdown-list">
