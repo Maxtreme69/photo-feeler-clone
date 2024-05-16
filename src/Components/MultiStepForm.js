@@ -13,6 +13,7 @@ function MultiStepForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeButton, setActiveButton] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
   const [businessTitle, setBusinessTitle] = useState('');
   const [socialTitle, setSocialTitle] = useState('');
   const [datingAge, setDatingAge] = useState('');
@@ -149,7 +150,10 @@ function MultiStepForm() {
                 socialTitle={socialTitle}
               />
             ) : (
-              <ImageSectionVote activeButton={activeButton}/>
+              <ImageSectionVote 
+                activeButton={activeButton}
+                selectedGender={datingGender} // Pass selectedGender from the Dating component
+              />
             )}
             <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
           </div>

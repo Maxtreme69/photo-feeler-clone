@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CustomDropdown from './CustomDropdown';
 
-const ImageSectionVote = ({ activeButton }) => {
+const ImageSectionVote = ({ activeButton, selectedGender }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
@@ -27,6 +27,7 @@ const ImageSectionVote = ({ activeButton }) => {
   return (
     <div className="image-section-vote">
       <div className="dropdown-container">
+        <p>Gender: {selectedGender}</p>
         <CustomDropdown
           options={['DATING', 'SOCIAL', 'BUSINESS']}
           selectedOption={selectedOption}

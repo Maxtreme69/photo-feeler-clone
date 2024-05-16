@@ -391,7 +391,10 @@ button:last-child {
   z-index: 1;
   width: 100px;
   font-size: 12px;
+    display: flex;
+    justify-content: center;
 }
+
 
 .dropdown-container:hover .dropdown-content {
   display: block;
@@ -1168,13 +1171,6 @@ button:hover {
         margin: 20px;
       }
     }
-  }
-
-  .dropdown-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    margin-top: 25px;
   }
   
   .title-dropdown {
