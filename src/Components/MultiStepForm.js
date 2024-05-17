@@ -13,24 +13,28 @@ function MultiStepForm() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeButton, setActiveButton] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
   const [businessTitle, setBusinessTitle] = useState('');
   const [socialTitle, setSocialTitle] = useState('');
   const [datingAge, setDatingAge] = useState('');
   const [datingGender, setDatingGender] = useState('');
   const [datingMultiplePeople, setDatingMultiplePeople] = useState('');
   const [slidingValueProps, setSlidingValueProps] = useState('');
-  const [showImageSectionVote, setShowImageSectionVote] = useState(false); // Add this state
+  const [showImageSectionVote, setShowImageSectionVote] = useState(false);
+  const [selectedGender, setSelectedGender] = useState(''); // Define selectedGender state
 
-  const handleStepChange = (step) => {
+  const handleStepChange = (step, selectedGender) => {
     setCurrentStep(step);
+    setSelectedGender(selectedGender); // Update selectedGender
   };
+  
 
   const handleNextClick = (selectedComponent) => {
     setActiveButton(selectedComponent);
-    setSelectedCategory(selectedComponent); 
-    handleStepChange(3); 
+    setSelectedCategory(selectedComponent);
+    // Assuming you're passing the selected gender here
+    handleStepChange(3, selectedGender); // Pass selectedGender to the next step
   };
+  
 
   const handleBusinessTitleChange = (event) => {
     setBusinessTitle(event.target.value);
@@ -46,7 +50,7 @@ function MultiStepForm() {
 
   const handleDatingGender = (gender) => {
     setDatingGender(gender);
-  };
+  };  
 
   const handleDatingMultiplePeople = (people) => {
     setDatingMultiplePeople(people);
@@ -123,6 +127,7 @@ function MultiStepForm() {
                 handleDatingGender={handleDatingGender}
                 handleDatingMultiplePeople={handleDatingMultiplePeople}
                 sliderValueProps={sliderValueProps}
+                handleNextClick={handleNextClick} // Pass selectedGender as a prop
               />
             )}
             {selectedCategory === 'Social' && (
@@ -139,25 +144,26 @@ function MultiStepForm() {
             )}
           </div>
         )}
-        {currentStep === 4 && (
-          <div className="category-container-no-align">
-            {!showImageSectionVote ? (
-              <ImageSection
-                selectedImage={selectedImage}
-                activeButton={activeButton}
-                isStep4
-                businessTitle={businessTitle}
-                socialTitle={socialTitle}
-              />
-            ) : (
-              <ImageSectionVote 
-                activeButton={activeButton}
-                selectedGender={datingGender} // Pass selectedGender from the Dating component
-              />
-            )}
-            <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
-          </div>
-        )}
+          {currentStep === 4 && (
+            <div className="category-container-no-align">
+              {!showImageSectionVote ? (
+                <ImageSection
+                  selectedImage={selectedImage}
+                  activeButton={activeButton}
+                  isStep4
+                  businessTitle={businessTitle}
+                  socialTitle={socialTitle}
+                />
+              ) : (
+                <ImageSectionVote 
+                  activeButton={activeButton}
+                  selectedGender={selectedGender} // Render selectedGender here
+                />
+              )}
+              <p>selected gender: {selectedGender}</p> {/* This line should show the selected gender */}
+              <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
+            </div>
+          )}
       </div>
     </div>
   );

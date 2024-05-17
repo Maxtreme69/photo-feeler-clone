@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-function Dating({ handleNextStep, handleDatingAge, handleDatingGender, sliderValueProps }) {
+function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDatingMultiplePeople, sliderValueProps }) {
   const [showNextContent, setShowNextContent] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // Local state for the slider value
   const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
+  const [showDropdown, setShowDropdown] = useState(false); // State to show/hide dropdown
 
   const handleNextButtonClick = () => {
     setShowNextContent(true);
@@ -21,6 +22,14 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, sliderVal
 
   const handleDatingAgeItem = (event) => {
     handleDatingAge(event.target.value);
+  };
+
+  const handleCheckboxChange = (event) => {
+    setShowDropdown(event.target.checked); // Show dropdown if checkbox is checked
+  };
+
+  const handleDatingMultiplePeopleItem = (event) => {
+    handleDatingMultiplePeople(event.target.value);
   };
 
   const handleDatingGenderItem = (event) => {
@@ -45,6 +54,25 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, sliderVal
                 ))}
               </select>
             </div>
+            <div className={'checkbox-group'}>
+              <input
+                type="checkbox"
+                id="multiplePeople"
+                name="multiplePeople"
+                onChange={handleCheckboxChange}
+              />
+              <label htmlFor="multiplePeople">Multiple people</label>
+            </div>
+            {showDropdown && (
+              <div className={'dropdown-container'}>
+                <select style={{ backgroundColor: 'white' }} id="position" name="position" onChange={handleDatingMultiplePeopleItem}>
+                  <option value="">Choose one...</option>
+                  <option value="The one on the left">The one on the left</option>
+                  <option value="The one on the right">The one on the right</option>
+                  <option value="The one in the middle">The one in the middle</option>
+                </select>
+              </div>
+            )}
             <button style={{ marginTop: '20px' }} className="new-test-button" onClick={handleNextButtonClick}>Next</button>
           </div>
         </>

@@ -1,5 +1,5 @@
 import React from 'react'
-import femaleOne from '../images/dating/women/photo-female-1.webp';
+import femaleOne from '../images/dating/females/photo-female-1.webp';
 import ProgressBar from './ProgressBar';
 
 const ImageCardComponent = () => {
