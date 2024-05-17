@@ -21,11 +21,13 @@ const RatedPhotos = () => {
 
   return (
     <div>
-      <CustomDropdown
-        options={['DATING', 'SOCIAL', 'BUSINESS']}
-        selectedOption={selectedCategory.toUpperCase()}
-        onOptionSelect={handleCategorySelect}
-      />
+        <div style={{ width: '267px', padding: '20px 0 0 20px' }}>
+            <CustomDropdown
+                options={['DATING', 'SOCIAL', 'BUSINESS']}
+                selectedOption={selectedCategory.toUpperCase()}
+                onOptionSelect={handleCategorySelect}
+            />
+        </div>
       <div className="image-cards">
         {imagesList.map((image, index) => (
           <ImageCardComponent
@@ -33,6 +35,7 @@ const RatedPhotos = () => {
             image={image}
             category={selectedCategory.toUpperCase()}
             ratings={getRatingsForImage(image, selectedCategory)}
+            className="image-card" // Add className here
           />
         ))}
       </div>

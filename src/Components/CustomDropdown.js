@@ -16,7 +16,7 @@ const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton 
   return (
     <div className="custom-dropdown">
       <div className="custom-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {activeButton || "Select an option"}
+        {activeButton || selectedOption}
       </div>
       {isOpen && (
         <div className="custom-dropdown-list">

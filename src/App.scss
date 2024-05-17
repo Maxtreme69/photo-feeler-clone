@@ -1217,6 +1217,7 @@ button:hover {
     color: white;
     cursor: pointer;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
   }
   
   .custom-dropdown-list {
@@ -1227,6 +1228,7 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
+    font-family: 'Roboto', sans-serif;
     z-index: 10;
   }
   
@@ -1249,6 +1251,18 @@ button:hover {
     background-color: rgba(138, 206, 233, 0.2);
     color: rgb(22, 21, 21);
   }
+
+  .image-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 33.5px; /* Adjust the gap as needed */
+    margin: 20px;
+  }
+  
+  .image-card {
+    flex: 1 0 21%; /* Adjust the basis percentage to control the number of cards per row */
+    box-sizing: border-box;
+  }
   
   .image-card-container {
     padding: 15px;
@@ -1258,6 +1272,7 @@ button:hover {
     border: solid 1px rgb(231, 224, 224);
     display: flex; /* Use flexbox for centering */
     flex-direction: column; /* Align items vertically */
+    
 
     .image-card-details-container {
       display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProgressBar from './ProgressBar';
 
-const ImageCardComponent = ({ image, category, ratings }) => {
+const ImageCardComponent = ({ image, category, ratings, className  }) => {
   const renderRatings = () => {
     if (!ratings) {
       return <div>No ratings available</div>;
