@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 
-const CustomDropdown = ({ options, selectedOption, onOptionSelect }) => {
+const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option) => {
     if (option !== selectedOption) {
       onOptionSelect(option);
+      console.log("Selected Option", selectedOption);
       setIsOpen(false);
     }
   };
@@ -15,7 +16,7 @@ const CustomDropdown = ({ options, selectedOption, onOptionSelect }) => {
   return (
     <div className="custom-dropdown">
       <div className="custom-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption || "Select an option"}
+        {activeButton || "Select an option"}
       </div>
       {isOpen && (
         <div className="custom-dropdown-list">
