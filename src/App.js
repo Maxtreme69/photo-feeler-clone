@@ -7,7 +7,7 @@ import Grid from './Pages/Grid';
 import MyTests from './Pages/MyTests';
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ImageCardComponent from './Components/ImageCardComponent';
+import RatedPhotos from './Pages/RatedPhotos';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Grid />} />
             <Route path="/my-tests" element={<MyTests />} />
-            <Route path="rated-photos" element={<ImageCardComponent />} />
+            <Route path="rated-photos" element={<RatedPhotos />} />
           </Routes>
         </div>
         <Footer />

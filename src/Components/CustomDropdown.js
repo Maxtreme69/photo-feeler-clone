@@ -1,29 +1,28 @@
+// src/Components/CustomDropdown.js
+
 import React, { useState } from 'react';
 
-const CustomDropdown = ({ options, onOptionSelect, activeButton, onOptionClick }) => {
+const CustomDropdown = ({ options, selectedOption, onOptionSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option) => {
-    if (option !== activeButton) {
+    if (option !== selectedOption) {
       onOptionSelect(option);
       setIsOpen(false);
-      if (typeof onOptionClick === 'function') {
-        onOptionClick(option); // Call the onOptionClick function if it's a function
-      }
     }
   };
 
   return (
     <div className="custom-dropdown">
       <div className="custom-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {activeButton}
+        {selectedOption || "Select an option"}
       </div>
       {isOpen && (
         <div className="custom-dropdown-list">
           {options.map((option, index) => (
             <div
               key={index}
-              className={`custom-dropdown-option ${option === activeButton ? 'disabled' : ''}`}
+              className={`custom-dropdown-option ${option === selectedOption ? 'disabled' : ''}`}
               onClick={() => handleOptionClick(option)}
             >
               {option}
