@@ -17,6 +17,11 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   };
 
   const handleNext = () => {
+    if (!selectedGender) {
+      alert("Please select a gender.");
+      return;
+    }
+    handleDatingGender(selectedGender); // Update the selected gender
     handleNextStep(4, selectedGender); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
 
@@ -32,9 +37,8 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
     handleDatingMultiplePeople(event.target.value);
   };
 
-  const handleDatingGenderItem = (event) => {
-    setSelectedGender(event.target.value); // Update selected gender state
-    handleDatingGender(event.target.value);
+  const handleDatingGenderItem = (gender) => {
+    setSelectedGender(gender); // Update selected gender state
   };
 
   return (
@@ -44,7 +48,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
           <div className="dating-centre-container">
             <h2 className="dating-title">Who is in the photo?</h2>
             <div className="form-group">
-              <select style={{ backgroundColor: 'white' }} id="gender" name="gender" onChange={handleDatingGenderItem}>
+              <select style={{ backgroundColor: 'white' }} id="gender" name="gender" onChange={(e) => handleDatingGenderItem(e.target.value)}>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
@@ -83,20 +87,20 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
           <div>
             <p className="dating-paragraph">Genders</p>
             <button
-              className={`gender-button male-button ${selectedGender === 'males' ? 'active' : ''}`}
-              onClick={() => setSelectedGender('males')}
+              className={`gender-button male-button ${selectedGender === 'male' ? 'active' : ''}`}
+              onClick={() => handleDatingGenderItem('male')}
             >
               Males
             </button>
             <button
-              className={`gender-button female-button ${selectedGender === 'females' ? 'active' : ''}`}
-              onClick={() => setSelectedGender('females')}
+              className={`gender-button female-button ${selectedGender === 'female' ? 'active' : ''}`}
+              onClick={() => handleDatingGenderItem('female')}
             >
               Females
             </button>
             <button
               className={`gender-button both-button ${selectedGender === 'both' ? 'active' : ''}`}
-              onClick={() => setSelectedGender('both')}
+              onClick={() => handleDatingGenderItem('both')}
             >
               Both
             </button>

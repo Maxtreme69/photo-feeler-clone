@@ -152,10 +152,11 @@ function MultiStepForm() {
                 socialTitle={socialTitle}
               />
             ) : (
-              <ImageSectionVote 
-                activeButton={activeButton}
-                selectedGender={selectedGender}
-              />
+<ImageSectionVote 
+  activeButton={activeButton}
+  selectedGender={selectedGender} // Ensure this prop is correctly passed
+/>
+
             )}
             <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
           </div>
