@@ -8,6 +8,7 @@ import MyTests from './Pages/MyTests';
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RatedPhotos from './Pages/RatedPhotos';
+import Vote from './Pages/Vote';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Grid />} />
             <Route path="/my-tests" element={<MyTests />} />
+            <Route path="/vote" element={<Vote />} />
             <Route path="rated-photos" element={<RatedPhotos />} />
           </Routes>
         </div>

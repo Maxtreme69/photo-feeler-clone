@@ -7,6 +7,7 @@ import Social from '../Details/Social';
 import TestSize from './TestSize';
 import ImageSection from './ImageSection';
 import ImageSectionVote from './ImageSectionVote';
+import CommentComponent from './CommentComponent';
 
 function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -58,7 +59,18 @@ function MultiStepForm() {
   };
 
   const handleVoteClick = () => {
+    // Perform any necessary vote submission logic here
+    console.log('Vote submitted');
+  };
+
+  const handleSubmit = () => {
     setShowImageSectionVote(true);
+    console.log('Vote submitted');
+  };
+
+  const handleClickFromComment = (content) => {
+    console.log('Clicked content:', content);
+    handleSubmit();
   };
 
   return (
@@ -141,26 +153,27 @@ function MultiStepForm() {
             )}
           </div>
         )}
-        {currentStep === 4 && (
-          <div className="category-container-no-align">
-            {!showImageSectionVote ? (
-              <ImageSection
-                selectedImage={selectedImage}
-                activeButton={activeButton}
-                isStep4
-                businessTitle={businessTitle}
-                socialTitle={socialTitle}
-              />
-            ) : (
-<ImageSectionVote 
-  activeButton={activeButton}
-  selectedGender={selectedGender} // Ensure this prop is correctly passed
-/>
-
-            )}
-            <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
-          </div>
-        )}
+          {currentStep === 4 && (
+            <div className="category-container-no-align">
+              {!showImageSectionVote ? (
+                <ImageSection
+                  selectedImage={selectedImage}
+                  activeButton={activeButton}
+                  isStep4
+                  businessTitle={businessTitle}
+                  socialTitle={socialTitle}
+                />
+              ) : (
+                <ImageSectionVote 
+                  activeButton={activeButton}
+                  selectedGender={selectedGender}
+                  onSubmit={handleSubmit} // Ensure handleSubmit is passed here
+                />
+              )}
+              <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
+              {/* <CommentComponent onSubmit={handleSubmit} /> */}
+            </div>
+          )}
       </div>
     </div>
   );

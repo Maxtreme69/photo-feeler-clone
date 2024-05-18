@@ -1046,6 +1046,7 @@ button:hover {
 
   p {
     text-align: left;
+    font-family: 'Roboto', sans-serif;
   }
 
   span {
@@ -1078,6 +1079,8 @@ button:hover {
     display: flex;
     align-items: center;
     margin-left: 67.5%;
+    margin-right: 10px;
+    font-family: 'Roboto', sans-serif;
     cursor: pointer;
     color: #a3a3a3;
     

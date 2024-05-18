@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
-const CommentComponent = () => {
+const CommentComponent = ({ onSubmit }) => {
   const [activeTab, setActiveTab] = useState(1); // Set "Feelings" tab as default
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -18,6 +18,14 @@ const CommentComponent = () => {
   const handleButtonClick = (content) => {
     setTextareaContent(content);
     setSelectedButton(content); // Track the selected button
+    // Only call onSubmit if the clicked button should change the image
+    if (content === 'Submit Vote') {
+      onSubmit(content);
+    }
+  };
+
+  const handleSubmit = () => {
+    // This function is called by the Submit Vote button, no need to handle it here
   };
 
   return (
@@ -74,47 +82,47 @@ const CommentComponent = () => {
       )}
       {activeTab === 2 && (
         <>
-        <div className="buttons-row">
-          {['custom', 'angle', 'bg distracting', 'blurry', 'bright', "can't see face", 'clothes', 'color issues', 'crop', 'dark'].map((text, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleButtonClick(text)} 
-              className={selectedButton === text ? 'selected' : ''}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-        <div className="buttons-row">
-          {['expression', 'eye contact', 'filter/effects', 'hair', 'multiple people', 'pose', 'posture', 'selfie', 'shadows'].map((text, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleButtonClick(text)} 
-              className={selectedButton === text ? 'selected' : ''}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-        <div className="buttons-row">
-          {['small', 'smile less', 'smile more', 'sunglasses', 'too close-up', 'too far away', 'too much skin'].map((text, index) => (
-            <button 
-              key={index} 
-              onClick={() => handleButtonClick(text)} 
-              className={selectedButton === text ? 'selected' : ''}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-      </>
+          <div className="buttons-row">
+            {['custom', 'angle', 'bg distracting', 'blurry', 'bright', "can't see face", 'clothes', 'color issues', 'crop', 'dark'].map((text, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleButtonClick(text)} 
+                className={selectedButton === text ? 'selected' : ''}
+              >
+                {text}
+              </button>
+            ))}
+          </div>
+          <div className="buttons-row">
+            {['expression', 'eye contact', 'filter/effects', 'hair', 'multiple people', 'pose', 'posture', 'selfie', 'shadows'].map((text, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleButtonClick(text)} 
+                className={selectedButton === text ? 'selected' : ''}
+              >
+                {text}
+              </button>
+            ))}
+          </div>
+          <div className="buttons-row">
+            {['small', 'smile less', 'smile more', 'sunglasses', 'too close-up', 'too far away', 'too much skin'].map((text, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleButtonClick(text)} 
+                className={selectedButton === text ? 'selected' : ''}
+              >
+                {text}
+              </button>
+            ))}
+          </div>
+        </>
       )}
       <div className="button-container">
         <div className="skip-button">
           <FontAwesomeIcon icon={faForwardStep} />
           <p>Skip</p>
         </div>
-        <button className="new-test-button">Submit Vote</button>
+        <button className="new-test-button" onClick={() => handleButtonClick('Submit Vote')}>Submit Vote</button>
       </div>
     </div>
   );
