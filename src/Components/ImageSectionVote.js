@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CustomDropdown from './CustomDropdown';
-import CommentComponent from './CommentComponent'; // Import CommentComponent
+import CommentComponent from './CommentComponent';
 import Rating from './Rating';
 
-const ImageSectionVote = ({ activeButton, datingGender, selectedGender, onSubmit }) => { // Add onSubmit prop
+const ImageSectionVote = ({ activeButton, datingGender, selectedGender, onSubmit }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); // State to control submit button
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
@@ -51,33 +52,36 @@ const ImageSectionVote = ({ activeButton, datingGender, selectedGender, onSubmit
       onSubmit(); // Ensure onSubmit is called here
     }
   };
-  
+
+  const handleRatingSelectionChange = (selections) => {
+    // Check if all three categories have been selected
+    const allCategoriesSelected = Object.values(selections).every(selection => selection !== null);
+    setIsSubmitDisabled(!allCategoriesSelected);
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
       <div style={{ display: 'flex'}}>
         <div className="image-section-vote" style={{ marginRight: '20px' }}>
           <div className="dropdown-container">
-            {/* <p>Gender (Dating): {datingGender}</p>
-            <p>Selected Gender: {selectedGender}</p> */}
             <CustomDropdown
-          options={['DATING', 'SOCIAL', 'BUSINESS']}
-          selectedOption={selectedOption}
-          onOptionSelect={handleOptionSelect} // Use handleOptionSelect to update selectedCategory
-          activeButton={selectedCategory.toUpperCase()} // Pass selectedCategory as activeButton
-        />
+              options={['DATING', 'SOCIAL', 'BUSINESS']}
+              selectedOption={selectedOption}
+              onOptionSelect={handleOptionSelect} // Use handleOptionSelect to update selectedCategory
+              activeButton={selectedCategory.toUpperCase()} // Pass selectedCategory as activeButton
+            />
           </div>
           <div className="image-container">
             {selectedOption && <img src={selectedOption} alt="Selected Option" />}
           </div>
-          {/* <button onClick={handleSubmit}>Submit Vote</button> */}
         </div>
         <div>
-          <Rating style={{ marginRight: '20px' }} />
-          <CommentComponent onClickButton={handleSubmit} onSubmit={handleSubmit} />
+          <Rating onSelectionChange={handleRatingSelectionChange} />
+          <CommentComponent onSubmit={handleSubmit} isSubmitDisabled={isSubmitDisabled} />
         </div>
       </div>
     </div>
-    );
-  };
+  );
+};
 
 export default ImageSectionVote;

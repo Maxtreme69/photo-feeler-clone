@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
-const CommentComponent = ({ onSubmit }) => {
-  const [activeTab, setActiveTab] = useState(1); // Set "Feelings" tab as default
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
+  const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
 
   useEffect(() => {
-    setActiveTab(1); // Automatically select "Feelings" tab on page load
+    setActiveTab(1);
   }, []);
+
+  useEffect(() => {
+    if (reset) {
+      setTextareaContent('');
+      setSelectedButton('');
+    }
+  }, [reset]);
 
   const handleTabClick = (tabIndex) => {
     setActiveTab(tabIndex);
@@ -17,16 +24,12 @@ const CommentComponent = ({ onSubmit }) => {
 
   const handleButtonClick = (content) => {
     setTextareaContent(content);
-    setSelectedButton(content); // Track the selected button
-    // Only call onSubmit if the clicked button should change the image
+    setSelectedButton(content);
     if (content === 'Submit Vote') {
       onSubmit(content);
     }
   };
 
-  const handleSubmit = () => {
-    // This function is called by the Submit Vote button, no need to handle it here
-  };
 
   return (
     <div className="comment-component-container">
@@ -122,7 +125,13 @@ const CommentComponent = ({ onSubmit }) => {
           <FontAwesomeIcon icon={faForwardStep} />
           <p>Skip</p>
         </div>
-        <button className="new-test-button" onClick={() => handleButtonClick('Submit Vote')}>Submit Vote</button>
+        <button 
+          className="new-test-button" 
+          onClick={() => handleButtonClick('Submit Vote')}
+          disabled={isSubmitDisabled} // Disable based on the isSubmitDisabled prop
+        >
+          Submit Vote
+        </button>
       </div>
     </div>
   );

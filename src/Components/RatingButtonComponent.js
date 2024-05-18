@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const RatingButtonComponent = ({ backgroundColor }) => {
+const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect }) => {
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
+    onRatingSelect(category, index); // Notify parent component
   };
 
   const darkenColor = (color, amount) => {
@@ -35,8 +36,9 @@ const RatingButtonComponent = ({ backgroundColor }) => {
   const buttonStyle = (index) => ({
     paddingLeft: '10px',
     border: 'none',
-    backgroundColor: selectedButton === index ? darkenColor(backgroundColor, -30) : backgroundColor, // Darken color when selected
-    position: 'relative', // For overlay positioning
+    backgroundColor: selectedButton === index ? darkenColor(backgroundColor, -30) : backgroundColor,
+    position: 'relative',
+    cursor: 'pointer'
   });
 
   return (
