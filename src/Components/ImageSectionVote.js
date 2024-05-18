@@ -1,3 +1,4 @@
+// ImageSectionVote.js
 import React, { useState, useEffect } from 'react';
 import CustomDropdown from './CustomDropdown';
 import CommentComponent from './CommentComponent';
@@ -64,11 +65,12 @@ const ImageSectionVote = ({ activeButton, datingGender, selectedGender, onSubmit
       <div style={{ display: 'flex'}}>
         <div className="image-section-vote" style={{ marginRight: '20px' }}>
           <div className="dropdown-container">
+            {/* Pass selectedCategory to Rating component */}
             <CustomDropdown
               options={['DATING', 'SOCIAL', 'BUSINESS']}
               selectedOption={selectedOption}
-              onOptionSelect={handleOptionSelect} // Use handleOptionSelect to update selectedCategory
-              activeButton={selectedCategory.toUpperCase()} // Pass selectedCategory as activeButton
+              onOptionSelect={handleOptionSelect}
+              activeButton={selectedCategory.toUpperCase()}
             />
           </div>
           <div className="image-container">
@@ -76,7 +78,8 @@ const ImageSectionVote = ({ activeButton, datingGender, selectedGender, onSubmit
           </div>
         </div>
         <div>
-          <Rating onSelectionChange={handleRatingSelectionChange} />
+          {/* Pass selectedCategory to Rating component */}
+          <Rating selectedCategory={selectedCategory} onSelectionChange={handleRatingSelectionChange} />
           <CommentComponent onSubmit={handleSubmit} isSubmitDisabled={isSubmitDisabled} />
         </div>
       </div>
