@@ -4,8 +4,12 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, sele
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (index) => {
-    setSelectedButton(index);
-    onRatingSelect(category, index); // Notify parent component
+    const rating = 3 - index; // Invert the index to match the desired rating scale
+    setSelectedButton(rating);
+    onRatingSelect(category, rating); // Notify parent component
+
+    // Log the rating when a button is clicked
+    console.log(`Rating selected: ${rating}`);
   };
 
   const darkenColor = (color, amount) => {
