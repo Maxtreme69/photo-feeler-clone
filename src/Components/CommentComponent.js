@@ -6,6 +6,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
     setActiveTab(1);
@@ -15,6 +16,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
     if (reset) {
       setTextareaContent('');
       setSelectedButton('');
+      setSubmitDisabled(false);
     }
   }, [reset]);
 
@@ -26,10 +28,10 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
     setTextareaContent(content);
     setSelectedButton(content);
     if (content === 'Submit Vote') {
-      onSubmit(content);
+      onSubmit(); 
+      setSubmitDisabled(true);
     }
   };
-
 
   return (
     <div className="comment-component-container">
@@ -128,7 +130,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
         <button 
           className="new-test-button" 
           onClick={() => handleButtonClick('Submit Vote')}
-          disabled={isSubmitDisabled} // Disable based on the isSubmitDisabled prop
+          disabled={submitDisabled || isSubmitDisabled}
         >
           Submit Vote
         </button>

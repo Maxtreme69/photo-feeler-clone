@@ -22,7 +22,7 @@ function App() {
             <Route path="/signup" element={<Grid />} />
             <Route path="/my-tests" element={<MyTests />} />
             <Route path="/vote" element={<Vote />} />
-            <Route path="rated-photos" element={<RatedPhotos />} />
+            <Route path="/rated-photos" element={<RatedPhotos />} />
           </Routes>
         </div>
         <Footer />
@@ -32,4 +32,3 @@ function App() {
 }
 
 export default App;
-

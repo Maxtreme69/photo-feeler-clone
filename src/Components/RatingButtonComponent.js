@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect }) => {
+const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, selected }) => {
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (index) => {
@@ -36,7 +36,7 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect }) =>
   const buttonStyle = (index) => ({
     paddingLeft: '10px',
     border: 'none',
-    backgroundColor: selectedButton === index ? darkenColor(backgroundColor, -30) : backgroundColor,
+    backgroundColor: selected === index ? darkenColor(backgroundColor, -30) : (selected === !null ? darkenColor(backgroundColor, -30) : backgroundColor),
     position: 'relative',
     cursor: 'pointer'
   });

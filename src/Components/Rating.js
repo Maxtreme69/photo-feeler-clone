@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import RatingButtonComponent from './RatingButtonComponent';
 
-const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
+const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) => {
   const [selections, setSelections] = useState({
     smart: null,
     trustworthy: null,
     attractive: null,
   });
-  const [selectedTable, setSelectedTable] = useState(1);
 
   useEffect(() => {
-    console.log('Selected Category:', selectedCategory);
     if (reset) {
       setSelections({
         smart: null,
@@ -18,7 +16,17 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
         attractive: null,
       });
     }
-  }, [selectedCategory, reset]);
+  }, [reset]);
+
+  useEffect(() => {
+    if (voteReceived) {
+      setSelections({
+        smart: null,
+        trustworthy: null,
+        attractive: null,
+      });
+    }
+  }, [voteReceived]);
 
   const handleSelection = (category, index) => {
     const newSelections = { ...selections, [category]: index };
@@ -28,10 +36,9 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
 
   return (
     <div>
-      {/* Conditional rendering based on the selected table */}
+      {voteReceived && <p>Vote Received!</p>}
       {selectedCategory === 'dating' && (
         <table className="rating-table">
-          {/* Table 1 - Dating */}
           <thead>
             <tr>
               <th>Smart</th>
@@ -51,7 +58,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#1eb771" 
                   category="smart"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart} // pass the selected state
+                  selected={selections.smart}
                 />
               </td>
               <td>
@@ -59,7 +66,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#547fd6" 
                   category="trustworthy"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy} // pass the selected state
+                  selected={selections.trustworthy}
                 />
               </td>
               <td>
@@ -67,7 +74,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#ef6324" 
                   category="attractive"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive} // pass the selected state
+                  selected={selections.attractive}
                 />
               </td>
             </tr>
@@ -77,7 +84,6 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
 
       {selectedCategory === 'social' && (
         <table className="rating-table">
-          {/* Table 2 - Social */}
           <thead>
             <tr>
               <th>Confident</th>
@@ -97,7 +103,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#f38634" 
                   category="smart"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart} // pass the selected state
+                  selected={selections.smart}
                 />
               </td>
               <td>
@@ -105,7 +111,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#1eb771" 
                   category="trustworthy"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy} // pass the selected state
+                  selected={selections.trustworthy}
                 />
               </td>
               <td>
@@ -113,7 +119,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#673684" 
                   category="attractive"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive} // pass the selected state
+                  selected={selections.attractive}
                 />
               </td>
             </tr>
@@ -123,7 +129,6 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
 
       {selectedCategory === 'business' && (
         <table className="rating-table">
-          {/* Table 3 - Business */}
           <thead>
             <tr>
               <th>Competent</th>
@@ -143,7 +148,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#547fd6" 
                   category="smart"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart} // pass the selected state
+                  selected={selections.smart}
                 />
               </td>
               <td>
@@ -151,15 +156,15 @@ const Rating = ({ selectedCategory, onSelectionChange, reset }) => {
                   backgroundColor="#f4b607" 
                   category="trustworthy"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy} // pass the selected state
+                  selected={selections.trustworthy}
                 />
               </td>
               <td>
                 <RatingButtonComponent 
-                  backgroundColor="#1eb771" 
+                  backgroundColor="#de473a" 
                   category="attractive"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive} // pass the selected state
+                  selected={selections.attractive}
                 />
               </td>
             </tr>
