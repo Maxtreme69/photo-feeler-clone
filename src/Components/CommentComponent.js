@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selectedOption }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -39,6 +39,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections }) => 
   };
 
   const handleSubmitClick = () => {
+    console.log("selectec image", selectedOption)
     console.log('Vote submitted with comment:', textareaContent);
     console.log('Selections:', selections); // Include this line to log selections
     onSubmit();

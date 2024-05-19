@@ -17,6 +17,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
+    console.log("Current image:", selectedOption); // Log the current image
   }, [selectedCategory, selectedGender, submittedImages]);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
     if (unusedImages.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
+    console.log("image", unusedImages)
     return imagesContext(unusedImages[randomIndex]);
   };
 
@@ -101,7 +103,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             onSubmit={handleSubmit} 
             isSubmitDisabled={isSubmitDisabled} 
             reset={reset}
-            selections={selections} // Add this line to pass selections to CommentComponent
+            selections={selections} 
+            selectedOption={selectedOption} // Pass selectedOption as a prop
           />
         </div>
       </div>
