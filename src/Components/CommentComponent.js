@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -28,10 +28,23 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
     setTextareaContent(content);
     setSelectedButton(content);
     if (content === 'Submit Vote') {
-      onSubmit(); 
+      console.log('Vote submitted with comment:', textareaContent); // Log the comment when submit vote is clicked
+      onSubmit();
       setSubmitDisabled(true);
     }
   };
+
+  const handleTextareaChange = (e) => {
+    setTextareaContent(e.target.value);
+  };
+
+  const handleSubmitClick = () => {
+    console.log('Vote submitted with comment:', textareaContent);
+    console.log('Selections:', selections); // Include this line to log selections
+    onSubmit();
+    setSubmitDisabled(true);
+  };
+  
 
   return (
     <div className="comment-component-container">
@@ -39,7 +52,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
       <textarea 
         placeholder='This person seems...' 
         value={textareaContent} 
-        onChange={(e) => setTextareaContent(e.target.value)}
+        onChange={handleTextareaChange}
       ></textarea>
       <div className='comment-tabs'>
         <div className="tab quick-notes">
@@ -109,17 +122,6 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
               </button>
             ))}
           </div>
-          <div className="buttons-row">
-            {['small', 'smile less', 'smile more', 'sunglasses', 'too close-up', 'too far away', 'too much skin'].map((text, index) => (
-              <button 
-                key={index} 
-                onClick={() => handleButtonClick(text)} 
-                className={selectedButton === text ? 'selected' : ''}
-              >
-                {text}
-              </button>
-            ))}
-          </div>
         </>
       )}
       <div className="button-container">
@@ -129,7 +131,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset }) => {
         </div>
         <button 
           className="new-test-button" 
-          onClick={() => handleButtonClick('Submit Vote')}
+          onClick={handleSubmitClick}
           disabled={submitDisabled || isSubmitDisabled}
         >
           Submit Vote

@@ -4,12 +4,12 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, sele
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (index) => {
-    const rating = 3 - index; // Invert the index to match the desired rating scale
-    setSelectedButton(rating);
-    onRatingSelect(category, rating); // Notify parent component
-
+    setSelectedButton(index);
+    const invertedIndex = 3 - index; // Inverse the index
+    onRatingSelect(category, invertedIndex); // Notify parent component
+  
     // Log the rating when a button is clicked
-    console.log(`Rating selected: ${rating}`);
+    console.log(`Rating: ${category}: ${invertedIndex}`);
   };
 
   const darkenColor = (color, amount) => {
@@ -40,7 +40,7 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, sele
   const buttonStyle = (index) => ({
     paddingLeft: '10px',
     border: 'none',
-    backgroundColor: selected === index ? darkenColor(backgroundColor, -30) : (selected === !null ? darkenColor(backgroundColor, -30) : backgroundColor),
+    backgroundColor: selected === 3 - index ? darkenColor(backgroundColor, -30) : (selected === !null ? darkenColor(backgroundColor, -30) : backgroundColor),
     position: 'relative',
     cursor: 'pointer'
   });

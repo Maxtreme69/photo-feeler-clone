@@ -9,6 +9,11 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [voteReceived, setVoteReceived] = useState(false);
+  const [selections, setSelections] = useState({
+    smart: null,
+    trustworthy: null,
+    attractive: null,
+  });
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
@@ -62,8 +67,9 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     }
   };
 
-  const handleRatingSelectionChange = (selections) => {
-    const allCategoriesSelected = Object.values(selections).every(selection => selection !== null);
+  const handleRatingSelectionChange = (newSelections) => {
+    setSelections(newSelections);
+    const allCategoriesSelected = Object.values(newSelections).every(selection => selection !== null);
     setIsSubmitDisabled(!allCategoriesSelected);
   };
 
@@ -89,11 +95,13 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             onSelectionChange={handleRatingSelectionChange} 
             voteReceived={voteReceived} 
             reset={reset} 
+            selections={selections}
           />
           <CommentComponent 
             onSubmit={handleSubmit} 
             isSubmitDisabled={isSubmitDisabled} 
             reset={reset}
+            selections={selections} // Add this line to pass selections to CommentComponent
           />
         </div>
       </div>

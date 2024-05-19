@@ -78,6 +78,11 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                 />
               </td>
             </tr>
+            <tr>
+              <td>{`smart ${selections.smart}`}</td>
+              <td>{`trustworthy ${selections.trustworthy}`}</td>
+              <td>{`attractive ${selections.attractive}`}</td>
+            </tr>
           </tbody>
         </table>
       )}
@@ -122,6 +127,11 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   selected={selections.attractive}
                 />
               </td>
+            </tr>
+            <tr>
+              <td>{`Confident ${selections.smart}`}</td>
+              <td>{`Authentic ${selections.trustworthy}`}</td>
+              <td>{`Fun ${selections.fun}`}</td>
             </tr>
           </tbody>
         </table>
