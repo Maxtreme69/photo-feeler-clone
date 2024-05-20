@@ -4,7 +4,7 @@ import CustomDropdown from '../Components/CustomDropdown';
 import { images, imagePathsToKeys } from '../ImageImports';
 import imageRatings from '../imageRatings'; // Import the image ratings
 
-const RatedPhotos = () => {
+const RatedPhotos = ({ submissionData }) => {
   const [selectedCategory, setSelectedCategory] = useState('dating'); // Default to 'dating'
   const [imagesList, setImagesList] = useState(images[selectedCategory]);
 
@@ -39,6 +39,14 @@ const RatedPhotos = () => {
           />
         ))}
       </div>
+      {submissionData && (
+        <div style={{ marginTop: '20px' }}>
+          <h3>Latest Submission Data:</h3>
+          <p>Selected Option: {submissionData.selectedOption}</p>
+          <p>Comment: {submissionData.textareaContent}</p>
+          <p>Selections: {JSON.stringify(submissionData.selections)}</p>
+        </div>
+      )}
     </div>
   );
 };

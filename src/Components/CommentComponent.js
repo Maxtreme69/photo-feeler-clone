@@ -27,11 +27,6 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selec
   const handleButtonClick = (content) => {
     setTextareaContent(content);
     setSelectedButton(content);
-    if (content === 'Submit Vote') {
-      console.log('Vote submitted with comment:', textareaContent); // Log the comment when submit vote is clicked
-      onSubmit();
-      setSubmitDisabled(true);
-    }
   };
 
   const handleTextareaChange = (e) => {
@@ -39,13 +34,24 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selec
   };
 
   const handleSubmitClick = () => {
-    console.log("selectec image", selectedOption)
-    console.log('Vote submitted with comment:', textareaContent);
-    console.log('Selections:', selections); // Include this line to log selections
-    onSubmit();
+    // Create an object to hold the data
+    const submissionData = {
+      selectedOption,
+      textareaContent,
+      selections
+    };
+
+    // Log the submission data for debugging purposes
+    console.log("Selected image:", submissionData.selectedOption);
+    console.log('Vote submitted with comment:', submissionData.textareaContent);
+    console.log('Selections:', submissionData.selections);
+
+    // Pass the submissionData object to the onSubmit function
+    onSubmit(submissionData);
+
+    // Disable the submit button to prevent multiple submissions
     setSubmitDisabled(true);
   };
-  
 
   return (
     <div className="comment-component-container">

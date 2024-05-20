@@ -14,6 +14,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     trustworthy: null,
     attractive: null,
   });
+  const [submissionData, setSubmissionData] = useState(null);
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
@@ -59,13 +60,14 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
     if (selectedOption) {
       setSubmittedImages((prevSubmittedImages) => [...prevSubmittedImages, selectedOption]);
       const newSelectedOption = getRandomImage(selectedCategory, selectedGender);
       setSelectedOption(newSelectedOption);
       setVoteReceived(true);
-      onSubmit();
+      onSubmit(data); // Pass data up to parent
+      setSubmissionData(data);
     }
   };
 
@@ -106,6 +108,17 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             selections={selections} 
             selectedOption={selectedOption} // Pass selectedOption as a prop
           />
+          {submissionData && (
+            <p>
+              Submission Data: 
+              <br />
+              Selected Option: {submissionData.selectedOption}
+              <br />
+              Comment: {submissionData.textareaContent}
+              <br />
+              Selections: {JSON.stringify(submissionData.selections)}
+            </p>
+          )}
         </div>
       </div>
     </div>

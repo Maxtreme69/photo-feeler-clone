@@ -1,29 +1,29 @@
-// Pages/Vote.js
 import React, { useState } from 'react';
 import ImageSectionVote from '../Components/ImageSectionVote';
 import { FaQuestionCircle } from 'react-icons/fa';
 
-const Vote = () => {
+const Vote = ({ onSubmission }) => {
   const [activeButton, setActiveButton] = useState('DATING');
   const [selectedGender, setSelectedGender] = useState('both');
-  const [datingGender, setDatingGender] = useState('both');
   const [reset, setReset] = useState(false);
+  const [submissionData, setSubmissionData] = useState(null);
 
   const handleNextClick = (selectedComponent) => {
     setActiveButton(selectedComponent.toUpperCase());
   };
 
   const handleDatingGender = (gender) => {
-    setDatingGender(gender);
     setSelectedGender(gender);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
     console.log('Vote submitted');
     setReset(true);
     setTimeout(() => {
       setReset(false);
     }, 0);
+    setSubmissionData(data);
+    onSubmission(data);  // Pass the data up to App
   };
 
   return (
@@ -38,6 +38,17 @@ const Vote = () => {
         onSubmit={handleSubmit}
         reset={reset}
       />
+      {submissionData && (
+        <p>
+          Submission Data: 
+          <br />
+          Selected Option: {submissionData.selectedOption}
+          <br />
+          Comment: {submissionData.textareaContent}
+          <br />
+          Selections: {JSON.stringify(submissionData.selections)}
+        </p>
+      )}
     </div>
   );
 }

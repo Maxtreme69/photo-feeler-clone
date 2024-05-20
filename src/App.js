@@ -1,4 +1,4 @@
-// App.js
+import React, { useState } from 'react';
 import './App.scss';
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
@@ -11,6 +11,12 @@ import RatedPhotos from './Pages/RatedPhotos';
 import Vote from './Pages/Vote';
 
 function App() {
+  const [submissionData, setSubmissionData] = useState(null);
+
+  const handleSubmissionData = (data) => {
+    setSubmissionData(data);
+  };
+
   return (
     <Router>
       <div className="App">
@@ -21,11 +27,22 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Grid />} />
             <Route path="/my-tests" element={<MyTests />} />
-            <Route path="/vote" element={<Vote />} />
-            <Route path="/rated-photos" element={<RatedPhotos />} />
+            <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
+            <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
           </Routes>
         </div>
         <Footer />
+        {submissionData && (
+          <div style={{ color: 'red' }}>
+            Submission Data: 
+            <br />
+            Selected Option: {submissionData.selectedOption}
+            <br />
+            Comment: {submissionData.textareaContent}
+            <br />
+            Selections: {JSON.stringify(submissionData.selections)}
+          </div>
+        )}
       </div>
     </Router>
   );
