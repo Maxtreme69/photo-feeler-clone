@@ -51,16 +51,6 @@ const RatedPhotos = ({ submissionData }) => {
       </div>
       {submissionData && (
         <div style={{ marginTop: '20px' }}>
-          <h3>Latest Submission Data:</h3>
-          <p>Selected Option: {submissionData.selectedOption}</p>
-          <p>Comment: {submissionData.textareaContent}</p>
-          <p>Selections: {JSON.stringify(submissionData.selections)}</p>
-          <p>Submission Data Rating Test: {JSON.stringify(submissionDataRatingTest)}</p>
-          <p>Rating passed from ImageRating: {JSON.stringify(ratingTest)}</p>
-        </div>
-      )}
-      {submissionData && (
-        <div style={{ marginTop: '20px' }}>
           <h3>Submitted Image and Ratings:</h3>
           <ImageCardComponent
             image={submissionData.selectedOption}

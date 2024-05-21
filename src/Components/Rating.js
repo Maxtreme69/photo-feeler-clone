@@ -22,7 +22,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
 
   const handleSelection = (category, index) => {
     const percentage = index * 33.33333; // Convert rating to percentage
-    const newSelections = { ...selections, [category]: percentage };
+    const newSelections = { ...selections, [category]: percentage }; // Store the percentage directly
     setSelections(newSelections);
     onSelectionChange(newSelections);
   };
@@ -51,7 +51,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#1eb771" 
                   category="smart"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart}
+                  selected={selections.smart !== null ? selections.smart / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -59,7 +59,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#547fd6" 
                   category="trustworthy"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy}
+                  selected={selections.trustworthy !== null ? selections.trustworthy / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -67,14 +67,14 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#ef6324" 
                   category="attractive"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive}
+                  selected={selections.attractive !== null ? selections.attractive / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
             </tr>
             <tr>
-              <td>{`smart ${selections.smart}%`}</td>
-              <td>{`trustworthy ${selections.trustworthy}%`}</td>
-              <td>{`attractive ${selections.attractive}%`}</td>
+              <td>{`smart ${selections.smart !== null ? selections.smart + '%' : ''}`}</td>
+              <td>{`trustworthy ${selections.trustworthy !== null ? selections.trustworthy + '%' : ''}`}</td>
+              <td>{`attractive ${selections.attractive !== null ? selections.attractive + '%' : ''}`}</td>
             </tr>
           </tbody>
         </table>
@@ -101,7 +101,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#f38634" 
                   category="confident"
                   onRatingSelect={handleSelection}
-                  selected={selections.confident}
+                  selected={selections.confident !== null ? selections.confident / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -109,7 +109,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#1eb771" 
                   category="authentic"
                   onRatingSelect={handleSelection}
-                  selected={selections.authentic}
+                  selected={selections.authentic !== null ? selections.authentic / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -117,14 +117,14 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#673684" 
                   category="fun"
                   onRatingSelect={handleSelection}
-                  selected={selections.fun}
+                  selected={selections.fun !== null ? selections.fun / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
             </tr>
             <tr>
-              <td>{`Confident ${selections.confident}%`}</td>
-              <td>{`Authentic ${selections.authentic}%`}</td>
-              <td>{`Fun ${selections.fun}%`}</td>
+              <td>{`Confident ${selections.confident !== null ? selections.confident + '%' : ''}`}</td>
+              <td>{`Authentic ${selections.authentic !== null ? selections.authentic + '%' : ''}`}</td>
+              <td>{`Fun ${selections.fun !== null ? selections.fun + '%' : ''}`}</td>
             </tr>
           </tbody>
         </table>
@@ -151,7 +151,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#547fd6" 
                   category="competent"
                   onRatingSelect={handleSelection}
-                  selected={selections.competent}
+                  selected={selections.competent !== null ? selections.competent / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -159,7 +159,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#f4b607" 
                   category="likable"
                   onRatingSelect={handleSelection}
-                  selected={selections.likable}
+                  selected={selections.likable !== null ? selections.likable / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
               <td>
@@ -167,7 +167,7 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                   backgroundColor="#de473a" 
                   category="influential"
                   onRatingSelect={handleSelection}
-                  selected={selections.influential}
+                  selected={selections.influential !== null ? selections.influential / 33.33333 : null} // Convert percentage back to index
                 />
               </td>
             </tr>

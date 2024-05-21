@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, selected }) => {
-  const [selectedButton, setSelectedButton] = useState(null);
-
   const handleButtonClick = (index) => {
-    setSelectedButton(index);
-    const invertedIndex = 3 - index; // Inverse the index
+    const invertedIndex = 3 - index; // Invert the index
     onRatingSelect(category, invertedIndex); // Notify parent component
-  
-    // Log the rating when a button is clicked
-    console.log(`Rating: ${category}: ${invertedIndex}`);
   };
 
   const darkenColor = (color, amount) => {
@@ -40,7 +34,7 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, sele
   const buttonStyle = (index) => ({
     paddingLeft: '10px',
     border: 'none',
-    backgroundColor: selected === 3 - index ? darkenColor(backgroundColor, -30) : (selected === !null ? darkenColor(backgroundColor, -30) : backgroundColor),
+    backgroundColor: selected === 3 - index ? darkenColor(backgroundColor, -30) : backgroundColor,
     position: 'relative',
     cursor: 'pointer'
   });

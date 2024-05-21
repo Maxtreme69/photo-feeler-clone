@@ -38,17 +38,6 @@ const Vote = ({ onSubmission }) => {
         onSubmit={handleSubmit}
         reset={reset}
       />
-      {submissionData && (
-        <p>
-          Submission Data: 
-          <br />
-          Selected Option: {submissionData.selectedOption}
-          <br />
-          Comment: {submissionData.textareaContent}
-          <br />
-          Selections: {JSON.stringify(submissionData.selections)}
-        </p>
-      )}
     </div>
   );
 }

@@ -129,17 +129,6 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             selectedOption={selectedOption} // Pass selectedOption as a prop
             selectedCategory={selectedCategory}
           />
-          {submissionData && (
-            <p>
-              Submission Data: 
-              <br />
-              Selected Option: {submissionData.selectedOption}
-              <br />
-              Comment: {submissionData.textareaContent}
-              <br />
-              Selections: {JSON.stringify(submissionData.selections)}
-            </p>
-          )}
         </div>
       </div>
     </div>
