@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selectedOption }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selectedOption, selectedCategory }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -36,6 +36,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selec
   const handleSubmitClick = () => {
     // Create an object to hold the data
     const submissionData = {
+      selectedCategory,
       selectedOption,
       textareaContent,
       selections

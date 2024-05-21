@@ -107,6 +107,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             reset={reset}
             selections={selections} 
             selectedOption={selectedOption} // Pass selectedOption as a prop
+            selectedCategory={selectedCategory}
           />
           {submissionData && (
             <p>
