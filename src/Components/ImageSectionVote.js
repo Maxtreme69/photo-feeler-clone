@@ -9,12 +9,27 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [voteReceived, setVoteReceived] = useState(false);
-  const [selections, setSelections] = useState({
-    smart: null,
-    trustworthy: null,
-    attractive: null,
-  });
+  const [selections, setSelections] = useState({});
   const [submissionData, setSubmissionData] = useState(null);
+
+  // Define initial states for each category
+  const initialSelections = {
+    dating: {
+      smart: null,
+      trustworthy: null,
+      attractive: null,
+    },
+    social: {
+      confident: null,
+      authentic: null,
+      fun: null,
+    },
+    business: {
+      competent: null,
+      likable: null,
+      influential: null,
+    },
+  };
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
@@ -27,6 +42,11 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       setVoteReceived(false);
     }
   }, [reset]);
+
+  // Update selections based on selectedCategory
+  useEffect(() => {
+    setSelections(initialSelections[selectedCategory.toLowerCase()]);
+  }, [selectedCategory]);
 
   const getRandomImage = (category, gender) => {
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
@@ -48,7 +68,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
     if (unusedImages.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
-    console.log("image", unusedImages)
+    console.log("image", unusedImages);
     return imagesContext(unusedImages[randomIndex]);
   };
 

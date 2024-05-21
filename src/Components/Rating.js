@@ -2,34 +2,27 @@ import React, { useState, useEffect } from 'react';
 import RatingButtonComponent from './RatingButtonComponent';
 
 const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) => {
-  const [selections, setSelections] = useState({
-    smart: null,
-    trustworthy: null,
-    attractive: null,
-  });
+  const initialSelections = {
+    dating: { smart: null, trustworthy: null, attractive: null },
+    social: { confident: null, authentic: null, fun: null },
+    business: { competent: null, likable: null, influential: null }
+  };
+
+  const [selections, setSelections] = useState(initialSelections[selectedCategory] || {});
 
   useEffect(() => {
-    if (reset) {
-      setSelections({
-        smart: null,
-        trustworthy: null,
-        attractive: null,
-      });
-    }
-  }, [reset]);
+    setSelections(initialSelections[selectedCategory] || {});
+  }, [selectedCategory]);
 
   useEffect(() => {
-    if (voteReceived) {
-      setSelections({
-        smart: null,
-        trustworthy: null,
-        attractive: null,
-      });
+    if (reset || voteReceived) {
+      setSelections(initialSelections[selectedCategory] || {});
     }
-  }, [voteReceived]);
+  }, [reset, voteReceived, selectedCategory]);
 
   const handleSelection = (category, index) => {
-    const newSelections = { ...selections, [category]: index };
+    const percentage = index * 33.33333; // Convert rating to percentage
+    const newSelections = { ...selections, [category]: percentage };
     setSelections(newSelections);
     onSelectionChange(newSelections);
   };
@@ -79,9 +72,9 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
               </td>
             </tr>
             <tr>
-              <td>{`smart ${selections.smart}`}</td>
-              <td>{`trustworthy ${selections.trustworthy}`}</td>
-              <td>{`attractive ${selections.attractive}`}</td>
+              <td>{`smart ${selections.smart}%`}</td>
+              <td>{`trustworthy ${selections.trustworthy}%`}</td>
+              <td>{`attractive ${selections.attractive}%`}</td>
             </tr>
           </tbody>
         </table>
@@ -106,32 +99,32 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#f38634" 
-                  category="smart"
+                  category="confident"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart}
+                  selected={selections.confident}
                 />
               </td>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#1eb771" 
-                  category="trustworthy"
+                  category="authentic"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy}
+                  selected={selections.authentic}
                 />
               </td>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#673684" 
-                  category="attractive"
+                  category="fun"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive}
+                  selected={selections.fun}
                 />
               </td>
             </tr>
             <tr>
-              <td>{`Confident ${selections.smart}`}</td>
-              <td>{`Authentic ${selections.trustworthy}`}</td>
-              <td>{`Fun ${selections.fun}`}</td>
+              <td>{`Confident ${selections.confident}%`}</td>
+              <td>{`Authentic ${selections.authentic}%`}</td>
+              <td>{`Fun ${selections.fun}%`}</td>
             </tr>
           </tbody>
         </table>
@@ -156,25 +149,25 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#547fd6" 
-                  category="smart"
+                  category="competent"
                   onRatingSelect={handleSelection}
-                  selected={selections.smart}
+                  selected={selections.competent}
                 />
               </td>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#f4b607" 
-                  category="trustworthy"
+                  category="likable"
                   onRatingSelect={handleSelection}
-                  selected={selections.trustworthy}
+                  selected={selections.likable}
                 />
               </td>
               <td>
                 <RatingButtonComponent 
                   backgroundColor="#de473a" 
-                  category="attractive"
+                  category="influential"
                   onRatingSelect={handleSelection}
-                  selected={selections.attractive}
+                  selected={selections.influential}
                 />
               </td>
             </tr>
