@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+// CommentComponent.js
+import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
+import { SubmissionDataContext } from '../Context/SubmissionDataContext';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selectedOption, selectedCategory }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(false);
+  const { submissionDataList, setSubmissionDataList } = useContext(SubmissionDataContext);
 
   useEffect(() => {
     setActiveTab(1);
@@ -34,23 +37,16 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selec
   };
 
   const handleSubmitClick = () => {
-    // Create an object to hold the data
-    const submissionData = {
+    const newSubmissionData = {
       selectedCategory,
       selectedOption,
       textareaContent,
       selections
     };
 
-    // Log the submission data for debugging purposes
-    console.log("Selected image:", submissionData.selectedOption);
-    console.log('Vote submitted with comment:', submissionData.textareaContent);
-    console.log('Selections:', submissionData.selections);
+    setSubmissionDataList((prevList) => [...prevList, newSubmissionData]);
 
-    // Pass the submissionData object to the onSubmit function
-    onSubmit(submissionData);
-
-    // Disable the submit button to prevent multiple submissions
+    onSubmit(newSubmissionData);
     setSubmitDisabled(true);
   };
 
@@ -145,6 +141,8 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selections, selec
           Submit Vote
         </button>
       </div>
+      {/* Display submissionDataList for debugging */}
+      {/* <pre styles={{ fontSize: '8px', marginBottom: '5000px' }}>{JSON.stringify(submissionDataListCommentComponent, null, 2)}</pre> */}
     </div>
   );
 };
