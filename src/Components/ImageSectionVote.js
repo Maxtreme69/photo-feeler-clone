@@ -6,7 +6,7 @@ import Rating from './Rating';
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(activeButton.toUpperCase());
+  const [selectedCategory, setSelectedCategory] = useState('dating');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [voteReceived, setVoteReceived] = useState(false);
   const [selections, setSelections] = useState({});
