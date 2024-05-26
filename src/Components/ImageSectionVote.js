@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CustomDropdown from './CustomDropdown';
 import CommentComponent from './CommentComponent';
 import Rating from './Rating';
+import { images } from '../ImageImports'; // Import images object
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -11,6 +12,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [voteReceived, setVoteReceived] = useState(false);
   const [selections, setSelections] = useState({});
   const [submissionData, setSubmissionData] = useState(null);
+  const [angle, setAngle] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false); // Track flipping state
 
   // Define initial states for each category
   const initialSelections = {
@@ -97,6 +100,16 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     setIsSubmitDisabled(!allCategoriesSelected);
   };
 
+  const handleFlip = () => {
+    if (!isFlipping) {
+      setIsFlipping(true);
+      setAngle(prevAngle => prevAngle - 180);
+      setTimeout(() => {
+        setIsFlipping(false); // Reset flipping state
+      }); // Set the delay time in milliseconds (e.g., 400ms)
+    }
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
       <div style={{ display: 'flex' }}>
@@ -109,8 +122,10 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
               activeButton={selectedCategory.toUpperCase()}
             />
           </div>
-          <div className="image-container">
-            {selectedOption && <img src={selectedOption} alt="Selected Option" />}
+          <div className="container">
+            <div className="card" style={{ transform: `rotateY(${angle}deg)` }}>
+              {selectedOption && <img src={selectedOption} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
+            </div>
           </div>
         </div>
         <div>
@@ -128,6 +143,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             selections={selections} 
             selectedOption={selectedOption} // Pass selectedOption as a prop
             selectedCategory={selectedCategory}
+            handleFlip={handleFlip} // Pass the handleFlip function as a prop
           />
         </div>
       </div>

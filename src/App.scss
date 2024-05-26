@@ -1175,7 +1175,35 @@ button:hover {
       }
     }
   }
-  
+
+  /* Card flip styling */
+  .card {
+    height: 340px;
+    width: 250px;
+    position: relative;
+    transition: all 1s linear;
+    transform-style: preserve-3d;
+  }
+
+  .front {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    font-family: 'Lobster', cursive;
+    border-radius: 10px;
+    position: absolute;
+    background: linear-gradient(#08aeea, #2af598);
+    z-index: 2;
+    backface-visibility: hidden;
+  }
+
+  .container {
+    perspective: 1000px;
+  }
+
   .title-dropdown {
     padding: 10px;
     font-size: 16px;

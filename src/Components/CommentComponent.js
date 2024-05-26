@@ -1,10 +1,9 @@
-// CommentComponent.js
 import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -46,8 +45,15 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
 
     setSubmissionDataList((prevList) => [...prevList, newSubmissionData]);
 
-    onSubmit(newSubmissionData);
     setSubmitDisabled(true);
+
+    // Initiate the flip
+    handleFlip();
+
+    // Delay the submission to allow for the flip animation to complete
+    setTimeout(() => {
+      onSubmit(newSubmissionData);
+    }, 450); // 400ms delay to match the flip animation duration
   };
 
   return (
@@ -141,8 +147,6 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
           Submit Vote
         </button>
       </div>
-      {/* Display submissionDataList for debugging */}
-      {/* <pre styles={{ fontSize: '8px', marginBottom: '5000px' }}>{JSON.stringify(submissionDataListCommentComponent, null, 2)}</pre> */}
     </div>
   );
 };
