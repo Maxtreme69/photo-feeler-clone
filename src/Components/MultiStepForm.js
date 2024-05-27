@@ -84,19 +84,19 @@ function MultiStepForm() {
         </div>
         <div
           className={`step ${currentStep === 2 ? 'active' : ''}`}
-          onClick={() => handleStepChange(2)}
+          onClick={() => { if (currentStep >= 2) handleStepChange(2); }}
         >
           CATEGORY
         </div>
         <div
           className={`step ${currentStep === 3 ? 'active' : ''}`}
-          onClick={() => handleStepChange(3)}
+          onClick={() => { if (currentStep >= 3) handleStepChange(3); }}
         >
           DETAILS
         </div>
         <div
           className={`step ${currentStep === 4 ? 'active' : ''}`}
-          onClick={() => handleStepChange(4)}
+          onClick={() => { if (currentStep >= 4) handleStepChange(4); }}
         >
           TEST SIZE
         </div>
@@ -153,27 +153,27 @@ function MultiStepForm() {
             )}
           </div>
         )}
-          {currentStep === 4 && (
-            <div className="category-container-no-align">
-              {!showImageSectionVote ? (
-                <ImageSection
-                  selectedImage={selectedImage}
-                  activeButton={activeButton}
-                  isStep4
-                  businessTitle={businessTitle}
-                  socialTitle={socialTitle}
-                />
-              ) : (
-                <ImageSectionVote 
-                  activeButton={activeButton}
-                  selectedGender={selectedGender}
-                  onSubmit={handleSubmit} // Ensure handleSubmit is passed here
-                />
-              )}
-              <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
-              {/* <CommentComponent onSubmit={handleSubmit} /> */}
-            </div>
-          )}
+        {currentStep === 4 && (
+          <div className="category-container-no-align">
+            {!showImageSectionVote ? (
+              <ImageSection
+                selectedImage={selectedImage}
+                activeButton={activeButton}
+                isStep4
+                businessTitle={businessTitle}
+                socialTitle={socialTitle}
+              />
+            ) : (
+              <ImageSectionVote 
+                activeButton={activeButton}
+                selectedGender={selectedGender}
+                onSubmit={handleSubmit} // Ensure handleSubmit is passed here
+              />
+            )}
+            <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
+            {/* <CommentComponent onSubmit={handleSubmit} /> */}
+          </div>
+        )}
       </div>
     </div>
   );

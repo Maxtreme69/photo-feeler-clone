@@ -1157,7 +1157,7 @@ button:hover {
       
    .title {
       background-color: rgb(36, 33, 33);
-      margin-top: 20px;
+      margin-top: 10px;
       margin-bottom: 20px;
       text-align: center;
       padding: 10px;
@@ -1167,12 +1167,6 @@ button:hover {
       
     .image-container {
       border: solid 1px gray;
-      
-      img {
-        width: 400px;
-        height: 500px;
-        margin: 20px;
-      }
     }
   }
 
@@ -1183,6 +1177,7 @@ button:hover {
     position: relative;
     transition: all 1s linear;
     transform-style: preserve-3d;
+    padding: 50px;
   }
 
   .front {
@@ -1240,7 +1235,7 @@ button:hover {
   }
   
   .custom-dropdown-header {
-    padding: 10px;
+    padding: 3px 0;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
