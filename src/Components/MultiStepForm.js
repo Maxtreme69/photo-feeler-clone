@@ -7,7 +7,7 @@ import Social from '../Details/Social';
 import TestSize from './TestSize';
 import ImageSection from './ImageSection';
 import ImageSectionVote from './ImageSectionVote';
-import CommentComponent from './CommentComponent';
+// import CommentComponent from './CommentComponent';
 
 function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +22,7 @@ function MultiStepForm() {
   const [slidingValueProps, setSlidingValueProps] = useState('');
   const [showImageSectionVote, setShowImageSectionVote] = useState(false);
   const [selectedGender, setSelectedGender] = useState('both'); // Default to 'both'
+  const [rectangles, setRectangles] = useState([]);
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -68,10 +69,10 @@ function MultiStepForm() {
     console.log('Vote submitted');
   };
 
-  const handleClickFromComment = (content) => {
-    console.log('Clicked content:', content);
-    handleSubmit();
-  };
+  // const handleClickFromComment = (content) => {
+  //   console.log('Clicked content:', content);
+  //   handleSubmit();
+  // };
 
   return (
     <div className="multi-step-form">
@@ -104,8 +105,13 @@ function MultiStepForm() {
       <div className="step-content">
         {currentStep === 1 && (
           <div className="grid-container">
-            <ImageGrid setSelectedImage={setSelectedImage} handleStepChange={handleStepChange} />
-          </div>
+            <ImageGrid
+              rectangles={rectangles}
+              setRectangles={setRectangles}
+              setSelectedImage={setSelectedImage}
+              handleStepChange={handleStepChange}
+            />          
+        </div>
         )}
         {currentStep === 2 && (
           <div className="category-container">

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FaUpload } from 'react-icons/fa'; // Import Font Awesome upload icon
-import { FaTrash } from 'react-icons/fa';
+import React, { useContext } from 'react';
+import { FaUpload, FaTrash } from 'react-icons/fa'; // Import Font Awesome icons
+import { RectanglesContext } from '../Context/RectanglesContext';
 
 function ImageGrid({ setSelectedImage, handleStepChange }) {
-  const [rectangles, setRectangles] = useState([]);
+  const { rectangles, setRectangles } = useContext(RectanglesContext);
 
   const addRectangle = (file) => {
     const reader = new FileReader();
@@ -14,7 +14,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
       ];
       setRectangles(newRectangles);
       setSelectedImage(file); // Pass the selected image to the parent component
-      // handleStepChange(2); // Change the step to 2 when an image is added
+      handleStepChange(2); // Change the step to 2 when an image is added
     };
     reader.readAsDataURL(file);
   };
@@ -47,23 +47,23 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
   return (
     <div className="image-grid">
       <div className="grid-container">
-      <div style={{marginTop: '10px'}} className="button-container">
-        <label htmlFor="upload-input">
-          <div className="upload-box">
-            <div className="upload-text">UPLOAD</div>
-            <div className="upload-icon">
-              <FaUpload />
+        <div style={{ marginTop: '10px' }} className="button-container">
+          <label htmlFor="upload-input">
+            <div className="upload-box">
+              <div className="upload-text">UPLOAD</div>
+              <div className="upload-icon">
+                <FaUpload />
+              </div>
+              <input
+                id="upload-input"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+              />
             </div>
-            <input
-              id="upload-input"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: 'none' }}
-            />
-          </div>
-        </label>
-      </div>
+          </label>
+        </div>
         {rectangles.map((rectangle) => (
           <div
             key={rectangle.id}
@@ -79,25 +79,16 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
       </div>
 
       <div className="button-container">
-        <label htmlFor="upload-input">
+        <label htmlFor="delete-button">
           <div className="upload-box">
             <div className="upload-text">DELETE PHOTOS</div>
             <div className="upload-icon">
               <FaTrash />
             </div>
-            <input
-              id="upload-input"
-              type="file"
-              accept="image/*"
-              onChange={removeRectangle}
-              style={{ display: 'none' }}
-            />
           </div>
         </label>
+        <button id="delete-button" onClick={removeRectangle} style={{ display: 'none' }}>Delete</button>
       </div>
-
-      {/* <button onClick={removeRectangle}>Remove Rectangle</button> */}
-      
     </div>
   );
 }

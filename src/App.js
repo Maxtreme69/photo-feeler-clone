@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RatedPhotos from './Pages/RatedPhotos';
 import Vote from './Pages/Vote';
 import { SubmissionDataProvider } from './Context/SubmissionDataContext'; // Import the SubmissionDataProvider
+import { RectanglesProvider } from './Context/RectanglesContext'; // Import RectanglesProvider
 import CardFlip from './Components/CardFlip';
 
 function App() {
@@ -25,15 +26,17 @@ function App() {
         <div className="navbar-container">
           <Navbar />
           <SubmissionDataProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Grid />} />
-              <Route path="/my-tests" element={<MyTests />} />
-              <Route path="/cardflip" element={<CardFlip />} />
-              <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
-              <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
-            </Routes>
+            <RectanglesProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Grid />} />
+                <Route path="/my-tests" element={<MyTests />} />
+                <Route path="/cardflip" element={<CardFlip />} />
+                <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
+                <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
+              </Routes>
+            </RectanglesProvider>
           </SubmissionDataProvider>
         </div>
         <Footer />
