@@ -134,8 +134,8 @@ $signup-button-text-color: #ffffff; // New variable for text color
 // GridComponent.scss
 .grid-container {
   display: flex;
-  justify-content: center;
-  height: 80vh;
+  // justify-content: center;
+  // height: 80vh;
 }
 
 .grid-left, .grid-right {
@@ -462,11 +462,14 @@ button:last-child {
 }
 
 .upload-box {
-  padding: 75px;
+  padding: 80px;
+  padding-left: 80px;
   border: solid 1px #b9b5b5;
-  width: 30px;
+  width: 50px;
   font-family: Roboto, sans-serif;
   padding-left: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .image-grid {

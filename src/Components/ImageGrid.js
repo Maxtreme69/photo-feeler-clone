@@ -14,7 +14,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
       ];
       setRectangles(newRectangles);
       setSelectedImage(file); // Pass the selected image to the parent component
-      handleStepChange(2); // Change the step to 2 when an image is added
+      // handleStepChange(2); // Change the step to 2 when an image is added
     };
     reader.readAsDataURL(file);
   };
@@ -46,7 +46,8 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
 
   return (
     <div className="image-grid">
-      <div className="button-container">
+      <div className="grid-container">
+      <div style={{marginTop: '10px'}} className="button-container">
         <label htmlFor="upload-input">
           <div className="upload-box">
             <div className="upload-text">UPLOAD</div>
@@ -63,12 +64,24 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
           </div>
         </label>
       </div>
-
+        {rectangles.map((rectangle) => (
+          <div
+            key={rectangle.id}
+            className="rectangle"
+            style={{ backgroundColor: rectangle.color }}
+            onClick={() => handleImageClick(rectangle.image)}
+          >
+            {rectangle.image && (
+              <img src={rectangle.image} alt="Uploaded" className="rectangle-image" />
+            )}
+          </div>
+        ))}
+      </div>
 
       <div className="button-container">
         <label htmlFor="upload-input">
           <div className="upload-box">
-            <div className="upload-text">UPLOAD</div>
+            <div className="upload-text">DELETE PHOTOS</div>
             <div className="upload-icon">
               <FaTrash />
             </div>
@@ -83,25 +96,8 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
         </label>
       </div>
 
-
       {/* <button onClick={removeRectangle}>Remove Rectangle</button> */}
-
-
-
-      <div className="grid-container">
-        {rectangles.map((rectangle) => (
-          <div
-            key={rectangle.id}
-            className="rectangle"
-            style={{ backgroundColor: rectangle.color }}
-            onClick={() => handleImageClick(rectangle.image)}
-          >
-            {rectangle.image && (
-              <img src={rectangle.image} alt="Uploaded" className="rectangle-image" />
-            )}
-          </div>
-        ))}
-      </div>
+      
     </div>
   );
 }
