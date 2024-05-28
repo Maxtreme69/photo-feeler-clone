@@ -12,7 +12,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
     reader.onload = () => {
       const newRectangles = [
         ...rectangles,
-        { id: rectangles.length, color: getRandomColor(), image: reader.result },
+        { id: rectangles.length, color: getRandomColor(), image: reader.result, file: file },
       ];
       setRectangles(newRectangles);
       setSelectedImage(file); // Pass the selected image to the parent component
@@ -24,6 +24,13 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     addRectangle(file);
+  };
+
+  const handleImageClick = (file) => {
+    if (!showCheckboxes) {
+      setSelectedImage(file);
+      handleStepChange(2);
+    }
   };
 
   const getRandomColor = () => {
@@ -78,7 +85,8 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
           <div
             key={rectangle.id}
             className="rectangle"
-            style={{ backgroundColor: rectangle.color, position: 'relative' }}
+            style={{ backgroundColor: rectangle.color, position: 'relative', cursor: 'pointer' }}
+            onClick={() => handleImageClick(rectangle.file)}
           >
             {rectangle.image && (
               <img src={rectangle.image} alt="Uploaded" className="rectangle-image" />
@@ -87,7 +95,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
               <input
                 type="checkbox"
                 className="rectangle-checkbox"
-                style={{ position: 'absolute', top: '5px', left: '5px' }}
+                style={{ position: 'absolute', top: '5px', left: '5px', width: '20px', height: '20px' }} // Adjust size here
                 checked={checkedRectangles.includes(rectangle.id)}
                 onChange={() => handleCheckboxChange(rectangle.id)}
               />
@@ -108,7 +116,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
         </div>
       )}
 
-      {showCheckboxes && (
+      {rectangles.length > 0 && showCheckboxes && (
         <div className="button-container">
           {checkedRectangles.length > 0 ? (
             <label htmlFor="delete-button">
