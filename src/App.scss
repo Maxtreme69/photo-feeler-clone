@@ -467,13 +467,19 @@ button:last-child {
   border: solid 1px #b9b5b5;
   width: 50px;
   font-family: Roboto, sans-serif;
-  padding-left: 50px;
+  padding-left: 30px;
   margin-right: 10px;
   margin-left: 10px;
 }
 
 .image-grid {
   width: 100%;
+}
+
+.upload-text {
+  text-align: center;
+  font-size: 12px;
+  width: 105px;
 }
 
 .button-container {
@@ -497,6 +503,38 @@ button:last-child {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ensure the image covers the entire rectangle */
+}
+
+.delete-photos-button {
+  border-radius: 25px;
+  background-color: white;
+  border: 2px solid #6bc4cd;
+  color: black;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-photos-button:hover {
+  background-color: rgba(200, 248, 243, 0.3);
+}
+
+.delete-selected-photos-button {
+  border-radius: 25px;
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-selected-photos-button:hover {
+  background-color: rgba(250, 110, 3);
 }
 
 // Category
