@@ -1,11 +1,11 @@
 // App.js
 import './App.scss';
-import Navbar from './Components/Navbar';
-import Home from './Pages/Home';
-import Login from './Pages/Login';
-import Grid from './Pages/Grid';
-import MyTests from './Pages/MyTests';
-import Footer from './Components/Footer';
+import Navbar from './Components/Navbar.js';
+import Home from './Pages/Home.js';
+import Login from './Pages/Login.js';
+import Grid from './Pages/Grid.js';
+import MyTests from './Pages/MyTests.js';
+import Footer from './Components/Footer.js';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {

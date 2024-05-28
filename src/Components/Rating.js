@@ -1,6 +1,6 @@
 // Rating.js
 import React from 'react';
-import RatingButtonComponent from './RatingButtonComponent';
+import RatingButtonComponent from './RatingButtonComponent.js';
 
 const Rating = () => {
   return (

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import ImageGrid from './ImageGrid';
-import Category from './Category';
-import Business from '../Details/Business'; // Import the Business component
-import Dating from '../Details/Dating'; // Import the Dating component
-import Social from '../Details/Social'; // Import the Social component
-import TestSize from './TestSize';
-import ImageSection from './ImageSection';
+import ImageGrid from './ImageGrid.js';
+import Category from './Category.js';
+import Business from '../Details/Business.js'; // Import the Business component
+import Dating from '../Details/Dating.js'; // Import the Dating component
+import Social from '../Details/Social.js'; // Import the Social component
+import TestSize from './TestSize.js';
+import ImageSection from './ImageSection.js';
 
 function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
