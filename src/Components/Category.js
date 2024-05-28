@@ -12,6 +12,7 @@ function Category({ handleNextClick: handleNextStep }) {
     if (activeButton) {
       setSelectedComponent(activeButton); // Update selectedComponent with the active button
       handleNextStep(activeButton); 
+      console.log(activeButton);
     }
   };
 
@@ -77,7 +78,7 @@ function Category({ handleNextClick: handleNextStep }) {
 
         {!selectedComponent && (
           <div>
-            <button className="new-test-button" onClick={handleNextClick} disabled={!activeButton}>
+            <button style={{ marginTop: '80px' }} className="new-test-button" onClick={handleNextClick} disabled={!activeButton}>
               Next
             </button>
           </div>

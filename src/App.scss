@@ -134,8 +134,8 @@ $signup-button-text-color: #ffffff; // New variable for text color
 // GridComponent.scss
 .grid-container {
   display: flex;
-  justify-content: center;
-  height: 80vh;
+  // justify-content: center;
+  // height: 80vh;
 }
 
 .grid-left, .grid-right {
@@ -391,7 +391,10 @@ button:last-child {
   z-index: 1;
   width: 100px;
   font-size: 12px;
+  display: flex;
+  justify-content: center;
 }
+
 
 .dropdown-container:hover .dropdown-content {
   display: block;
@@ -459,15 +462,29 @@ button:last-child {
 }
 
 .upload-box {
-  padding: 75px;
+  padding: 80px;
+  padding-left: 80px;
   border: solid 1px #b9b5b5;
-  width: 30px;
+  width: 50px;
   font-family: Roboto, sans-serif;
-  padding-left: 50px;
+  padding-left: 30px;
+  margin-right: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.upload-box:hover {
+  background-color: rgba(228, 228, 228, 0.3);
 }
 
 .image-grid {
   width: 100%;
+}
+
+.upload-text {
+  text-align: center;
+  font-size: 12px;
+  width: 105px;
 }
 
 .button-container {
@@ -487,10 +504,48 @@ button:last-child {
   position: relative;
 }
 
+.rectangle-checkbox {
+  width: 20px; /* Increase the width */
+  height: 20px; /* Increase the height */
+  transform: scale(1.5); /* Scale up the checkbox */
+}
+
 .rectangle-image {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ensure the image covers the entire rectangle */
+}
+
+.delete-photos-button {
+  border-radius: 25px;
+  background-color: white;
+  border: 2px solid #6bc4cd;
+  color: black;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-photos-button:hover {
+  background-color: rgba(200, 248, 243, 0.3);
+}
+
+.delete-selected-photos-button {
+  border-radius: 25px;
+  background-color: #fc6a49;;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-selected-photos-button:hover {
+  background-color: rgb(250, 77, 3);
 }
 
 // Category
@@ -680,7 +735,7 @@ button:hover {
 }
 
 .test-size-container {
-  width: 50%;
+  width: 53%;
   background-color: #fff; /* Set initial background color */
   transition: background-color 0.3s ease; /* Add transition for smooth effect */
   padding-left: 20px;;
@@ -1018,28 +1073,24 @@ button:hover {
   display: flex;
   flex-direction: column;
   justify-content: left;
-  // background-color: #0077b5; /* Blue background color */
-  padding: 10px 10px 10px 10px; /* Add padding for spacing */
-  border-top: 1px solid white; /* Add top border */
-  border-bottom: 1px solid white; /* Add bottom border */
+  padding: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
   font-size: 14px;
   cursor: pointer;
 }
 
-
 .rating-style-button-component div {
-  background-color: #0077b5; /* Blue background color */
   text-align: left;
-  color: white; /* Text color */
-  padding: 10px; /* Padding for each item */
-  margin-bottom: 5px; /* Space between items */
+  color: white;
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
-
 .rating-style-button-component div span {
-  margin-right: 5px; /* Space between number and text */
+  margin-right: 5px;
   border-right: 1px solid #e4e4e4;
-  padding: 10px 10px 10px 10px;
+  padding: 10px;
 }
 
 // Comment Container
@@ -1047,6 +1098,7 @@ button:hover {
 
   p {
     text-align: left;
+    font-family: 'Roboto', sans-serif;
   }
 
   span {
@@ -1064,5 +1116,286 @@ button:hover {
     width: 100%;
     height: 60px;
     font-family: 'Roboto', sans-serif;
+    outline: none; /* Remove highlighting effect */
+    color: #555;
+  }  
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem; // Add some space above the button container
   }
+
+  .skip-button {
+    display: flex;
+    align-items: center;
+    margin-left: 67.5%;
+    margin-right: 10px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    color: #a3a3a3;
+    
+    p {
+      margin-left: 0.5rem;
+    }
+  }
+
+
+    .comment-tabs {
+      display: flex;
+    
+      .tab {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: solid 1px rgb(221, 210, 210);
+        font-size: 14px;
+    
+        &.quick-notes {
+          color: gray;
+        }
+    
+        &.active {
+          border: solid 1px rgb(221, 210, 210);
+          border-bottom: 2px solid white;
+          border-top-left-radius: 2.5px;
+          border-top-right-radius: 2.5px;
+        }
+      }
+    
+      .separator {
+        width: 63.112%;
+        border-bottom: solid 1px rgb(221, 210, 210);
+      }
+    }
+    
+    .buttons-row {
+      display: flex;
+      margin-top: 10px;
+      font-size: 12px;
+      padding: 0;
+    
+      button {
+        padding: 5px 7px;
+        background-color: #edf5f7;
+        color: black;
+        font-size: 12px;
+        
+        &.selected {
+          background-color: #393f4f;
+          color: white;
+        }
+    
+        &:hover {
+          background-color: #393f4f;
+          color: white;
+        }
+      }
+    
+      &:last-child {
+        margin-top: 5px;
+      }
+    }
+    
+    .suggestions-section {
+      margin-top: 10px;
+      font-size: 14px;
+      // Add additional styles for suggestions section
+    }
+  }
+
+  // Image section vote styles
+  .image-section-vote {
+      
+   .title {
+      background-color: rgb(36, 33, 33);
+      margin-top: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 10px;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+    }
+      
+    .image-container {
+      border: solid 1px gray;
+    }
+  }
+
+  /* Card flip styling */
+  .card {
+    height: 340px;
+    width: 250px;
+    position: relative;
+    transition: all 1s linear;
+    transform-style: preserve-3d;
+    padding: 50px;
+  }
+
+  .front {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    font-family: 'Lobster', cursive;
+    border-radius: 10px;
+    position: absolute;
+    background: linear-gradient(#08aeea, #2af598);
+    z-index: 2;
+    backface-visibility: hidden;
+  }
+
+  .container {
+    perspective: 1000px;
+  }
+
+  .title-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    background-color: #181414;
+    cursor: pointer;
+  }
+
+  .title-option {
+    background-color: white;
+    color: black;
+    text-align: center;
+  } 
+  
+  .image-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }  
+
+  .custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    width: 100%;
+  }
+  
+  .custom-dropdown-header {
+    padding: 3px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #181414;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .custom-dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    z-index: 10;
+  }
+  
+  .custom-dropdown-option {
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+  }
+
+  .custom-dropdown-option.disabled {
+    color: gray;
+    pointer-events: none; /* Prevent clicking on the disabled option */
+  }
+  
+  
+  .custom-dropdown-option:hover {
+    background-color: rgba(138, 206, 233, 0.2);
+    color: rgb(22, 21, 21);
+  }
+
+  .image-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 33.5px; /* Adjust the gap as needed */
+    margin: 20px;
+  }
+  
+  .image-card {
+    flex: 1 0 21%; /* Adjust the basis percentage to control the number of cards per row */
+    box-sizing: border-box;
+  }
+  
+  .image-card-container {
+    padding: 15px;
+    font-family: 'Roboto', sans-serif;
+    transition: box-shadow 0.3s ease; /* Add transition for smooth effect */
+    width: 20%;
+    border: solid 1px rgb(231, 224, 224);
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align items vertically */
+    
+
+    .image-card-details-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center content horizontally */
+    }
+
+    div {
+      font-size: 11px;
+      letter-spacing: .15em;
+    }
+
+    img {
+      width: 200px;
+      height: 250px;
+      margin: auto; /* Center the image horizontally */
+    }
+  
+    .card-category-votes-title {
+      display: flex;
+      font-family: 'Roboto', sans-serif;
+  
+      span {
+        margin-top: 12.5px;
+        padding: 5px 27.8px;
+        background-color: #0077b5;
+        // width: 57px;
+        font-size: 11px;
+      }
+
+      #span-dating {
+        background-color: #393f4f;
+        color: white;
+      }
+
+      #span-votes {
+        background-color: #f0f8fa;
+        color: grey;
+      }
+    }
+
+    /* Apply box shadow when hovered */
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
+
+
