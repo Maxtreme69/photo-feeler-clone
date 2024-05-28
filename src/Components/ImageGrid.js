@@ -108,7 +108,7 @@ function ImageGrid({ setSelectedImage, handleStepChange }) {
         </div>
       )}
 
-      {rectangles.length > 0 && showCheckboxes && (
+      {showCheckboxes && (
         <div className="button-container">
           {checkedRectangles.length > 0 ? (
             <label htmlFor="delete-button">
