@@ -1,7 +1,7 @@
 import React from 'react';
 import ProgressBar from './ProgressBar.js';
 
-const ImageCardComponent = ({ image, category, ratings, className  }) => {
+const ImageCardComponent = ({ image, category, ratings, votes, className }) => {
   const renderRatings = () => {
     if (!ratings) {
       return <div>No ratings available</div>;
@@ -69,7 +69,8 @@ const ImageCardComponent = ({ image, category, ratings, className  }) => {
       <img src={image} alt={category} />
       <div className="image-card-details-container">
         <div className="card-category-votes-title">
-          <span id={`span-${category}`}>{category}</span><span id="span-votes">VOTES</span>
+          <span id={`span-${category}`}>{category}</span>
+          <span id="span-votes">{votes} VOTES</span>
         </div>
         {renderRatings()}
       </div>

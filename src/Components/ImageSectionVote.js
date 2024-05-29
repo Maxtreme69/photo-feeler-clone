@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import CustomDropdown from './CustomDropdown.js';
 import CommentComponent from './CommentComponent.js';
 import Rating from './Rating.js';
-import { AppContext } from '../Context/AppContext.js'; // Import AppContext
+import { AppContext } from '../Context/AppContext.js';
+import ImageCardComponent from './ImageCardComponent.js';
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
-  const { myTestsData } = useContext(AppContext); // Access myTestsData from context
+  const { myTestsData } = useContext(AppContext);
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -14,30 +15,16 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [selections, setSelections] = useState({});
   const [submissionData, setSubmissionData] = useState(null);
   const [angle, setAngle] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false); // Track flipping state
+  const [isFlipping, setIsFlipping] = useState(false);
 
-  // Define initial states for each category
   const initialSelections = {
-    dating: {
-      smart: null,
-      trustworthy: null,
-      attractive: null,
-    },
-    social: {
-      confident: null,
-      authentic: null,
-      fun: null,
-    },
-    business: {
-      competent: null,
-      likable: null,
-      influential: null,
-    },
+    dating: { smart: null, trustworthy: null, attractive: null },
+    social: { confident: null, authentic: null, fun: null },
+    business: { competent: null, likable: null, influential: null },
   };
 
   useEffect(() => {
     setSelectedOption(getRandomImage(selectedCategory, selectedGender));
-    console.log("Current image:", selectedOption); // Log the current image
   }, [selectedCategory, selectedGender, submittedImages]);
 
   useEffect(() => {
@@ -47,7 +34,6 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     }
   }, [reset]);
 
-  // Update selections based on selectedCategory
   useEffect(() => {
     setSelections(initialSelections[selectedCategory.toLowerCase()]);
   }, [selectedCategory]);
@@ -56,7 +42,6 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
 
     let availableImages = [];
-
     if (category.toLowerCase() === 'dating') {
       if (gender === 'both') {
         const maleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/males`));
@@ -69,7 +54,6 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       availableImages = imagesContext.keys().filter((key) => key.startsWith(`./${category.toLowerCase()}`));
     }
 
-    // Convert myTestsData images to object URLs and filter by category
     const myTestsDataImages = myTestsData
       .filter(item => item.category.toLowerCase() === category.toLowerCase())
       .map(item => URL.createObjectURL(item.image));
@@ -79,10 +63,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
     if (unusedImages.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
-    console.log("image", unusedImages);
 
     const selectedImage = unusedImages[randomIndex];
-    // If selectedImage is a file object URL, we don't need to resolve it with imagesContext
     return selectedImage.startsWith('blob:') ? selectedImage : imagesContext(selectedImage);
   };
 
@@ -100,7 +82,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       const newSelectedOption = getRandomImage(selectedCategory, selectedGender);
       setSelectedOption(newSelectedOption);
       setVoteReceived(true);
-      onSubmit(data); // Pass data up to parent
+      onSubmit(data);
       setSubmissionData(data);
     }
   };
@@ -116,8 +98,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       setIsFlipping(true);
       setAngle(prevAngle => prevAngle - 180);
       setTimeout(() => {
-        setIsFlipping(false); // Reset flipping state
-      }); // Set the delay time in milliseconds (e.g., 400ms)
+        setIsFlipping(false);
+      }, 400); // Set the delay time to match the flip animation duration
     }
   };
 
@@ -152,26 +134,11 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             isSubmitDisabled={isSubmitDisabled} 
             reset={reset}
             selections={selections} 
-            selectedOption={selectedOption} // Pass selectedOption as a prop
+            selectedOption={selectedOption} 
             selectedCategory={selectedCategory}
-            handleFlip={handleFlip} // Pass the handleFlip function as a prop
+            handleFlip={handleFlip}
           />
         </div>
-      </div>
-
-      <div>
-        <h3>Image Array from AppContext:</h3>
-        <ul>
-          {myTestsData.map((data, index) => {
-            const imageUrl = URL.createObjectURL(data.image); // Create object URL for the image file
-            return (
-              <li key={index}>
-                <img src={imageUrl} alt={`Image ${index}`} style={{ width: '100px', height: '100px', marginRight: '10px' }} />
-                <span>{data.category}</span>
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

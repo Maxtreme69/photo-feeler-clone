@@ -44,16 +44,11 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     };
 
     setSubmissionDataList((prevList) => [...prevList, newSubmissionData]);
-
     setSubmitDisabled(true);
-
-    // Initiate the flip
     handleFlip();
-
-    // Delay the submission to allow for the flip animation to complete
     setTimeout(() => {
       onSubmit(newSubmissionData);
-    }, 450); // 400ms delay to match the flip animation duration
+    }, 450); // Delay to match the flip animation duration
   };
 
   return (
@@ -65,21 +60,15 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         onChange={handleTextareaChange}
       ></textarea>
       <div className='comment-tabs'>
-        <div className="tab quick-notes">
-          Quick notes
-        </div>
+        <div className="tab quick-notes">Quick notes</div>
         <div 
           className={`tab ${activeTab === 1 ? 'active' : ''}`} 
           onClick={() => handleTabClick(1)}
-        >
-          Feelings
-        </div>
+        >Feelings</div>
         <div 
           className={`tab ${activeTab === 2 ? 'active' : ''}`} 
           onClick={() => handleTabClick(2)}
-        >
-          Suggestions
-        </div>
+        >Suggestions</div>
         <div className="separator"></div>
       </div>
       {activeTab === 1 && (
@@ -90,9 +79,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
                 key={index} 
                 onClick={() => handleButtonClick(text)} 
                 className={selectedButton === text ? 'selected' : ''}
-              >
-                {text}
-              </button>
+              >{text}</button>
             ))}
           </div>
           <div className="buttons-row">
@@ -101,9 +88,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
                 key={index} 
                 onClick={() => handleButtonClick(text)} 
                 className={selectedButton === text ? 'selected' : ''}
-              >
-                {text}
-              </button>
+              >{text}</button>
             ))}
           </div>
         </>
@@ -116,9 +101,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
                 key={index} 
                 onClick={() => handleButtonClick(text)} 
                 className={selectedButton === text ? 'selected' : ''}
-              >
-                {text}
-              </button>
+              >{text}</button>
             ))}
           </div>
           <div className="buttons-row">
@@ -127,9 +110,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
                 key={index} 
                 onClick={() => handleButtonClick(text)} 
                 className={selectedButton === text ? 'selected' : ''}
-              >
-                {text}
-              </button>
+              >{text}</button>
             ))}
           </div>
         </>

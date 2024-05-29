@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [myTestsData, setMyTestsData] = useState([]); // Updated variable names
+  const [votes, setVotes] = useState({}); // Store votes as an object with image URLs as keys
 
   useEffect(() => {
     console.log('selectedImageContext:', selectedImage);
@@ -20,7 +21,12 @@ export const AppProvider = ({ children }) => {
   const addVote = (image, category) => {
     const newVote = { image, category };
     setMyTestsData(prevData => [...prevData, newVote]);
+    setVotes(prevVotes => ({
+      ...prevVotes,
+      [image]: (prevVotes[image] || 0) + 1
+    }));
     console.log('myTestsData:', [...myTestsData, newVote]); // Log the updated votes array
+    console.log('votes:', { ...votes, [image]: (votes[image] || 0) + 1 });
   };
 
   return (
@@ -32,6 +38,7 @@ export const AppProvider = ({ children }) => {
         setSelectedCategory,
         addVote, // Provide addVote function
         myTestsData, // Provide myTestsData to consumers
+        votes // Provide votes to consumers
       }}
     >
       {children}
