@@ -1343,10 +1343,10 @@ button:hover {
   }
   
   .image-card-container {
-    padding: 15px;
+    padding: 9px;
     font-family: 'Roboto', sans-serif;
     transition: box-shadow 0.3s ease; /* Add transition for smooth effect */
-    width: 20%;
+    width: 21%;
     border: solid 1px rgb(231, 224, 224);
     display: flex; /* Use flexbox for centering */
     flex-direction: column; /* Align items vertically */
@@ -1364,7 +1364,7 @@ button:hover {
     }
 
     img {
-      width: 200px;
+      width: 213px;
       height: 250px;
       margin: auto; /* Center the image horizontally */
     }
@@ -1376,7 +1376,8 @@ button:hover {
       span {
         margin-top: 12.5px;
         padding: 5px 27.8px;
-        background-color: #0077b5;
+        background-color: #393f4f;
+        color: white;
         // width: 57px;
         font-size: 11px;
       }

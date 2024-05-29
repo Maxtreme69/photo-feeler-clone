@@ -3,7 +3,7 @@ import React from 'react';
 const ProgressBar = ({ value, color }) => {
   const containerStyles = {
     height: 10,
-    width: '200px',
+    width: '214px',
     backgroundColor: '#f0f8fa',
     borderRadius: 50,
     marginTop: 5,
