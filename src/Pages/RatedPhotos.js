@@ -25,11 +25,24 @@ const RatedPhotos = () => {
     submissionDataList.forEach(data => {
       if (data.selectedCategory === selectedCategory.toLowerCase()) {
         voteCounts[data.selectedOption] = (voteCounts[data.selectedOption] || 0) + 1;
+
         if (!ratingsMap[data.selectedOption]) {
-          ratingsMap[data.selectedOption] = data.selections;
+          ratingsMap[data.selectedOption] = { ...data.selections };
+        } else {
+          // Accumulate ratings for each property
+          for (const key in data.selections) {
+            ratingsMap[data.selectedOption][key] += data.selections[key];
+          }
         }
       }
     });
+
+    // Calculate average ratings
+    for (const image in ratingsMap) {
+      for (const key in ratingsMap[image]) {
+        ratingsMap[image][key] = ratingsMap[image][key] / voteCounts[image];
+      }
+    }
 
     return { voteCounts, ratingsMap };
   };
