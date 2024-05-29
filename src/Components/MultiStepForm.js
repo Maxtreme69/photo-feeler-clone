@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// src/components/MultiStepForm.js
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../Context/AppContext';
 import ImageGrid from './ImageGrid';
 import Category from './Category';
 import Business from '../Details/Business';
@@ -7,12 +9,10 @@ import Social from '../Details/Social';
 import TestSize from './TestSize';
 import ImageSection from './ImageSection';
 import ImageSectionVote from './ImageSectionVote';
-// import CommentComponent from './CommentComponent';
 
 function MultiStepForm() {
+  const { selectedImage, setSelectedImage, selectedCategory, setSelectedCategory, addVote } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('DATING'); // Default to 'DATING'
   const [activeButton, setActiveButton] = useState('DATING');
   const [businessTitle, setBusinessTitle] = useState('');
   const [socialTitle, setSocialTitle] = useState('');
@@ -60,7 +60,7 @@ function MultiStepForm() {
   };
 
   const handleVoteClick = () => {
-    // Perform any necessary vote submission logic here
+    addVote(selectedImage, selectedCategory);
     console.log('Vote submitted');
   };
 
@@ -68,11 +68,6 @@ function MultiStepForm() {
     setShowImageSectionVote(true);
     console.log('Vote submitted');
   };
-
-  // const handleClickFromComment = (content) => {
-  //   console.log('Clicked content:', content);
-  //   handleSubmit();
-  // };
 
   return (
     <div className="multi-step-form">
@@ -110,8 +105,8 @@ function MultiStepForm() {
               setRectangles={setRectangles}
               setSelectedImage={setSelectedImage}
               handleStepChange={handleStepChange}
-            />          
-        </div>
+            />
+          </div>
         )}
         {currentStep === 2 && (
           <div className="category-container">
@@ -173,11 +168,10 @@ function MultiStepForm() {
               <ImageSectionVote 
                 activeButton={activeButton}
                 selectedGender={selectedGender}
-                onSubmit={handleSubmit} // Ensure handleSubmit is passed here
+                onSubmit={handleSubmit}
               />
             )}
             <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
-            {/* <CommentComponent onSubmit={handleSubmit} /> */}
           </div>
         )}
       </div>

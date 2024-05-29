@@ -12,6 +12,7 @@ import Vote from './Pages/Vote';
 import { SubmissionDataProvider } from './Context/SubmissionDataContext'; // Import the SubmissionDataProvider
 import { RectanglesProvider } from './Context/RectanglesContext'; // Import RectanglesProvider
 import CardFlip from './Components/CardFlip';
+import { AppProvider } from './Context/AppContext'; // Import AppProvider
 
 function App() {
   const [submissionData, setSubmissionData] = useState(null);
@@ -25,19 +26,21 @@ function App() {
       <div className="App">
         <div className="navbar-container">
           <Navbar />
-          <SubmissionDataProvider>
-            <RectanglesProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Grid />} />
-                <Route path="/my-tests" element={<MyTests />} />
-                <Route path="/cardflip" element={<CardFlip />} />
-                <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
-                <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
-              </Routes>
-            </RectanglesProvider>
-          </SubmissionDataProvider>
+          <AppProvider>
+            <SubmissionDataProvider>
+              <RectanglesProvider>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Grid />} />
+                  <Route path="/my-tests" element={<MyTests />} />
+                  <Route path="/cardflip" element={<CardFlip />} />
+                  <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
+                  <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
+                </Routes>
+              </RectanglesProvider>
+            </SubmissionDataProvider>
+          </AppProvider>
         </div>
         <Footer />
       </div>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import CustomDropdown from './CustomDropdown';
 import CommentComponent from './CommentComponent';
 import Rating from './Rating';
-import { images } from '../ImageImports'; // Import images object
+import { AppContext } from '../Context/AppContext'; // Import AppContext
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
+  const { myTestsData } = useContext(AppContext); // Access myTestsData from context
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -68,11 +69,21 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       availableImages = imagesContext.keys().filter((key) => key.startsWith(`./${category.toLowerCase()}`));
     }
 
+    // Convert myTestsData images to object URLs and filter by category
+    const myTestsDataImages = myTestsData
+      .filter(item => item.category.toLowerCase() === category.toLowerCase())
+      .map(item => URL.createObjectURL(item.image));
+
+    availableImages = [...availableImages, ...myTestsDataImages];
+
     const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
     if (unusedImages.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
     console.log("image", unusedImages);
-    return imagesContext(unusedImages[randomIndex]);
+
+    const selectedImage = unusedImages[randomIndex];
+    // If selectedImage is a file object URL, we don't need to resolve it with imagesContext
+    return selectedImage.startsWith('blob:') ? selectedImage : imagesContext(selectedImage);
   };
 
   const handleOptionSelect = (option) => {
@@ -146,6 +157,21 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             handleFlip={handleFlip} // Pass the handleFlip function as a prop
           />
         </div>
+      </div>
+
+      <div>
+        <h3>Image Array from AppContext:</h3>
+        <ul>
+          {myTestsData.map((data, index) => {
+            const imageUrl = URL.createObjectURL(data.image); // Create object URL for the image file
+            return (
+              <li key={index}>
+                <img src={imageUrl} alt={`Image ${index}`} style={{ width: '100px', height: '100px', marginRight: '10px' }} />
+                <span>{data.category}</span>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
