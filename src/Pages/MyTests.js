@@ -1,8 +1,8 @@
 // MyTests.jsx
 import React, { useState } from 'react';
-import DropdownButton from '../Components/DropDownButton';
+import DropdownButton from '../Components/DropDownButton.js';
 import { FaQuestionCircle } from 'react-icons/fa'; // Import Font Awesome icons
-import MultiStepForm from '../Components/MultiStepForm';
+import MultiStepForm from '../Components/MultiStepForm.js';
 import '../App.scss'; // Import CSS file for styling
 
 function MyTests() {

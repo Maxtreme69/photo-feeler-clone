@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import ImageCardComponent from '../Components/ImageCardComponent';
-import CustomDropdown from '../Components/CustomDropdown';
-import { SubmissionDataContext } from '../Context/SubmissionDataContext';
-import CommentComponent from '../Components/CommentComponent';
+import ImageCardComponent from '../Components/ImageCardComponent.js';
+import CustomDropdown from '../Components/CustomDropdown.js';
+import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
+import CommentComponent from '../Components/CommentComponent.js';
 
 const RatedPhotos = () => {
   const [selectedCategory, setSelectedCategory] = useState('dating');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImageSectionVote from '../Components/ImageSectionVote';
+import ImageSectionVote from '../Components/ImageSectionVote.js';
 import { FaQuestionCircle } from 'react-icons/fa';
 
 const Vote = ({ onSubmission }) => {

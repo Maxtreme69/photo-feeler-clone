@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Navbar from './Components/Navbar';
-import Home from './Pages/Home';
-import Login from './Pages/Login';
-import Grid from './Pages/Grid';
-import MyTests from './Pages/MyTests';
-import Footer from './Components/Footer';
+import Navbar from './Components/Navbar.js';
+import Home from './Pages/Home.js';
+import Login from './Pages/Login.js';
+import Grid from './Pages/Grid.js';
+import MyTests from './Pages/MyTests.js';
+import Footer from './Components/Footer.js';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RatedPhotos from './Pages/RatedPhotos';
-import Vote from './Pages/Vote';
-import { SubmissionDataProvider } from './Context/SubmissionDataContext'; // Import the SubmissionDataProvider
-import { RectanglesProvider } from './Context/RectanglesContext'; // Import RectanglesProvider
-import CardFlip from './Components/CardFlip';
-import { AppProvider } from './Context/AppContext'; // Import AppProvider
+import RatedPhotos from './Pages/RatedPhotos.js';
+import Vote from './Pages/Vote.js';
+import { SubmissionDataProvider } from './Context/SubmissionDataContext.js'; // Import the SubmissionDataProvider
+import { RectanglesProvider } from './Context/RectanglesContext.js'; // Import RectanglesProvider
+import CardFlip from './Components/CardFlip.js';
+import { AppProvider } from './Context/AppContext.js'; // Import AppProvider
 
 function App() {
   const [submissionData, setSubmissionData] = useState(null);

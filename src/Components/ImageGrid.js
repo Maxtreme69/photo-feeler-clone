@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FaUpload, FaTrash } from 'react-icons/fa'; // Import Font Awesome icons
-import { RectanglesContext } from '../Context/RectanglesContext';
+import { RectanglesContext } from '../Context/RectanglesContext.js';
 
 function ImageGrid({ setSelectedImage, handleStepChange }) {
   const { rectangles, setRectangles } = useContext(RectanglesContext);

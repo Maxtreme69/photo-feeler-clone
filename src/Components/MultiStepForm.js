@@ -1,14 +1,14 @@
 // src/components/MultiStepForm.js
 import React, { useState, useContext } from 'react';
-import { AppContext } from '../Context/AppContext';
-import ImageGrid from './ImageGrid';
-import Category from './Category';
-import Business from '../Details/Business';
-import Dating from '../Details/Dating';
-import Social from '../Details/Social';
-import TestSize from './TestSize';
-import ImageSection from './ImageSection';
-import ImageSectionVote from './ImageSectionVote';
+import { AppContext } from '../Context/AppContext.js';
+import ImageGrid from './ImageGrid.js';
+import Category from './Category.js';
+import Business from '../Details/Business.js';
+import Dating from '../Details/Dating.js';
+import Social from '../Details/Social.js';
+import TestSize from './TestSize.js';
+import ImageSection from './ImageSection.js';
+import ImageSectionVote from './ImageSectionVote.js';
 
 function MultiStepForm() {
   const { selectedImage, setSelectedImage, selectedCategory, setSelectedCategory, addVote } = useContext(AppContext);

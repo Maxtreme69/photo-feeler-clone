@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
-import { ActiveTest } from './ActiveTest';
+import { ActiveTest } from './ActiveTest.js';
 
 const TestSize = ({ handleVoteClick }) => { // Add handleVoteClick prop
   const [isActive, setIsActive] = useState(false);

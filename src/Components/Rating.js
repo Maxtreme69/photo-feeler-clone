@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import RatingButtonComponent from './RatingButtonComponent';
+import RatingButtonComponent from './RatingButtonComponent.js';
 
 const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) => {
   const initialSelections = {

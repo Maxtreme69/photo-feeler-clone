@@ -1,5 +1,5 @@
 import React from 'react';
-import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar.js';
 
 const ImageCardComponent = ({ image, category, ratings, className  }) => {
   const renderRatings = () => {

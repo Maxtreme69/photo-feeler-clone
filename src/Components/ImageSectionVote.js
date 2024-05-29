@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import CustomDropdown from './CustomDropdown';
-import CommentComponent from './CommentComponent';
-import Rating from './Rating';
-import { AppContext } from '../Context/AppContext'; // Import AppContext
+import CustomDropdown from './CustomDropdown.js';
+import CommentComponent from './CommentComponent.js';
+import Rating from './Rating.js';
+import { AppContext } from '../Context/AppContext.js'; // Import AppContext
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
   const { myTestsData } = useContext(AppContext); // Access myTestsData from context

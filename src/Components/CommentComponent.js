@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
-import { SubmissionDataContext } from '../Context/SubmissionDataContext';
+import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 
 const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip }) => {
   const [activeTab, setActiveTab] = useState(1);

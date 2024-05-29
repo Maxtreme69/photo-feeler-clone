@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { images } from '../ImageImports'; // Import images object
+import { images } from '../ImageImports.js'; // Import images object
 
 const CardFlip = () => {
   const [angle, setAngle] = useState(0);
