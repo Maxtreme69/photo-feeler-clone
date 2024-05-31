@@ -6,13 +6,43 @@ import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 const RatedPhotos = () => {
   const [selectedCategory, setSelectedCategory] = useState('dating');
   const { submissionDataList } = useContext(SubmissionDataContext);
+  const [hashedDataList, setHashedDataList] = useState([]);
+
+  const generateHash = async (blobUrl) => {
+    const response = await fetch(blobUrl);
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+  };
 
   useEffect(() => {
-    const selectedData = submissionDataList.find(data => data.selectedCategory === selectedCategory.toLowerCase());
+    const hashImages = async () => {
+      const updatedDataList = await Promise.all(submissionDataList.map(async (data) => {
+        if (data.selectedOption.startsWith('blob:')) {
+          const hash = await generateHash(data.selectedOption);
+          return { ...data, hash };
+        }
+        return { ...data, hash: data.selectedOption };
+      }));
+      setHashedDataList(updatedDataList);
+    };
+
+    hashImages();
+  }, [submissionDataList]);
+
+  useEffect(() => {
+    console.log('submissionDataList:', submissionDataList);
+  }, [submissionDataList]);
+
+  useEffect(() => {
+    const selectedData = hashedDataList.find(data => data.selectedCategory === selectedCategory.toLowerCase());
     if (selectedData) {
       setSelectedCategory(selectedData.selectedCategory);
     }
-  }, [selectedCategory, submissionDataList]);
+  }, [selectedCategory, hashedDataList]);
 
   const handleCategorySelect = (selectedOption) => {
     setSelectedCategory(selectedOption.toLowerCase());
@@ -21,33 +51,38 @@ const RatedPhotos = () => {
   const getVoteCountsAndRatings = () => {
     const voteCounts = {};
     const ratingsMap = {};
+    const imageMap = {};
 
-    submissionDataList.forEach(data => {
+    hashedDataList.forEach(data => {
       if (data.selectedCategory === selectedCategory.toLowerCase()) {
-        voteCounts[data.selectedOption] = (voteCounts[data.selectedOption] || 0) + 1;
+        const normalizedOption = data.hash;
 
-        if (!ratingsMap[data.selectedOption]) {
-          ratingsMap[data.selectedOption] = { ...data.selections };
+        voteCounts[normalizedOption] = (voteCounts[normalizedOption] || 0) + 1;
+
+        if (!ratingsMap[normalizedOption]) {
+          ratingsMap[normalizedOption] = { ...data.selections };
         } else {
-          // Accumulate ratings for each property
           for (const key in data.selections) {
-            ratingsMap[data.selectedOption][key] += data.selections[key];
+            ratingsMap[normalizedOption][key] += data.selections[key];
           }
+        }
+
+        if (!imageMap[normalizedOption]) {
+          imageMap[normalizedOption] = data.selectedOption;
         }
       }
     });
 
-    // Calculate average ratings
     for (const image in ratingsMap) {
       for (const key in ratingsMap[image]) {
         ratingsMap[image][key] = ratingsMap[image][key] / voteCounts[image];
       }
     }
 
-    return { voteCounts, ratingsMap };
+    return { voteCounts, ratingsMap, imageMap };
   };
 
-  const { voteCounts, ratingsMap } = getVoteCountsAndRatings();
+  const { voteCounts, ratingsMap, imageMap } = getVoteCountsAndRatings();
 
   return (
     <div>
@@ -58,12 +93,12 @@ const RatedPhotos = () => {
           onOptionSelect={handleCategorySelect}
         />
       </div>
-      {submissionDataList.length > 0 && (
+      {hashedDataList.length > 0 && (
         <div className="image-cards" style={{ marginTop: '20px' }}>
           {Object.keys(voteCounts).map((image, index) => (
             <ImageCardComponent
               key={`${image}-${selectedCategory}`}
-              image={image}
+              image={imageMap[image]}
               category={selectedCategory.toUpperCase()}
               ratings={ratingsMap[image]}
               votes={voteCounts[image]}
