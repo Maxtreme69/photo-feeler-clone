@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ImageCardComponent from '../Components/ImageCardComponent.js';
 import CustomDropdown from '../Components/CustomDropdown.js';
+import Modal from '../Components/Modal.js';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 
 const RatedPhotos = () => {
   const [selectedCategory, setSelectedCategory] = useState('dating');
   const { submissionDataList } = useContext(SubmissionDataContext);
   const [hashedDataList, setHashedDataList] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -84,6 +87,17 @@ const RatedPhotos = () => {
 
   const { voteCounts, ratingsMap, imageMap } = getVoteCountsAndRatings();
 
+  const handleImageClick = (image) => {
+    console.log('Image clicked:', image);
+    setSelectedImage(image);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedImage(null);
+  };
+
   return (
     <div>
       <div style={{ width: '267px', padding: '20px 0 0 20px' }}>
@@ -103,10 +117,14 @@ const RatedPhotos = () => {
               ratings={ratingsMap[image]}
               votes={voteCounts[image]}
               className="image-card"
+              onClick={() => handleImageClick(imageMap[image])}
             />
           ))}
         </div>
       )}
+      <Modal isVisible={isModalVisible} onClose={closeModal} image={selectedImage}>
+        <div>Selected Image: {selectedImage}</div>
+      </Modal>
     </div>
   );
 };

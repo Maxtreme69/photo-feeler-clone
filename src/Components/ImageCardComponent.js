@@ -1,9 +1,8 @@
 import React from 'react';
 import ProgressBar from './ProgressBar.js';
 
-const ImageCardComponent = ({ image, category, ratings, votes, className }) => {
+const ImageCardComponent = ({ image, category, ratings, votes, className, onClick }) => {
   const formatRating = (value) => {
-    // Divide the rating by 10 and round to one decimal place
     return (value / 10).toFixed(1);
   };
 
@@ -12,87 +11,38 @@ const ImageCardComponent = ({ image, category, ratings, votes, className }) => {
       return <div>No ratings available</div>;
     }
 
-    const renderRatingRow = (label, value) => (
-      <div>
-        <ProgressBar value={value} color="#1eb771" />
+    const renderRatingRow = (label, value, color) => (
+      <div key={label}>
+        <ProgressBar value={value} color={color} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span>{label}</span> <span>{formatRating(value)}</span>
         </div>
       </div>
     );
 
-    switch (category.toLowerCase()) {
-      case 'dating':
-        return (
-          <>
-            {renderRatingRow('SMART', ratings.smart)}
-            <div>
-              <ProgressBar value={ratings.trustworthy} color="#547fd6" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>TRUSTWORTHY</span> <span>{formatRating(ratings.trustworthy)}</span>
-              </div>
-            </div>
-            <div>
-              <ProgressBar value={ratings.attractive} color="#ef6324" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>ATTRACTIVE</span> <span>{formatRating(ratings.attractive)}</span>
-              </div>
-            </div>
-          </>
-        );
-      case 'social':
-        return (
-          <>
-            <div>
-              <ProgressBar value={ratings.confident} color="#1eb771" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>CONFIDENT</span> <span>{formatRating(ratings.confident)}</span>
-              </div>
-            </div>
-            <div>
-              <ProgressBar value={ratings.authentic} color="#547fd6" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>AUTHENTIC</span> <span>{formatRating(ratings.authentic)}</span>
-              </div>
-            </div>
-            <div>
-              <ProgressBar value={ratings.fun} color="#ef6324" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>FUN</span> <span>{formatRating(ratings.fun)}</span>
-              </div>
-            </div>
-          </>
-        );
-      case 'business':
-        return (
-          <>
-            <div>
-              <ProgressBar value={ratings.competent} color="#1eb771" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>COMPETENT</span> <span>{formatRating(ratings.competent)}</span>
-              </div>
-            </div>
-            <div>
-              <ProgressBar value={ratings.likable} color="#547fd6" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>LIKABLE</span> <span>{formatRating(ratings.likable)}</span>
-              </div>
-            </div>
-            <div>
-              <ProgressBar value={ratings.influential} color="#ef6324" />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>INFLUENTIAL</span> <span>{formatRating(ratings.influential)}</span>
-              </div>
-            </div>
-          </>
-        );
-      default:
-        return null;
-    }
+    const ratingsMap = {
+      dating: [
+        { label: 'SMART', value: ratings.smart, color: '#1eb771' },
+        { label: 'TRUSTWORTHY', value: ratings.trustworthy, color: '#547fd6' },
+        { label: 'ATTRACTIVE', value: ratings.attractive, color: '#ef6324' },
+      ],
+      social: [
+        { label: 'CONFIDENT', value: ratings.confident, color: '#1eb771' },
+        { label: 'AUTHENTIC', value: ratings.authentic, color: '#547fd6' },
+        { label: 'FUN', value: ratings.fun, color: '#ef6324' },
+      ],
+      business: [
+        { label: 'COMPETENT', value: ratings.competent, color: '#1eb771' },
+        { label: 'LIKABLE', value: ratings.likable, color: '#547fd6' },
+        { label: 'INFLUENTIAL', value: ratings.influential, color: '#ef6324' },
+      ],
+    };
+
+    return ratingsMap[category.toLowerCase()].map(({ label, value, color }) => renderRatingRow(label, value, color));
   };
 
   return (
-    <div className='image-card-container'>
+    <div className={`image-card-container ${className}`} onClick={onClick}>
       <img src={image} alt={category} />
       <div className="image-card-details-container">
         <div className="card-category-votes-title">
