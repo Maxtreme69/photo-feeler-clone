@@ -15,7 +15,6 @@ export const ActiveTest = ({ onVoteClick }) => {
     <div className="active-test-container">
       {!showRating && (
         <>
-          <MultiStepFormActiveTest />
           <div className="active-test-sub-container">
             <h2 className="active-test-heading">Your test is now active!</h2>
             <h2 className="active-test-subheading">

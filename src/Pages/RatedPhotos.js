@@ -10,6 +10,7 @@ const RatedPhotos = () => {
   const [hashedDataList, setHashedDataList] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageRatings, setSelectedImageRatings] = useState(null);
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -87,15 +88,17 @@ const RatedPhotos = () => {
 
   const { voteCounts, ratingsMap, imageMap } = getVoteCountsAndRatings();
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image, ratings) => {
     console.log('Image clicked:', image);
     setSelectedImage(image);
+    setSelectedImageRatings(ratings);
     setIsModalVisible(true);
   };
 
   const closeModal = () => {
     setIsModalVisible(false);
     setSelectedImage(null);
+    setSelectedImageRatings(null);
   };
 
   return (
@@ -117,14 +120,20 @@ const RatedPhotos = () => {
               ratings={ratingsMap[image]}
               votes={voteCounts[image]}
               className="image-card"
-              onClick={() => handleImageClick(imageMap[image])}
+              onClick={() => handleImageClick(imageMap[image], ratingsMap[image])}
             />
           ))}
         </div>
       )}
-      <Modal isVisible={isModalVisible} onClose={closeModal} image={selectedImage}>
-        <div>Selected Image: {selectedImage}</div>
-      </Modal>
+      {isModalVisible && (
+        <Modal
+          isVisible={isModalVisible}
+          onClose={closeModal}
+          image={selectedImage}
+          ratings={selectedImageRatings}
+          category={selectedCategory}
+        />
+      )}
     </div>
   );
 };
