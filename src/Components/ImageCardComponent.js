@@ -13,7 +13,7 @@ const ImageCardComponent = ({ image, category, ratings, votes, className, onClic
 
     const renderRatingRow = (label, value, color) => (
       <div key={label}>
-        <ProgressBar value={value} color={color} />
+        <ProgressBar value={value} height={10} width={214} color={color} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span>{label}</span> <span>{formatRating(value)}</span>
         </div>

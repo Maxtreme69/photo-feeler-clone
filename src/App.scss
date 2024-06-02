@@ -1448,4 +1448,28 @@ button:hover {
   cursor: pointer;
 }
 
+// Triangle descriptionSpan
+.description {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 5px;
+  transform: translateX(-50%);
+  top: 5px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black; /* Triangle pointing upwards */
+  position: relative;
+  bottom: 25px
+}
+
+
+
 
