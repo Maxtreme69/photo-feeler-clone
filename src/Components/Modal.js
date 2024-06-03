@@ -2,7 +2,7 @@ import React from 'react';
 import MultiStepFormActiveTest from './MultiStepFormActiveTest';
 import ProgressBar from './ProgressBar';
 
-const Modal = ({ isVisible, onClose, image, ratings, category }) => {
+const Modal = ({ isVisible, onClose, image, ratings, category, textareaContent }) => {
   if (!isVisible) return null;
 
   return (
@@ -13,7 +13,12 @@ const Modal = ({ isVisible, onClose, image, ratings, category }) => {
         </div>
         <div className="form-container">
           <button className="close-button" onClick={onClose}>X</button>
-          <MultiStepFormActiveTest ratings={ratings} category={category} />
+          <MultiStepFormActiveTest
+            image={image}
+            ratings={ratings}
+            category={category}
+            textareaContent={textareaContent}
+          />
         </div>
       </div>
     </div>

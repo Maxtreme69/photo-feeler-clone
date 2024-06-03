@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ProgressBar from './ProgressBar';
+import { SubmissionDataContext } from '../Context/SubmissionDataContext';
+import ImageCardComponent from './ImageCardComponent';
 
-const MultiStepFormActiveTest = ({ ratings, category }) => {
+const MultiStepFormActiveTest = ({ ratings, category, image }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { submissionDataList } = useContext(SubmissionDataContext);
+  const latestSubmission = submissionDataList[submissionDataList.length - 1];
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -47,8 +51,8 @@ const MultiStepFormActiveTest = ({ ratings, category }) => {
           <div>
             <span>{label} </span><span>{formatRating(value)}</span>
           </div>
-          <ProgressBar width={600} height={20} value={value} color={color} /> {/* Pass width prop */}
-          <div style={{ paddingBottom: '20px', position: 'relative' }}>
+          <ProgressBar width={600} height={25} value={value} color={color} /> {/* Pass width prop */}
+          <div style={{ paddingBottom: '35px', position: 'relative' }}>
             {descriptionSpan}
           </div>
         </div>
@@ -76,6 +80,9 @@ const MultiStepFormActiveTest = ({ ratings, category }) => {
     return ratingsMap[category.toLowerCase()].map(({ label, value, color }) => renderRatingRow(label, value, color));
   };
 
+  // Count the number of text area comments for the current image
+  const textAreaComments = submissionDataList.filter(submission => submission.selectedOption === image && submission.textareaContent);
+
   return (
     <div className="multi-step-form">
       <div className="step-list">
@@ -95,7 +102,7 @@ const MultiStepFormActiveTest = ({ ratings, category }) => {
           className={`step ${currentStep === 3 ? 'active' : ''}`}
           onClick={() => handleStepChange(3)}
         >
-          NOTES
+          NOTES <span style={{ color: 'orange' }}>({textAreaComments.length})</span>
         </div>
         <div
           className={`step ${currentStep === 4 ? 'active' : ''}`}
@@ -106,8 +113,7 @@ const MultiStepFormActiveTest = ({ ratings, category }) => {
       </div>
       <div className="step-content" style={{ paddingLeft: '30px' }}>
         {currentStep === 1 && (
-          <div>
-            <h2>Ratings</h2>
+          <div style={{ paddingTop: '50px' }}>
             {renderRatings()}
           </div>
         )}
@@ -115,7 +121,15 @@ const MultiStepFormActiveTest = ({ ratings, category }) => {
           <div>Step 2</div>
         )}
         {currentStep === 3 && (
-          <div>Step 3</div>
+          <div style={{ fontFamily: 'roboto', color: '#666'}}>
+            <p>
+              {textAreaComments.map((comment, index) => (
+                <div style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
+                  <span key={index}>"{comment.textareaContent}"</span>
+                </div>
+              ))}
+            </p>
+          </div>
         )}
         {currentStep === 4 && (
           <div>Step 4</div>

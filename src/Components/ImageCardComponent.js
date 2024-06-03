@@ -1,7 +1,7 @@
 import React from 'react';
-import ProgressBar from './ProgressBar.js';
+import ProgressBar from './ProgressBar';
 
-const ImageCardComponent = ({ image, category, ratings, votes, className, onClick }) => {
+const ImageCardComponent = ({ image, category, ratings, votes, textAreaContent, className, onClick }) => {
   const formatRating = (value) => {
     return (value / 10).toFixed(1);
   };
@@ -50,6 +50,9 @@ const ImageCardComponent = ({ image, category, ratings, votes, className, onClic
           <span id="span-votes">{votes} VOTES</span>
         </div>
         {renderRatings()}
+        <div className="textarea-content">
+          <p>{textAreaContent}</p>
+        </div>
       </div>
     </div>
   );
