@@ -1,3 +1,4 @@
+// In Modal component
 import React from 'react';
 import MultiStepFormActiveTest from './MultiStepFormActiveTest';
 import ProgressBar from './ProgressBar';
@@ -17,7 +18,7 @@ const Modal = ({ isVisible, onClose, image, ratings, category, textareaContent }
             image={image}
             ratings={ratings}
             category={category}
-            textareaContent={textareaContent}
+            textareaContent={textareaContent} // Pass textareaContent
           />
         </div>
       </div>

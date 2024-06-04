@@ -1,12 +1,35 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ProgressBar from './ProgressBar';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext';
 import ImageCardComponent from './ImageCardComponent';
 
-const MultiStepFormActiveTest = ({ ratings, category, image }) => {
+const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [hashedImage, setHashedImage] = useState(hash || null);
   const { submissionDataList } = useContext(SubmissionDataContext);
-  const latestSubmission = submissionDataList[submissionDataList.length - 1];
+
+  const generateHash = async (blobUrl) => {
+    const response = await fetch(blobUrl);
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+  };
+
+  useEffect(() => {
+    const hashBlobImage = async () => {
+      if (image.startsWith('blob:')) {
+        const imageHash = await generateHash(image);
+        setHashedImage(imageHash);
+      } else {
+        setHashedImage(image);
+      }
+    };
+
+    hashBlobImage();
+  }, [image]);
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -21,6 +44,24 @@ const MultiStepFormActiveTest = ({ ratings, category, image }) => {
     const minRating = 0;
     const maxRating = 100;
     return ((value - minRating) / (maxRating - minRating)) * maxLeft; // Scale value to progress bar width
+  };
+
+  const ratingsMap = {
+    dating: [
+      { label: 'Smart', value: ratings.smart, color: '#1eb771' },
+      { label: 'Trustworthy', value: ratings.trustworthy, color: '#547fd6' },
+      { label: 'Attractive', value: ratings.attractive, color: '#ef6324' },
+    ],
+    social: [
+      { label: 'Confident', value: ratings.confident, color: '#1eb771' },
+      { label: 'Authentic', value: ratings.authentic, color: '#547fd6' },
+      { label: 'Fun', value: ratings.fun, color: '#ef6324' },
+    ],
+    business: [
+      { label: 'Competent', value: ratings.competent, color: '#1eb771' },
+      { label: 'Likable', value: ratings.likable, color: '#547fd6' },
+      { label: 'Influential', value: ratings.influential, color: '#ef6324' },
+    ],
   };
 
   const renderRatings = () => {
@@ -59,29 +100,172 @@ const MultiStepFormActiveTest = ({ ratings, category, image }) => {
       );
     };
 
-    const ratingsMap = {
-      dating: [
-        { label: 'Smart', value: ratings.smart, color: '#1eb771' },
-        { label: 'Trustworthy', value: ratings.trustworthy, color: '#547fd6' },
-        { label: 'Attractive', value: ratings.attractive, color: '#ef6324' },
-      ],
-      social: [
-        { label: 'Confident', value: ratings.confident, color: '#1eb771' },
-        { label: 'Authentic', value: ratings.authentic, color: '#547fd6' },
-        { label: 'Fun', value: ratings.fun, color: '#ef6324' },
-      ],
-      business: [
-        { label: 'Competent', value: ratings.competent, color: '#1eb771' },
-        { label: 'Likable', value: ratings.likable, color: '#547fd6' },
-        { label: 'Influential', value: ratings.influential, color: '#ef6324' },
-      ],
-    };
-
     return ratingsMap[category.toLowerCase()].map(({ label, value, color }) => renderRatingRow(label, value, color));
   };
 
-  // Count the number of text area comments for the current image
-  const textAreaComments = submissionDataList.filter(submission => submission.selectedOption === image && submission.textareaContent);
+  const textAreaComments = submissionDataList.filter(submission => {
+    if (image.startsWith('blob:')) {
+      // For the current blob image, match by the image hash directly
+      return submission.selectedOption === image && submission.hash === hash && submission.textareaContent;
+    } else {
+      // For the current non-blob image, match by selectedOption (image URL)
+      return submission.selectedOption === image && submission.textareaContent;
+    }
+  });
+
+  const countSelections = (selectionsArray) => {
+    const counts = {};
+
+    selectionsArray.forEach(submission => {
+      Object.entries(submission.selections).forEach(([label, value]) => {
+        if (!counts[label]) {
+          counts[label] = { '0/No': 0, '1/SOMEWHAT': 0, '2/YES': 0, '3/VERY': 0 };
+        }
+        if (value === 0) {
+          counts[label]['0/No']++;
+        } else if (value === 33.33333) {
+          counts[label]['1/SOMEWHAT']++;
+        } else if (value === 66.66666) {
+          counts[label]['2/YES']++;
+        } else if (value === 99.99999) {
+          counts[label]['3/VERY']++;
+        }
+      });
+    });
+
+    console.log('Selection Counts:', counts);
+
+    return counts;
+  };
+
+  const imageSelections = submissionDataList.filter(submission => {
+    if (image.startsWith('blob:')) {
+      return submission.selectedOption === image && submission.hash === hash;
+    } else {
+      return submission.selectedOption === image;
+    }
+  });
+
+  console.log('imageSelections:', imageSelections);
+
+  const categorizedSelections = imageSelections.map(submission => ({
+    image: submission.selectedOption,
+    category,
+    selections: submission.selections,
+  }));
+
+  console.log('categorizedSelections:', categorizedSelections);
+
+  const selectionCounts = countSelections(categorizedSelections);
+
+  console.log('selectionCounts:', selectionCounts);
+
+  const renderRectangles = (count, color) => {
+    const rectangles = [];
+    for (let i = 0; i < count; i++) {
+      rectangles.push(
+        <div
+          key={i}
+          style={{
+            width: '150px',
+            height: '10px',
+            backgroundColor: color,
+            // marginBottom: '2px',
+            marginLeft: '2px',
+            marginRight: '2px',
+            border: `1px solid ${color}`
+          }}
+        />
+      );
+    }
+    return rectangles;
+  };
+
+  const renderSelectionCounts = () => {
+    return Object.entries(selectionCounts).map(([label, counts]) => {
+      // Determine the color based on the label
+      let color;
+      switch (label.toLowerCase()) {
+        //Dating category selection labels
+        case 'smart':
+          color = 'rgb(30, 183, 113)';
+          break;
+        case 'trustworthy':
+          color = 'rgb(84, 127, 214)';
+          break;
+        case 'attractive':
+          color = 'rgb(239, 99, 36)';
+          break;
+
+        //Social category selection labels
+        case 'confident':
+          color = 'rgb(243, 134, 52)';
+          break;
+        case 'authentic':
+          color = 'rgb(30, 183, 113)';
+          break;
+        case 'fun':
+          color = 'rgb(103, 54, 132)';
+          break;
+
+        //Business category selection labels
+        case 'competent':
+          color = 'rgb(84, 127, 214)';
+          break;
+        case 'likable':
+          color = 'rgb(244, 182, 7)';
+          break;
+        case 'influential':
+          color = 'rgb(222, 71, 58)';
+          break;
+
+        default:
+          color = '#ccc'; // Default color if label does not match
+          break;
+      }
+
+      const renderEmptyRectangle = () => {
+        return <div style={{ width: '150px', marginLeft: '2px', marginRight: '2px' }} />
+      }
+
+      return (
+        <div style={{ fontFamily: 'roboto', color: '#333', marginBottom: '20px' }} key={label}>
+          <label>{label.toUpperCase()}</label>
+
+          <div style={{ paddingLeft: '25px', textAlign: 'center', color: '#333' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+              <span style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center' }}>
+                <span style={{ color: '#949494', fontSize: '14px', marginTop: '5px' }}>0/NO</span>
+                <span style={{ display: 'flex', flexDirection: 'column-reverse' }}>{counts['0/No'] === 0 ? renderEmptyRectangle() : renderRectangles(counts['0/No'], color)}</span>
+                <span style={{ marginBottom: '3px' }}>{counts['0/No']} votes</span>
+              </span>
+
+              <span style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center' }}>
+                <span style={{ color: '#949494', fontSize: '14px', marginTop: '5px' }}>1/SOMEWHAT</span>
+                <span style={{ display: 'flex', flexDirection: 'column-reverse' }}>{counts['1/SOMEWHAT'] === 0 ? renderEmptyRectangle() : renderRectangles(counts['1/SOMEWHAT'], color)}</span>
+                <span style={{ marginBottom: '3px' }}>{counts['1/SOMEWHAT']} votes</span>
+              </span>
+
+              <span style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center' }}>
+                <span style={{ color: '#949494', fontSize: '14px', marginTop: '5px' }}>2/YES</span>
+                <span style={{ display: 'flex', flexDirection: 'column-reverse' }}>{counts['2/YES'] === 0 ? renderEmptyRectangle() : renderRectangles(counts['2/YES'], color)}</span>
+                <span style={{ marginBottom: '3px' }}>{counts['2/YES']} votes</span>
+              </span>
+
+              <span style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center' }}>
+                <span style={{ color: '#949494', fontSize: '14px', marginTop: '5px' }}>3/VERY</span>
+                <span style={{ display: 'flex', flexDirection: 'column-reverse' }}>{counts['3/VERY'] === 0 ? renderEmptyRectangle() : renderRectangles(counts['3/VERY'], color)}</span>
+                <span style={{ marginBottom: '3px' }}>{counts['3/VERY']} votes</span>
+              </span>
+
+              {/* Add the border div here */}
+              <div style={{ position: 'absolute', bottom: '20px', left: '0', width: '100%', borderTop: '2px solid rgb(51, 51, 51)' }}></div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  };
 
   return (
     <div className="multi-step-form">
@@ -95,6 +279,7 @@ const MultiStepFormActiveTest = ({ ratings, category, image }) => {
         <div
           className={`step ${currentStep === 2 ? 'active' : ''}`}
           onClick={() => handleStepChange(2)}
+          // style={{  paddingRight: '100px' }}
         >
           DATA
         </div>
@@ -111,29 +296,31 @@ const MultiStepFormActiveTest = ({ ratings, category, image }) => {
           IMAGE
         </div>
       </div>
-      <div className="step-content" style={{ paddingLeft: '30px' }}>
-        {currentStep === 1 && (
-          <div style={{ paddingTop: '50px' }}>
-            {renderRatings()}
-          </div>
-        )}
+
+      <div className="step-content" style={{ paddingTop: '25px' }}>
+
+        {currentStep === 1 && renderRatings()}
+
         {currentStep === 2 && (
-          <div>Step 2</div>
-        )}
-        {currentStep === 3 && (
-          <div style={{ fontFamily: 'roboto', color: '#666'}}>
-            <p>
-              {textAreaComments.map((comment, index) => (
-                <div style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
-                  <span key={index}>"{comment.textareaContent}"</span>
-                </div>
-              ))}
-            </p>
+          <div>
+            {renderSelectionCounts()}
           </div>
         )}
+
+        {currentStep === 3 && (
+          <div style={{ fontFamily: 'roboto', color: '#666' }}>
+            {textAreaComments.map((comment, index) => (
+              <div key={`${comment.selectedOption}-${index}`} style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
+                <span>"{comment.textareaContent}"</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {currentStep === 4 && (
           <div>Step 4</div>
         )}
+
       </div>
     </div>
   );
