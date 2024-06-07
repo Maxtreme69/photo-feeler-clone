@@ -51,6 +51,13 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     }, 450); // Delay to match the flip animation duration
   };
 
+  const handleSkipClick = () => {
+    setTextareaContent('');
+    setSelectedButton('');
+    setSubmitDisabled(false);
+    handleFlip();
+  };
+
   return (
     <div className="comment-component-container">
       <p>Leave a note <span>(optional)</span></p>
@@ -116,7 +123,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         </>
       )}
       <div className="button-container">
-        <div className="skip-button">
+        <div className="skip-button" onClick={handleSkipClick}>
           <FontAwesomeIcon icon={faForwardStep} />
           <p>Skip</p>
         </div>
