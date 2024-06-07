@@ -38,7 +38,10 @@ const SignUpForm = () => {
   };
 
   return (
+    <div>
+
     <div className="signup-form">
+        
       <h4>Email:</h4>
       <input type="email" value={email} onChange={handleEmailChange} />
       <h4>Password:</h4>
@@ -49,6 +52,9 @@ const SignUpForm = () => {
         <button onClick={handleSubmit}>Go</button>
       </div>
     </div>
+
+    </div>
+
   );
 }
 

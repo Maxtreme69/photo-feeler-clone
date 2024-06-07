@@ -84,10 +84,121 @@ $signup-button-text-color: #ffffff; // New variable for text color
 //   margin-left: 5%;
 // }
 
+// Home
+.home-container {
+  // display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: roboto;
+  justify-content: center;
+  height: 80vh;
+  // padding: 20px;
+  display: flex;
+
+
+  h6 {
+    color: inherit;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+}
+
+.how-it-works-text {
+  font-family: 'roboto';
+  font-size: 17px;
+  color: #525252;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+}
+
+.right-column {
+  // display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-main-text {
+  font-family: Value,sans-serif;
+  font-weight: 700;
+  font-size: 76px;
+  line-height: 1.05;
+  letter-spacing: -1.16px;
+  margin: 0;
+  padding-bottom: 15px;
+  color: #4120b9;
+  background: linear-gradient(300deg,#4120b9 0,#ab5eaf 100%);
+    background-clip: border-box;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-description-text {
+  font-family: roboto;
+  color: #555;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.home-bold {
+  font-weight: 500;
+  color: #000;
+}
+
+.test-photos-button {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 20px 0;
+  width: 263px;
+  height: 75px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#f47660 0,#e68b4c 100%);
+}
+
+.how-it-works-container {
+
+  // .p {
+  //   font-size: 93%;
+  // color: red;
+  // margin: 0;
+  // line-height: 1.6;
+  // }
+
+}
+
+.how-it-works-header {
+  font-size: 64px;
+  display: inline-block;
+  color: #eb787a;
+  background: linear-gradient(90deg,#f08b60 0,#e66595 100%);
+    background-clip: border-box;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
 /* SplitPage Styles */
 .signup-buttons {
   margin-bottom: 20px;
 }
+
+.sign-up-background {
+  background: linear-gradient(to bottom, #f08b60 0%, #ef8764 27%, #e66786 100%);
+}
+
 
 .facebook-button,
 .linkedin-button {
@@ -123,14 +234,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   border-color: $button-border-color;
 }
 
-// Home
-.home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-
 // GridComponent.scss
 .grid-container {
   display: flex;
@@ -148,7 +251,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 .grid-left {
-  background-color: red;
+  // background-color: red;
 }
 
 /* footer */
@@ -236,7 +339,6 @@ button:last-child {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding-top: 25px;
 }
 
 .social-login {
