@@ -88,9 +88,9 @@ $signup-button-text-color: #ffffff; // New variable for text color
 .home-container {
   // display: flex;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   font-family: roboto;
-  justify-content: center;
+  // justify-content: center;
   height: 80vh;
   // padding: 20px;
   display: flex;
@@ -190,6 +190,74 @@ $signup-button-text-color: #ffffff; // New variable for text color
   -webkit-text-fill-color: transparent;
   }
 
+.image-slider {
+  position: relative;
+  width: 300px; /* Adjust to your desired size */
+  height: 300px; /* Adjust to your desired size */
+}
+
+.image-container-slider {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1s, opacity 1s;
+}
+
+.image-container-slider:nth-child(1) {
+  bottom: 0px;
+}
+
+.image-container-slider:nth-child(2) {
+  bottom: -15px; /* Adjust to make it stick out */
+}
+
+.image-container-slider:nth-child(3) {
+  bottom: -30px; /* Adjust to make it stick out */
+}
+
+.image-container-slider:nth-child(4) {
+  bottom: -45px; /* Adjust to make it stick out */
+}
+
+/* Apply overflow: hidden only for the fourth image container */
+.image-slider:nth-child(4) {
+  overflow: hidden;
+}
+
+.fade-out {
+  animation: slideUpFadeOut 1s forwards;
+}
+
+.move-up-1 {
+  bottom: 0px !important;
+}
+
+.move-up-2 {
+  bottom: -15px !important;
+}
+
+.move-up-3 {
+  bottom: -30px !important;
+}
+
+.move-up-4 {
+  bottom: -45px !important;
+}
+
+@keyframes slideUpFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+  
 /* SplitPage Styles */
 .signup-buttons {
   margin-bottom: 20px;
@@ -198,7 +266,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
 .sign-up-background {
   background: linear-gradient(to bottom, #f08b60 0%, #ef8764 27%, #e66786 100%);
 }
-
 
 .facebook-button,
 .linkedin-button {
@@ -1500,6 +1567,7 @@ button:hover {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
+
 
 /* Modal.css */
 .modal-overlay {

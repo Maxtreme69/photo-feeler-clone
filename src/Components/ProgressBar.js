@@ -7,13 +7,14 @@ const ProgressBar = ({ value, height, width, color }) => {
     backgroundColor: '#f0f8fa',
     borderRadius: 50,
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    overflow: 'hidden',
   };
 
   const fillerStyles = {
     height: '100%',
     width: `${value}%`,
-    backgroundColor: color,
+    background: color,
     borderRadius: 'inherit',
     textAlign: 'right',
     transition: 'width 0.2s ease-in',

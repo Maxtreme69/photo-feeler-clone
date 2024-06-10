@@ -28,6 +28,7 @@ const Navbar = () => {
           {authenticated && <NavLink to="/rated-photos" className="navbar-item-styling">Rated Photos</NavLink>}
           {authenticated && <NavLink to="/my-tests" className="navbar-item-styling">My Tests</NavLink>}
           {authenticated && <NavLink to="/cardflip" className="navbar-item-styling">Card Flip</NavLink>}
+          {authenticated && <NavLink to="/image-slider" className="navbar-item-styling">Image Slider</NavLink>}
           {authenticated && <span onClick={handleLogout} className="navbar-item-styling">Logout</span>}
           {!authenticated && <NavLink to="/login" className="nav-link login">Login</NavLink>}
           {!authenticated && <NavLink to="/signup" className="nav-link signup">Sign Up</NavLink>}
