@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import DotGrid from '../Components/DotGrid.js';
 import ImageSlider from '../Components/ImageSlider.js';
 import ProgressBar from '../Components/ProgressBar.js';
@@ -31,6 +31,18 @@ const renderRatingRowMultiStepFrom = (label, value, color) => (
 function Home() {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
+  const [intervalId, setIntervalId] = useState(null);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrentStep((prevStep) => (prevStep === 3 ? 1 : prevStep + 1));
+    }, 4000);
+  
+    setIntervalId(id);
+  
+    return () => clearInterval(id);
+  }, []);
+  
 
   const textAreaComments = [
     { selectedOption: 'Comment1', textareaContent: 'Warm smile, good eye contact, I like her ' },
@@ -64,6 +76,7 @@ function Home() {
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
+    clearInterval(intervalId);
   };
 
   const { ratings, colors } = photosData[currentPhotoIndex];
@@ -101,7 +114,7 @@ function Home() {
               </div>
             </div>
 
-            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+            <div style={{display: 'flex', justifyContent: 'center', color: '#949494', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
 
@@ -124,7 +137,7 @@ function Home() {
                 <div style={{ width: '100px', height: '32.5px', backgroundColor: '#f4b607' }}></div>
               </div>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+            <div style={{display: 'flex', justifyContent: 'center', color: '#949494', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
 
@@ -147,7 +160,7 @@ function Home() {
                 <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
               </div>
             </div>
-            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+            <div style={{display: 'flex', justifyContent: 'center', color: '#949494', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
           </>
