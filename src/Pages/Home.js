@@ -79,7 +79,80 @@ function Home() {
           </>
         );
       case 2:
-        return <div>Data content goes here</div>;
+        return (
+          <>
+            <h3 style={{ marginTop: '10px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Competent</h3>
+            <div style={{ color: '#333', fontFamily: 'roboto', fontSize: '12px', borderBottom: '2px solid black', display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>0 VOTES</div>
+                <div style={{ width: '100px', height: '0', backgroundColor: '#547fd6' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>2 VOTES</div>
+                <div style={{ width: '100px', height: '9.25px', backgroundColor: '#547fd6' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>14 VOTES</div>
+                <div style={{ width: '100px', height: '65px', backgroundColor: '#547fd6' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>4 VOTES</div>
+                <div style={{ width: '100px', height: '18.66px', backgroundColor: '#547fd6' }}></div>
+              </div>
+            </div>
+
+            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+              <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
+            </div>
+
+            <h3 style={{ marginTop: '10px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Likable</h3>
+            <div style={{ color: '#333', fontFamily: 'roboto', fontSize: '12px', borderBottom: '2px solid black', display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>0 VOTES</div>
+                <div style={{ width: '100px', height: '0', backgroundColor: '#f4b607' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>2 VOTES</div>
+                <div style={{ width: '100px', height: '9.25px', backgroundColor: '#f4b607' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>11 VOTES</div>
+                <div style={{ width: '100px', height: '50px', backgroundColor: '#f4b607' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>7 VOTES</div>
+                <div style={{ width: '100px', height: '32.5px', backgroundColor: '#f4b607' }}></div>
+              </div>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+              <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
+            </div>
+
+            <h3 style={{ marginTop: '10px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Influential</h3>
+            <div style={{ color: '#333', fontFamily: 'roboto', fontSize: '12px', borderBottom: '2px solid black', display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>3 VOTES</div>
+                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>3 VOTES</div>
+                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>11 VOTES</div>
+                <div style={{ width: '100px', height: '50px', backgroundColor: '#1eb771' }}></div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div>3 VOTES</div>
+                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+              </div>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
+              <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
+            </div>
+          </>
+
+        ) 
       case 3:
         return (
           <div style={{ fontFamily: 'roboto', color: '#666' }}>
@@ -141,45 +214,87 @@ function Home() {
         </div>
       </div>
 
-      <div className="image-form-container" style={{ display: 'flex', justifyContent: 'center', borderRadius: '10px' }}>
-        <div style={{ fontFamily: 'roboto', padding: '20px' }}>
-          <div style={{textAlign: 'center', backgroundColor: '#393f4f', padding: '5px 0', color: 'white', fontSize: '15px', borderRadius: '2.5px' }}>BUSINESS</div>
-          <img src={businessImage1} style={{ width: '230px', height: '250px', paddingTop: '20px'}} alt="Business" />
-          <span className="context-label">TITLE</span>
-          <div>Accountant</div>
-        </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-        <div style={{ color: 'gray', height: '350px', margin: '20px 20px 100px 0', borderRight: '1px solid #ddd' }}></div>
+        <div className="image-form-container" style={{ display: 'flex', justifyContent: 'center', borderRadius: '10px' }}>
+          <div style={{ fontFamily: 'roboto', padding: '20px' }}>
+            <div style={{textAlign: 'center', backgroundColor: '#393f4f', padding: '5px 0', color: 'white', fontSize: '15px', borderRadius: '2.5px' }}>BUSINESS</div>
+            <img src={businessImage1} style={{ width: '230px', height: '250px', paddingTop: '20px'}} alt="Business" />
+            <span className="context-label">TITLE</span>
+            <div>Accountant</div>
+          </div>
 
-        <div>
-          <div className="multi-step-form">
-            <div style={{ width: '80%', marginTop: '20px' }} className="step-list">
-              <div
-                className={`step ${currentStep === 1 ? 'active' : ''}`}
-                onClick={() => handleStepChange(1)}
-              >
-                SCORES
-              </div>
-              <div
-                className={`step ${currentStep === 2 ? 'active' : ''}`}
-                onClick={() => handleStepChange(2)}
-              >
-                DATA
-              </div>
-              <div
-                className={`step ${currentStep === 3 ? 'active' : ''}`}
-                onClick={() => handleStepChange(3)}
-              >
-                NOTES
+          <div style={{ color: 'gray', height: '350px', margin: '20px 20px 100px 0', borderRight: '1px solid #ddd' }}></div>
+
+          <div>
+            <div className="multi-step-form">
+              <div style={{ width: '80%', marginTop: '20px' }} className="step-list">
+                <div
+                  className={`step ${currentStep === 1 ? 'active' : ''}`}
+                  onClick={() => handleStepChange(1)}
+                >
+                  SCORES
+                </div>
+                <div
+                  className={`step ${currentStep === 2 ? 'active' : ''}`}
+                  onClick={() => handleStepChange(2)}
+                >
+                  DATA
+                </div>
+                <div
+                  className={`step ${currentStep === 3 ? 'active' : ''}`}
+                  onClick={() => handleStepChange(3)}
+                >
+                  NOTES
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            {renderStepContent()}
+            <div>
+              {renderStepContent()}
+            </div>
           </div>
         </div>
 
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'normal' }}>
+          <div>
+            <div className="how-it-works-header-2">
+              Test. Improve. Repeat.
+            </div>
+            <div className="how-it-works-text">
+              <span>
+                Every pic is different. Test your<br/> photos, apply suggestions, and retest<br/> to gauge improvements
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div className="how-it-works-header-2">
+              The Power of Feedback
+            </div>
+            <div className="how-it-works-text">
+              <span>
+                Your input helps people land their<br/> dream job, attract their soulmate, and<br/> communicate their personality.
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div className="how-it-works-header-2">
+              Privacy & Control
+            </div>
+            <div className="how-it-works-text">
+              <span>
+              You decide exactly when your photos<br/> will be visible, to whome, and for how<br/> long.
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+
+
       </div>
+
     </div>
   );
 }

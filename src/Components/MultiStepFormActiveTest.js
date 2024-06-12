@@ -132,9 +132,7 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
         }
       });
     });
-
     console.log('Selection Counts:', counts);
-
     return counts;
   };
 
@@ -155,9 +153,7 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
   }));
 
   console.log('categorizedSelections:', categorizedSelections);
-
   const selectionCounts = countSelections(categorizedSelections);
-
   console.log('selectionCounts:', selectionCounts);
 
   const renderRectangles = (count, color) => {
