@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import DotGrid from '../Components/DotGrid.js';
 import ImageSlider from '../Components/ImageSlider.js';
 import ProgressBar from '../Components/ProgressBar.js';
-import MultiStepActiveForm from '../Components/MultiStepForm';
 import businessImage1 from '../images/business/photo-female-business-1.jpg';
 
 const formatRating = (value) => {
@@ -18,22 +17,44 @@ const renderRatingRow = (label, value, color) => (
   </div>
 );
 
+const renderRatingRowMultiStepFrom = (label, value, color) => (
+  <div key={label} style={{ marginBottom: '10px' }}>
+    <div>
+      <div style={{ color: '#333', lineHeight: '1.42', fontFamily: 'roboto', fontSize: '20px', marginTop: '30px' }}>
+        <span>{label}</span><span style={{}}>{formatRating(value)}</span>
+      </div>
+      <ProgressBar value={value} height={25} width={450} color={color} />
+    </div>
+  </div>
+);
+
 function Home() {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
 
+  const textAreaComments = [
+    { selectedOption: 'Comment1', textareaContent: 'Warm smile, good eye contact, I like her ' },
+    { selectedOption: 'Comment2', textareaContent: 'Great Photo!' },
+    { selectedOption: 'Comment3', textareaContent: 'Solid picture, although I wish it were a bit brighter!' },
+    { selectedOption: 'Comment4', textareaContent: 'Nice Smile :)' },
+    { selectedOption: 'Comment5', textareaContent: 'Looks friendly but also smart' },
+    { selectedOption: 'Comment6', textareaContent: 'Background is a little bit busy' },
+    { selectedOption: 'Comment7', textareaContent: 'You look very professional' },
+    { selectedOption: 'Comment8', textareaContent: 'Solid picture, although I wish it were a bit brighter!' },
+    { selectedOption: 'Comment9', textareaContent: 'You can be my accountant any day!' },
+    { selectedOption: 'Comment10', textareaContent: 'Photo is too dark!' }
+  ];
+
   const photosData = [
     {
-      ratings: { smart: 80, trustworthy: 70, attractive: 90 },
-      colors: ['linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)', 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)', 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)'],
+      ratings: { smart: 80, trustworthy: 70, attractive: 90, competent: 91, likable: 89, Influential: 77 },
+      colors: ['linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)', 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)', 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)', '#547fd6', '#f4b607', '#1eb771'],
     },
     {
       ratings: { smart: 65, trustworthy: 75, attractive: 85 },
-      colors: ['linear-gradient(90deg,#ffe9b3 0,#f38735 100%)'],
     },
     {
       ratings: { smart: 90, trustworthy: 60, attractive: 70 },
-      colors: ['linear-gradient(90deg,#fadb9e 0,#ef6525 100%)'],
     },
   ];
 
@@ -52,15 +73,23 @@ function Home() {
       case 1:
         return (
           <>
-            {renderRatingRow('SMART', ratings.smart, colors[0])}
-            {renderRatingRow('TRUSTWORTHY', ratings.trustworthy, colors[1])}
-            {renderRatingRow('ATTRACTIVE', ratings.attractive, colors[2])}
+            {renderRatingRowMultiStepFrom('Competent', ratings.competent, colors[3])}
+            {renderRatingRowMultiStepFrom('Likable', ratings.likable, colors[4])}
+            {renderRatingRowMultiStepFrom('Influential', ratings.Influential, colors[5])}
           </>
         );
       case 2:
         return <div>Data content goes here</div>;
       case 3:
-        return <div>Notes content goes here</div>;
+        return (
+          <div style={{ fontFamily: 'roboto', color: '#666' }}>
+            {textAreaComments.map((comment, index) => (
+              <div key={`${comment.selectedOption}-${index}`} style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
+                <span>"{comment.textareaContent}"</span>
+              </div>
+            ))}
+          </div>
+        );
       default:
         return null;
     }
@@ -112,13 +141,15 @@ function Home() {
         </div>
       </div>
 
-      <div className="image-form-container" style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: '230px', fontFamily: 'roboto', padding: '20px' }}>
-          <div style={{textAlign: 'center', backgroundColor: '#393f4f', padding: '5px 0', color: 'white', fontSize: '15px' }}>BUSINESS</div>
+      <div className="image-form-container" style={{ display: 'flex', justifyContent: 'center', borderRadius: '10px' }}>
+        <div style={{ fontFamily: 'roboto', padding: '20px' }}>
+          <div style={{textAlign: 'center', backgroundColor: '#393f4f', padding: '5px 0', color: 'white', fontSize: '15px', borderRadius: '2.5px' }}>BUSINESS</div>
           <img src={businessImage1} style={{ width: '230px', height: '250px', paddingTop: '20px'}} alt="Business" />
           <span className="context-label">TITLE</span>
           <div>Accountant</div>
         </div>
+
+        <div style={{ color: 'gray', height: '350px', margin: '20px 20px 100px 0', borderRight: '1px solid #ddd' }}></div>
 
         <div>
           <div className="multi-step-form">

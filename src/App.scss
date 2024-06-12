@@ -53,7 +53,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
 }
 
 .navbar-item-styling:hover {
-  background-color: lightgrey;
+  cursor: pointer;
 }
 
 .nav-link {
@@ -269,6 +269,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   background-color: white;
   margin: 20px;
   border-radius: 1%;
+  padding-right: 30px;
 }
 
 .context-label {
