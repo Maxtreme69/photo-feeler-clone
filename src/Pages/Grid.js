@@ -11,8 +11,8 @@ const Grid = () => {
       </div>
       </div>
       {/* <div className="grid-right"> */}
-      <div style={{margin: '50px'}}>
-        <div style={{marginRight: '250px', marginTop: '200px'}}>
+      <div>
+        <div style={{marginRight: '250px'}}>
           <SignUpForm />
         </div>
       </div>

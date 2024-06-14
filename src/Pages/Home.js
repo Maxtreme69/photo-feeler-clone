@@ -248,7 +248,15 @@ function Home() {
                 <h6>Get Started Rating Photos</h6>
               </div>
               <div>
-                <DotGrid dotColor="#924fb1" />
+                <DotGrid 
+                  dotColor="#924fb1" 
+                  dotWidthVal1={17} 
+                  dotWidthVal2={30} 
+                  dotHeightVal1={8} 
+                  dotHeightVal2={30} 
+                  backgroundSizeVal1={30} 
+                  backgroundSizeVal2={30} 
+                />
               </div>
             </div>
           </div>

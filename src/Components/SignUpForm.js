@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
-import '../App.scss';
+import DotGrid from './DotGrid';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -70,7 +70,18 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <div className="signup-form">
+      <div style={{margin: '5px'}}>
+        <DotGrid 
+          dotColor="#f08b60" 
+          dotWidthVal1={12} 
+          dotWidthVal2={20} 
+          dotHeightVal1={6} 
+          dotHeightVal2={20} 
+          backgroundSizeVal1={20} 
+          backgroundSizeVal2={20} 
+        />
+      </div>
+      <div className="signup-form" style={{ marginLeft: '30px', marginTop: '50px' }}>
         <h4>Email:</h4>
         <input type="email" value={email} onChange={handleEmailChange} />
         <h4>Password:</h4>
