@@ -24,7 +24,7 @@ const ImageSlider = () => {
 
         setIsAnimating(false);
       }, 1000); // Duration of the CSS animation
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);

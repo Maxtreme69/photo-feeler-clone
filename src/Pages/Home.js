@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import DotGrid from '../Components/DotGrid.js';
 import ImageSlider from '../Components/ImageSlider.js';
 import ProgressBar from '../Components/ProgressBar.js';
@@ -21,12 +21,55 @@ const renderRatingRowMultiStepFrom = (label, value, color) => (
   <div key={label} style={{ marginBottom: '10px' }}>
     <div>
       <div style={{ color: '#333', lineHeight: '1.42', fontFamily: 'roboto', fontSize: '20px', marginTop: '30px' }}>
-        <span>{label}</span><span style={{}}>{formatRating(value)}</span>
+        <span>{label}</span><span>{formatRating(value)}</span>
       </div>
       <ProgressBar value={value} height={25} width={450} color={color} />
     </div>
   </div>
 );
+
+//Image Slider Ratings
+const ratingData = [
+  // Dating
+  [
+    { label: 'SMART', value: 80, color: 'linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)' },
+    { label: 'TRUSTWORTHY', value: 70, color: 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)' },
+    { label: 'ATTRACTIVE', value: 90, color: 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)' },
+  ],
+  [
+    { label: 'SMART', value: 91, color: 'linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)' },
+    { label: 'TRUSTWORTHY', value: 89, color: 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)' },
+    { label: 'ATTRACTIVE', value: 77, color: 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)' },
+  ],
+  // Social
+  [
+    { label: 'CONFIDENT', value: 33, color: 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)' },
+    { label: 'AUTHENTIC', value: 46, color: 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)' },
+    { label: 'FUN', value: 95, color: 'linear-gradient(90deg,#fbc5fb 0,#9151b8 100%)' },
+  ],
+  // Business
+  [
+    { label: 'COMPETENT', value: 74, color: 'linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)' },
+    { label: 'LIKABLE', value: 50, color: 'linear-gradient(90deg,#fbf68d 0,#f2b407 100%)' },
+    { label: 'INFLUENTIAL', value: 82, color: 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)' },
+  ],
+];
+
+const labelData = [
+  [{ category: 'DATING', numberOfVotes: 20 }],
+  [{ category: 'DATING', numberOfVotes: 50 }],
+  [{ category: 'SOCIAL', numberOfVotes: 10 }],
+  [{ category: 'BUSINESS', numberOfVotes: 15 }]
+]
+
+// Image MultiStepForm Ratings
+const photosData = [
+  // Dating
+  {
+    ratings: { competent: 91, likable: 89, Influential: 77 },
+    colors: ['#547fd6', '#f4b607', '#1eb771'],
+  }
+];
 
 function Home() {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -34,6 +77,7 @@ function Home() {
   const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
+    console.log('PhotoData', photosData);
     const id = setInterval(() => {
       setCurrentStep((prevStep) => (prevStep === 3 ? 1 : prevStep + 1));
     }, 4000);
@@ -43,6 +87,9 @@ function Home() {
     return () => clearInterval(id);
   }, []);
   
+  const currentData = labelData[currentStep][0]; // Access the inner object directly
+  const category = currentData.category; // Access category from the inner object
+  const numberOfVotes = currentData.numberOfVotes; // Access numberOfVotes from the inner object
 
   const textAreaComments = [
     { selectedOption: 'Comment1', textareaContent: 'Warm smile, good eye contact, I like her ' },
@@ -55,19 +102,6 @@ function Home() {
     { selectedOption: 'Comment8', textareaContent: 'Solid picture, although I wish it were a bit brighter!' },
     { selectedOption: 'Comment9', textareaContent: 'You can be my accountant any day!' },
     { selectedOption: 'Comment10', textareaContent: 'Photo is too dark!' }
-  ];
-
-  const photosData = [
-    {
-      ratings: { smart: 80, trustworthy: 70, attractive: 90, competent: 91, likable: 89, Influential: 77 },
-      colors: ['linear-gradient(90deg,#bcf5f5 0,#537ed5 100%)', 'linear-gradient(90deg,#ffe9b3 0,#f38735 100%)', 'linear-gradient(90deg,#ccffc2 0,#1eb873 100%)', '#547fd6', '#f4b607', '#1eb771'],
-    },
-    {
-      ratings: { smart: 65, trustworthy: 75, attractive: 85 },
-    },
-    {
-      ratings: { smart: 90, trustworthy: 60, attractive: 70 },
-    },
   ];
 
   const handlePhotoChange = (index) => {
@@ -86,9 +120,9 @@ function Home() {
       case 1:
         return (
           <>
-            {renderRatingRowMultiStepFrom('Competent', ratings.competent, colors[3])}
-            {renderRatingRowMultiStepFrom('Likable', ratings.likable, colors[4])}
-            {renderRatingRowMultiStepFrom('Influential', ratings.Influential, colors[5])}
+            {renderRatingRowMultiStepFrom('Competent', ratings.competent, colors[0])}
+            {renderRatingRowMultiStepFrom('Likable', ratings.likable, colors[1])}
+            {renderRatingRowMultiStepFrom('Influential', ratings.Influential, colors[2])}
           </>
         );
       case 2:
@@ -118,84 +152,87 @@ function Home() {
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
 
-            <h3 style={{ marginTop: '10px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Likable</h3>
+            <h3 style={{ marginTop: '30px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Likable</h3>
             <div style={{ color: '#333', fontFamily: 'roboto', fontSize: '12px', borderBottom: '2px solid black', display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'flex-end' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div>0 VOTES</div>
                 <div style={{ width: '100px', height: '0', backgroundColor: '#f4b607' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>2 VOTES</div>
-                <div style={{ width: '100px', height: '9.25px', backgroundColor: '#f4b607' }}></div>
+                <div>1 VOTE</div>
+                <div style={{ width: '100px', height: '4.5px', backgroundColor: '#f4b607' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>11 VOTES</div>
-                <div style={{ width: '100px', height: '50px', backgroundColor: '#f4b607' }}></div>
+                <div>9 VOTES</div>
+                <div style={{ width: '100px', height: '41.65px', backgroundColor: '#f4b607' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>7 VOTES</div>
-                <div style={{ width: '100px', height: '32.5px', backgroundColor: '#f4b607' }}></div>
+                <div>4 VOTES</div>
+                <div style={{ width: '100px', height: '18.66px', backgroundColor: '#f4b607' }}></div>
               </div>
             </div>
+
             <div style={{display: 'flex', justifyContent: 'center', color: '#949494', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
 
-            <h3 style={{ marginTop: '10px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Influential</h3>
+            <h3 style={{ marginTop: '30px', marginBottom: '0px', fontFamily: 'roboto', color: '#333', fontSize: '19px', fontWeight: '400' }}>Influential</h3>
             <div style={{ color: '#333', fontFamily: 'roboto', fontSize: '12px', borderBottom: '2px solid black', display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'flex-end' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>3 VOTES</div>
-                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+                <div>0 VOTES</div>
+                <div style={{ width: '100px', height: '0', backgroundColor: '#1eb771' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>3 VOTES</div>
-                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+                <div>2 VOTES</div>
+                <div style={{ width: '100px', height: '9.25px', backgroundColor: '#1eb771' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>11 VOTES</div>
-                <div style={{ width: '100px', height: '50px', backgroundColor: '#1eb771' }}></div>
+                <div>14 VOTES</div>
+                <div style={{ width: '100px', height: '65px', backgroundColor: '#1eb771' }}></div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div>3 VOTES</div>
-                <div style={{ width: '100px', height: '14px', backgroundColor: '#1eb771' }}></div>
+                <div>4 VOTES</div>
+                <div style={{ width: '100px', height: '18.66px', backgroundColor: '#1eb771' }}></div>
               </div>
             </div>
+
             <div style={{display: 'flex', justifyContent: 'center', color: '#949494', fontFamily: 'roboto', fontSize: '12px', gap: '45px', marginTop: '3px' }}>
               <div>0 / NO</div><div>1 / SOMEWHAT</div><div style={{ marginRight: '25px' }}>2 / YES</div><div>3 / VERY</div>
             </div>
           </>
-
-        ) 
-      case 3:
-        return (
-          <div style={{ fontFamily: 'roboto', color: '#666' }}>
-            {textAreaComments.map((comment, index) => (
-              <div key={`${comment.selectedOption}-${index}`} style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
-                <span>"{comment.textareaContent}"</span>
-              </div>
-            ))}
-          </div>
         );
-      default:
-        return null;
-    }
-  };
+        case 3:
+          return (
+            <div style={{ fontFamily: 'roboto', color: '#666' }}>
+              {textAreaComments.map((comment, index) => (
+                <div key={`${comment.selectedOption}-${index}`} style={{ borderBottom: '1px solid lightgray', padding: '5px' }}>
+                  <span>"{comment.textareaContent}"</span>
+                </div>
+              ))}
+            </div>
+          );
+        default:
+          return null;
+      }
+    };
 
   return (
     <div>
-      <div className='home-container'>
-        <div style={{ marginTop: '10%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', width: '450px' }}>
-          <ImageSlider onPhotoChange={handlePhotoChange} />
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-            <div style={{ backgroundColor: '#393f4f', padding: '10px 60px', color: 'white', fontSize: '15px' }}>DATING</div>
-            <div style={{ color: '#a3a3a3', backgroundColor: '#f0f8fa', padding: '10px 40px', fontSize: '15px' }}><span style={{ color: '#333' }}>20</span> VOTES</div>
-          </div>
-          <div style={{ padding: '20px' }}>
-            {renderRatingRow('SMART', ratings.smart, colors[0])}
-            {renderRatingRow('TRUSTWORTHY', ratings.trustworthy, colors[1])}
-            {renderRatingRow('ATTRACTIVE', ratings.attractive, colors[2])}
-          </div>
+    <div className='home-container'>
+      <div style={{ marginTop: '10%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', width: '450px' }}>
+        <ImageSlider onPhotoChange={handlePhotoChange} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
+          <div style={{ backgroundColor: '#393f4f', padding: '10px 60px', color: 'white', fontSize: '15px' }}>{category}</div>
+          <div style={{ color: '#a3a3a3', backgroundColor: '#f0f8fa', padding: '10px 40px', fontSize: '15px' }}><span style={{ color: '#333' }}></span>{numberOfVotes} VOTES</div>
         </div>
+        <div style={{ padding: '20px' }}>
+          {ratingData[currentStep].map((item, index) => (
+            <React.Fragment key={index}>
+              {renderRatingRow(item.label, item.value, item.color)}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
 
         <div className='left-column'></div>
         <div className='right-column'>
@@ -303,11 +340,7 @@ function Home() {
           </div>
 
         </div>
-
-
-
       </div>
-
     </div>
   );
 }
