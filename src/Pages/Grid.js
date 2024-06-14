@@ -8,11 +8,13 @@ const Grid = () => {
     <div className="grid-container">
       <div className="grid-left">
       <div style={{ height: '1000px', width: '100%'}} className="sign-up-background">
-        car
       </div>
       </div>
-      <div className="grid-right">
-        <SignUpForm />
+      {/* <div className="grid-right"> */}
+      <div style={{margin: '50px'}}>
+        <div style={{marginRight: '250px', marginTop: '200px'}}>
+          <SignUpForm />
+        </div>
       </div>
     </div>
   );

@@ -34,10 +34,10 @@ const Login = () => {
         <div className="email-login">
           <div className="login-header">Email Login</div>
           <div className="input-group">
-            <input type="text" className="input-field" placeholder="Email" />
+            <input type="text-login" className="input-field" placeholder="Email" />
           </div>
           <div className="input-group">
-            <input type="password" className="input-field" placeholder="Password" />
+            <input type="password-login" className="input-field" placeholder="Password" />
           </div>
           <button className="login-button" onClick={handleSubmit}>Login</button>
         </div>
