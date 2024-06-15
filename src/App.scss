@@ -77,7 +77,6 @@ $signup-button-text-color: #ffffff; // New variable for text color
   background-color: rgb(173, 216, 230, 0.3); /* Change background color on hover */
 }
 
-
 // .signup {
 //   background-color: $signup-button-color;
 //   color: $signup-button-text-color; // Apply white text color
@@ -131,7 +130,7 @@ $signup-button-text-color: #ffffff; // New variable for text color
   padding-bottom: 15px;
   color: #4120b9;
   background: linear-gradient(300deg,#4120b9 0,#ab5eaf 100%);
-    background-clip: border-box;
+  background-clip: border-box;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -304,6 +303,40 @@ $signup-button-text-color: #ffffff; // New variable for text color
 
 .sign-up-background {
   background: linear-gradient(to bottom, #f08b60 0%, #ef8764 27%, #e66786 100%);
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.social-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px; /* Space between buttons */
+}
+
+.signup-social-media-button {
+  width: calc(100% - 50px);
+  max-width: 370px;
+  height: 56px;
+  margin-bottom: 25px;
+  font-weight: 500;
+  text-decoration: inherit;
+  color: #fff;
+  background-color: #617baf;
+  font-family: Roboto,sans-serif;
+  font-size: 17px;
+  line-height: 1.42857143;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.signup-social-media-button:hover {
+  background-color: #155598;
 }
 
 .facebook-button,
@@ -340,24 +373,52 @@ $signup-button-text-color: #ffffff; // New variable for text color
   border-color: $button-border-color;
 }
 
+.login-link {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 // GridComponent.scss
 .grid-container {
   display: flex;
-  // justify-content: center;
-  // height: 80vh;
+  p {
+    color: #fff;
+    font-size: 15px;
+    padding-bottom: 40px;
+    font-family: 'roboto';
+    padding: 0px;
+    margin: 0px;
+  }
+  h1 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  h3 {
+    color: #fff;
+    font-size: 19px;
+    padding-bottom: 40px;
+    font-family: 'roboto';
+    padding: 0px;
+    margin: 0px;
+  }
 }
 
 .grid-left, .grid-right {
   flex: 1;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 24px;
-}
-
-.grid-left {
-  // background-color: red;
+  h1 {
+    color: #fff;
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1.42857143;
+    padding-top: 20px;
+    margin: 0 0 25px 0;
+    font-family: roboto;
+  }
 }
 
 /* footer */
@@ -918,7 +979,7 @@ input[type="text"] {
   // padding: 0 15px;
   // position: relative;
   height: 55px;
-  width: 150%;
+  width: 70%;
 }
 
 .sign-up-form-button {
@@ -943,7 +1004,7 @@ input[type="text"] {
   font-size: 17px;
   font-family: 'Roboto', sans-serif;
   padding: 15px;
-  width: 140%;
+  width: 65%;
   display: flex;
   align-items: center;
 }
