@@ -1,14 +1,17 @@
-// DropdownButton.js
-
 import React, { useState } from 'react';
 import '../App.scss'; // Import the SCSS file with styles
 import { RiArrowDownSFill } from 'react-icons/ri'; // Import arrow-down icon
 
-const DropdownButton = () => {
+const DropdownButton = ({ category, setSortBy }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSortClick = (sortBy) => {
+    setSortBy(sortBy); // Set the sorting option
+    setIsOpen(false); // Close the dropdown
   };
 
   return (
@@ -19,18 +22,13 @@ const DropdownButton = () => {
       {isOpen && (
         <div className="dropdown-content">
           <ul>
-            <li>Last Active</li>
-            <li>Total Score</li>
-            <p>Dating</p>
-            <li>Total Score</li>
-            <li>Smart</li>
-            <li>Trustworthy</li>
-            <li>Attractive</li>
+            <li onClick={() => handleSortClick('category')}>{category}</li>
+            <li onClick={() => handleSortClick('totalScore')}>Total Score</li>
           </ul>
         </div>
       )}
     </div>
   );
-}
+};
 
 export default DropdownButton;

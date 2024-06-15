@@ -24,7 +24,6 @@ function MyTests() {
             <button className="new-test-button" onClick={handleNewTestClick}>
               + New Test
             </button>
-            <DropdownButton />
           </>
         )}
         {!showNewTest && (

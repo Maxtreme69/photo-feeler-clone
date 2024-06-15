@@ -1,5 +1,3 @@
-// ImageSection.js
-
 import React from 'react';
 
 function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, socialTitle, datingAge, datingGender, datingMultiplePeople, sliderValueProps }) {
@@ -7,10 +5,15 @@ function ImageSection({ selectedImage, isStep4, activeButton, businessTitle, soc
     <div className="image-section">
       {selectedImage && (
         <div className="image-holder">
-          {activeButton && ( // Add a check for activeButton
-            <h1 className="image-title">{activeButton.toUpperCase()}</h1> // Convert to uppercase if activeButton is defined
+          {activeButton && (
+            <h1 className="image-title">{activeButton.toUpperCase()}</h1>
           )}
-          <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+          {/* Set fixed width and height for the image */}
+          <img
+            src={URL.createObjectURL(selectedImage)}
+            alt="Selected"
+            style={{ width: '400px', height: 'auto' }} // Adjust dimensions as needed
+          />
           {businessTitle && (
             <div>
               <h5 className="image-details">Business Title</h5>

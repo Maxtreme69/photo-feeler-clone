@@ -1,8 +1,10 @@
+// RatedPhotos.js
 import React, { useState, useContext, useEffect } from 'react';
 import ImageCardComponent from '../Components/ImageCardComponent.js';
 import CustomDropdown from '../Components/CustomDropdown.js';
 import Modal from '../Components/Modal.js';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
+import DropdownButton from '../Components/DropDownButton.js';
 
 const RatedPhotos = () => {
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -11,6 +13,7 @@ const RatedPhotos = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageRatings, setSelectedImageRatings] = useState(null);
+  const [sortBy, setSortBy] = useState('category');
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -55,38 +58,42 @@ const RatedPhotos = () => {
   const getVoteCountsAndRatings = () => {
     const voteCounts = {};
     const ratingsMap = {};
-    const imageMap = {};
 
     hashedDataList.forEach(data => {
       if (data.selectedCategory === selectedCategory.toLowerCase()) {
         const normalizedOption = data.hash;
 
-        voteCounts[normalizedOption] = (voteCounts[normalizedOption] || 0) + 1;
-
-        if (!ratingsMap[normalizedOption]) {
+        if (!voteCounts[normalizedOption]) {
+          voteCounts[normalizedOption] = 1;
           ratingsMap[normalizedOption] = { ...data.selections };
         } else {
+          voteCounts[normalizedOption] += 1;
           for (const key in data.selections) {
             ratingsMap[normalizedOption][key] += data.selections[key];
           }
         }
-
-        if (!imageMap[normalizedOption]) {
-          imageMap[normalizedOption] = data.selectedOption;
-        }
       }
     });
 
+    // Calculate average ratings
     for (const image in ratingsMap) {
       for (const key in ratingsMap[image]) {
         ratingsMap[image][key] = ratingsMap[image][key] / voteCounts[image];
       }
     }
 
-    return { voteCounts, ratingsMap, imageMap };
+    return { voteCounts, ratingsMap };
   };
 
-  const { voteCounts, ratingsMap, imageMap } = getVoteCountsAndRatings();
+  const getTotalScore = (ratings) => {
+    let totalScore = 0;
+    for (const key in ratings) {
+      totalScore += ratings[key];
+    }
+    return totalScore;
+  };
+
+  const { voteCounts, ratingsMap } = getVoteCountsAndRatings();
 
   const handleImageClick = (image, ratings) => {
     console.log('Image clicked:', image);
@@ -101,26 +108,42 @@ const RatedPhotos = () => {
     setSelectedImageRatings(null);
   };
 
+  // Sort images based on the sorting option
+  const sortedImages = Object.keys(voteCounts).sort((a, b) => {
+    if (sortBy === 'category') {
+      return a.localeCompare(b);
+    } else if (sortBy === 'totalScore') {
+      const totalScoreA = getTotalScore(ratingsMap[a]);
+      const totalScoreB = getTotalScore(ratingsMap[b]);
+      return totalScoreB - totalScoreA;
+    }
+  });
+
   return (
     <div>
-      <div style={{ width: '267px', padding: '20px 0 0 20px' }}>
-        <CustomDropdown
-          options={['DATING', 'SOCIAL', 'BUSINESS']}
-          selectedOption={selectedCategory.toUpperCase()}
-          onOptionSelect={handleCategorySelect}
-        />
+      <div style={{ display: 'flex', justifyContent: 'initial', gap: '50px' }}>
+        <div style={{ width: '267px', padding: '20px 0 0 20px' }}>
+          <CustomDropdown
+            options={['DATING', 'SOCIAL', 'BUSINESS']}
+            selectedOption={selectedCategory.toUpperCase()}
+            onOptionSelect={handleCategorySelect}
+          />
+        </div>
+        <div style={{ marginTop: '13.5px'}}>
+          <DropdownButton category={selectedCategory.toUpperCase()} setSortBy={setSortBy} />
+        </div>
       </div>
       {hashedDataList.length > 0 && (
         <div className="image-cards" style={{ marginTop: '20px' }}>
-          {Object.keys(voteCounts).map((image, index) => (
+          {sortedImages.map((image, index) => (
             <ImageCardComponent
               key={`${image}-${selectedCategory}`}
-              image={imageMap[image]}
+              image={image}
               category={selectedCategory.toUpperCase()}
               ratings={ratingsMap[image]}
               votes={voteCounts[image]}
               className="image-card"
-              onClick={() => handleImageClick(imageMap[image], ratingsMap[image])}
+              onClick={() => handleImageClick(image, ratingsMap[image])}
             />
           ))}
         </div>
@@ -139,3 +162,6 @@ const RatedPhotos = () => {
 };
 
 export default RatedPhotos;
+
+
+
