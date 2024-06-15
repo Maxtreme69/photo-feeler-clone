@@ -32,8 +32,12 @@ const Navbar = () => {
           {authenticated && <span onClick={handleLogout} className="navbar-item-styling">Logout</span>}
           {!authenticated && <NavLink to="/login" className="nav-link login">Login</NavLink>}
           {!authenticated && <NavLink to="/signup" className="nav-link signup">Sign Up</NavLink>}
-          <FaCog className="icon" style={{ color: 'gray', fontSize: '17.5px' }}/> {/* Settings icon */}
-          <FaBars className="icon" style={{ color: 'gray', fontSize: '25px' }}/> {/* Hamburger Menu icon */}
+          {authenticated && (
+            <>
+              <FaCog className="icon" style={{ color: 'gray', fontSize: '17.5px' }} /> {/* Settings icon */}
+              <FaBars className="icon" style={{ color: 'gray', fontSize: '25px' }} /> {/* Hamburger Menu icon */}
+            </>
+          )}
         </div>
       </nav>
     </div>

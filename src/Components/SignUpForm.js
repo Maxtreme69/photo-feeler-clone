@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import DotGrid from './DotGrid';
+import FlashMessage from '../Components/FlashMessage.js';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -58,6 +57,19 @@ const SignUpForm = () => {
     if (!validateForm()) {
       return;
     }
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const isDuplicate = users.some(user => user.email === email || user.firstName === firstName);
+
+    if (isDuplicate) {
+      setFlashMessage('Email or first name is already in use.');
+      return;
+    }
+
+    const newUser = { email, password, firstName };
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+
     const token = generateToken();
     localStorage.setItem('token', token);
     navigate('/my-tests');
@@ -70,7 +82,7 @@ const SignUpForm = () => {
 
   return (
     <div>
-      <div style={{margin: '5px'}}>
+      <div style={{ margin: '5px' }}>
         <DotGrid 
           dotColor="#f08b60" 
           dotWidthVal1={12} 
@@ -83,23 +95,18 @@ const SignUpForm = () => {
       </div>
       <div className="signup-form" style={{ marginLeft: '30px', marginTop: '50px' }}>
         <h4>Email:</h4>
-        <input type="email" value={email} onChange={handleEmailChange} />
+        <input className="singup-form-input" type="email" value={email} onChange={handleEmailChange} />
         <h4>Password:</h4>
-        <input type="password" value={password} onChange={handlePasswordChange} />
+        <input className="singup-form-input" type="password" value={password} onChange={handlePasswordChange} />
         <h4>First Name:</h4>
-        <input type="text" value={firstName} onChange={handleFirstNameChange} />
+        <input className="singup-form-input" type="text" value={firstName} onChange={handleFirstNameChange} />
         <div>
           <button className="sign-up-form-button" onClick={handleSubmit}>Go!</button>
         </div>
-        {flashMessage && (
-          <div className="flash-message">
-            <FontAwesomeIcon icon={faTriangleExclamation} style={{ color: '#d72b3f', marginRight: '10px' }} />
-            {flashMessage}
-          </div>
-        )}
+        {flashMessage && <FlashMessage message={flashMessage} />}
       </div>
     </div>
   );
-}
+};
 
 export default SignUpForm;

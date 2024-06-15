@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaLinkedin } from 'react-icons/fa'; // Import Font Awesome icons
+import FlashMessage from '../Components/FlashMessage';
 import '../App.scss';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [flashMessage, setFlashMessage] = useState('');
   const navigate = useNavigate(); // Get navigate function from react-router-dom
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = () => {
-    // For demo purposes, let's assume login is successful
-    localStorage.setItem('token', 'your_generated_token'); // Save the token to local storage
-    navigate('/my-tests'); // Redirect to MyTests page
-    window.location.reload(); // Refresh the page
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+      localStorage.setItem('token', 'your_generated_token'); // Save the token to local storage
+      navigate('/my-tests'); // Redirect to MyTests page
+      window.location.reload(); // Refresh the page
+    } else {
+      setFlashMessage('Invalid email or password');
+    }
   };
 
   return (
@@ -34,16 +52,29 @@ const Login = () => {
         <div className="email-login">
           <div className="login-header">Email Login</div>
           <div className="input-group">
-            <input type="text-login" className="input-field" placeholder="Email" />
+            <input
+              type="text"
+              className="input-field"
+              placeholder="Email"
+              value={email}
+              onChange={handleEmailChange}
+            />
           </div>
           <div className="input-group">
-            <input type="password-login" className="input-field" placeholder="Password" />
+            <input
+              type="password"
+              className="input-field"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
           </div>
           <button className="login-button" onClick={handleSubmit}>Login</button>
+          <span id="login-button-span">{flashMessage && <FlashMessage message={flashMessage} />}</span>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;
