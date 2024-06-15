@@ -635,6 +635,25 @@ button:last-child {
   border: 1px solid rgb(85, 83, 83);
 }
 
+.dropdown-category-header {
+  color: #949494;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 8px 15px;
+}
+
+.dropdown-menu {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+
 .new-test-button {
   border-radius: 25px;
   background-color: #ff7f50;
@@ -664,10 +683,11 @@ button:last-child {
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  width: 100px;
+  width: 150px;
   font-size: 12px;
   display: flex;
   justify-content: center;
+  display: block;
 }
 
 
@@ -687,8 +707,10 @@ button:last-child {
   transition: background-color 0.3s; /* Hover transition */
 }
 
-.dropdown-content li:hover {
-  background-color: #ccc; /* Hover background color */
+.dropdown-content li:hover,
+.dropdown-content li.active {
+  background-color: rgba(109, 222, 240, 0.1); /* Hover and active background color */
+  border: 1px solid gray;
 }
 
 // Multi Step Form 

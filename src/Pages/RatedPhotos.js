@@ -1,4 +1,3 @@
-// RatedPhotos.js
 import React, { useState, useContext, useEffect } from 'react';
 import ImageCardComponent from '../Components/ImageCardComponent.js';
 import CustomDropdown from '../Components/CustomDropdown.js';
@@ -14,6 +13,7 @@ const RatedPhotos = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageRatings, setSelectedImageRatings] = useState(null);
   const [sortBy, setSortBy] = useState('category');
+  const [selectionCategories, setSelectionCategories] = useState([]);
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -41,13 +41,11 @@ const RatedPhotos = () => {
   }, [submissionDataList]);
 
   useEffect(() => {
-    console.log('submissionDataList:', submissionDataList);
-  }, [submissionDataList]);
-
-  useEffect(() => {
     const selectedData = hashedDataList.find(data => data.selectedCategory === selectedCategory.toLowerCase());
     if (selectedData) {
       setSelectedCategory(selectedData.selectedCategory);
+      const selections = selectedData.selections;
+      setSelectionCategories(Object.keys(selections));
     }
   }, [selectedCategory, hashedDataList]);
 
@@ -96,7 +94,6 @@ const RatedPhotos = () => {
   const { voteCounts, ratingsMap } = getVoteCountsAndRatings();
 
   const handleImageClick = (image, ratings) => {
-    console.log('Image clicked:', image);
     setSelectedImage(image);
     setSelectedImageRatings(ratings);
     setIsModalVisible(true);
@@ -116,6 +113,10 @@ const RatedPhotos = () => {
       const totalScoreA = getTotalScore(ratingsMap[a]);
       const totalScoreB = getTotalScore(ratingsMap[b]);
       return totalScoreB - totalScoreA;
+    } else {
+      const ratingA = ratingsMap[a][sortBy] || 0;
+      const ratingB = ratingsMap[b][sortBy] || 0;
+      return ratingB - ratingA;
     }
   });
 
@@ -129,12 +130,16 @@ const RatedPhotos = () => {
             onOptionSelect={handleCategorySelect}
           />
         </div>
-        <div style={{ marginTop: '13.5px'}}>
-          <DropdownButton category={selectedCategory.toUpperCase()} setSortBy={setSortBy} />
+        <div style={{ marginTop: '13.5px' }}>
+          <DropdownButton 
+            category={selectedCategory.toUpperCase()} 
+            setSortBy={setSortBy} 
+            selectionCategories={selectionCategories} 
+          />
         </div>
       </div>
       {hashedDataList.length > 0 && (
-        <div className="image-cards" style={{ marginTop: '20px' }}>
+        <div className="image-cards" style={{ marginTop: '20px', cursor: 'pointer' }}>
           {sortedImages.map((image, index) => (
             <ImageCardComponent
               key={`${image}-${selectedCategory}`}
@@ -162,6 +167,3 @@ const RatedPhotos = () => {
 };
 
 export default RatedPhotos;
-
-
-
