@@ -1654,73 +1654,68 @@ button:hover {
     color: rgb(22, 21, 21);
   }
 
-  .image-cards {
+.image-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 33.5px; // Adjust the gap as needed
+  margin: 20px;
+}
+
+.image-card {
+  box-sizing: border-box;
+}
+
+.image-card-container {
+  padding: 9px;
+  font-family: 'Roboto', sans-serif;
+  transition: box-shadow 0.3s ease; // Add transition for smooth effect
+  border: solid 1px rgb(231, 224, 224);
+  display: flex; // Use flexbox for centering
+  flex-direction: column; // Align items vertically
+
+  .image-card-details-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 33.5px; /* Adjust the gap as needed */
-    margin: 20px;
+    flex-direction: column;
+    align-items: center; // Center content horizontally
   }
-  
-  .image-card {
-    // flex: 1 0 21%; /* Adjust the basis percentage to control the number of cards per row */
-    box-sizing: border-box;
+
+  div {
+    font-size: 11px;
+    letter-spacing: .15em;
   }
-  
-  .image-card-container {
-    padding: 9px;
+
+  img {
+    width: 213px;
+    height: 250px;
+    margin: auto; // Center the image horizontally
+  }
+
+  .card-category-votes-title {
+    display: flex;
     font-family: 'Roboto', sans-serif;
-    transition: box-shadow 0.3s ease; /* Add transition for smooth effect */
-    width: 21%;
-    border: solid 1px rgb(231, 224, 224);
-    display: flex; /* Use flexbox for centering */
-    flex-direction: column; /* Align items vertically */
-    
 
-    .image-card-details-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Center content horizontally */
-    }
-
-    div {
+    span {
+      margin-top: 12.5px;
+      padding: 5px 27.8px;
+      background-color: #393f4f;
+      color: white;
       font-size: 11px;
-      letter-spacing: .15em;
     }
 
-    img {
-      width: 213px;
-      height: 250px;
-      margin: auto; /* Center the image horizontally */
-    }
-  
-    .card-category-votes-title {
-      display: flex;
-      font-family: 'Roboto', sans-serif;
-  
-      span {
-        margin-top: 12.5px;
-        padding: 5px 27.8px;
-        background-color: #393f4f;
-        color: white;
-        // width: 57px;
-        font-size: 11px;
-      }
-
-      #span-dating {
-        background-color: #393f4f;
-        color: white;
-      }
-
-      #span-votes {
-        background-color: #f0f8fa;
-        color: grey;
-      }
+    #span-dating {
+      background-color: #393f4f;
+      color: white;
     }
 
-    /* Apply box shadow when hovered */
-    &:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    #span-votes {
+      background-color: #f0f8fa;
+      color: grey;
     }
+  }
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 }
 
 
@@ -1794,7 +1789,6 @@ button:hover {
   position: relative;
   bottom: 25px
 }
-
 
 
 

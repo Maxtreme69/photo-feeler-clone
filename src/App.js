@@ -14,6 +14,7 @@ import { RectanglesProvider } from './Context/RectanglesContext.js'; // Import R
 import CardFlip from './Components/CardFlip.js';
 import { AppProvider } from './Context/AppContext.js'; // Import AppProvider
 import ImageSlider from './Components/ImageSlider.js';
+import Sort from './Pages/Sort.js';
 
 function App() {
   const [submissionData, setSubmissionData] = useState(null);
@@ -36,6 +37,7 @@ function App() {
                   <Route path="/signup" element={<Grid />} />
                   <Route path="/my-tests" element={<MyTests />} />
                   <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
+                  <Route path="/sort" element={<Sort />} />
                   <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
                 </Routes>
               </RectanglesProvider>
