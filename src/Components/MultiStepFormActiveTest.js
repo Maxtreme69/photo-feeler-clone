@@ -1,12 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useRef } from 'react'; // Import useRef from React
 import ProgressBar from './ProgressBar';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext';
 import ImageCardComponent from './ImageCardComponent';
+import { faDownload } from '@fortawesome/free-solid-svg-icons'; // Import the download icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import html2canvas from 'html2canvas';
+
 
 const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [hashedImage, setHashedImage] = useState(hash || null);
   const { submissionDataList } = useContext(SubmissionDataContext);
+  const imageStepContainerRef = useRef(null); // Ref for the image-step-container
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -68,40 +74,63 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
     if (!ratings) {
       return <div>No ratings available</div>;
     }
-
-    const renderRatingRow = (label, value, color) => {
+  
+    const renderRatingRow = (width, height, label, value, color) => {
       let descriptionSpan;
-      if (value <= 10.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Bottom 10%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else if (value <= 20.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Bottom 20%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else if (value <= 39.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Below Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else if (value <= 60.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else if (value <= 79.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Above Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else if (value <= 89.0) {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Top 20%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
-      } else {
-        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(value) }}>Top 10%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      let adjustedValue = value; // Create a variable to store the adjusted value
+    
+      // Adjust value for descriptionSpan if currentStep is 4
+      if (currentStep === 4) {
+        adjustedValue /= 2; // Divide value by 2
       }
-
+    
+      if (adjustedValue <= 10.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Bottom 10%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else if (adjustedValue <= 20.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Bottom 20%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else if (adjustedValue <= 39.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Below Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else if (adjustedValue <= 60.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else if (adjustedValue <= 79.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Above Average<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else if (adjustedValue <= 89.0) {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Top 20%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      } else {
+        descriptionSpan = <span className="description" style={{ left: calculateLeftPosition(adjustedValue) }}>Top 10%<span className="triangle" style={{ borderBottom: `5px solid ${color}` }}></span></span>;
+      }
+    
       return (
         <div style={{ fontFamily: 'roboto' }} key={label}>
           <div>
             <span>{label} </span><span>{formatRating(value)}</span>
           </div>
-          <ProgressBar width={600} height={25} value={value} color={color} /> {/* Pass width prop */}
+          <ProgressBar width={width} height={height} value={value} color={color} />
           <div style={{ paddingBottom: '35px', position: 'relative' }}>
             {descriptionSpan}
           </div>
         </div>
       );
     };
-
-    return ratingsMap[category.toLowerCase()].map(({ label, value, color }) => renderRatingRow(label, value, color));
+    
+  
+    if (currentStep === 1) {
+      console.log('current step 1', currentStep);
+      return ratingsMap[category.toLowerCase()].map(({ label, value, color }) =>
+        renderRatingRow(600, 25, label, value, color)
+      );
+    }
+  
+    if (currentStep === 4) {
+      console.log('current step 4', currentStep);
+      return ratingsMap[category.toLowerCase()].map(({ label, value, color }) =>
+        renderRatingRow(300, 12.5, label, value, color) // Assuming you want to render a fixed value
+      );
+    }
+  
+    return null; // Return null if neither condition is met
   };
+  
 
   const textAreaComments = submissionDataList.filter(submission => {
     if (image.startsWith('blob:')) {
@@ -263,6 +292,15 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
     });
   };
 
+  const downloadImage = async () => {
+    const canvas = await html2canvas(imageStepContainerRef.current);
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'step_image.png';
+    link.click();
+  };
+
   return (
     <div className="multi-step-form">
       <div className="step-list">
@@ -314,7 +352,32 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
         )}
 
         {currentStep === 4 && (
-          <div>Step 4</div>
+          <div>
+            <div className="image-step-container" ref={imageStepContainerRef}>
+                    <div className="image-step-container-row">
+                  <div className="image-step-container-column">
+                    <img style={{ width: '150px', height: '200px' }} src={image} alt="Selected" />
+                  </div>
+                  <div className="image-step-container-column">
+                    <h4>Tested on</h4>
+                    <h3>Photofeeler</h3>
+                    <h4>VOTES</h4>
+                    <h3>15</h3>
+                    <h4>VOTERS</h4>
+                    <h3>AGE 34 </h3>
+                  </div>
+                </div>
+                <div className="image-step-container-row">
+                  <div className="image-step-container-column full-width">
+                    {renderRatings()}
+                  </div>
+                </div>
+
+              </div>
+              <div className="download-button" onClick={downloadImage}>
+                  <FontAwesomeIcon icon={faDownload} />
+                </div>
+          </div>
         )}
 
       </div>

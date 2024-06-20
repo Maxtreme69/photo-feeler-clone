@@ -195,7 +195,7 @@ const RatedPhotos = () => {
           category={selectedCategory}
         />
       )}
-      <div style={{ marginTop: '50vh' }}></div>
+      <div style={{ marginTop: '60vh' }}></div>
     </div>
   );
 };

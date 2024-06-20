@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../App.scss'; // Import the SCSS file with styles
-import { RiArrowDownSFill } from 'react-icons/ri'; // Import arrow-down icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RiArrowDownSFill} from 'react-icons/ri'; // Import arrow-down icon
+import { faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons'; // Import the arrow-down icon
 
 const DropdownButton = ({ category, setSortBy, selectionCategories }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +21,7 @@ const DropdownButton = ({ category, setSortBy, selectionCategories }) => {
   return (
     <div className="dropdown-container">
       <button className="dropdown-button-sort" onClick={toggleDropdown}>
-        Sort <RiArrowDownSFill className="sort-icon" />
+      <span style={{ paddingRight: '15px' }}> <FontAwesomeIcon icon={faArrowDownWideShort} className="sort-icon" /> Sort</span> <RiArrowDownSFill style={{ color: '#333' }} />
       </button>
       {isOpen && (
         <div className="dropdown-content">
