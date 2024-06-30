@@ -1,6 +1,8 @@
 // src/Components/CustomDropdown.js
 
 import React, { useState } from 'react';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +17,10 @@ const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton 
 
   return (
     <div className="custom-dropdown">
+
       <div className="custom-dropdown-header" onClick={() => setIsOpen(!isOpen)}>
-        {activeButton || selectedOption}
+        {activeButton || selectedOption}          
+        <FontAwesomeIcon icon={faSortDown} style={{ marginLeft: '8px', color: 'white', left: '20px' }} />
       </div>
       {isOpen && (
         <div className="custom-dropdown-list">

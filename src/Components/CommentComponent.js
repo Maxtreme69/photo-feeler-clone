@@ -55,6 +55,15 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     setTextareaContent('');
     setSelectedButton('');
     setSubmitDisabled(false);
+    const newSubmissionData = {
+      selectedCategory,
+      selectedOption,
+      textareaContent,
+      selections
+    };
+    setTimeout(() => {
+      onSubmit(newSubmissionData);
+    }, 450); // Delay to match the flip animation duration
     handleFlip();
   };
 

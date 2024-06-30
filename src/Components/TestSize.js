@@ -2,12 +2,24 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { ActiveTest } from './ActiveTest.js';
+import { useTestSizeSubmission } from '../Context/TestSizeSubmission.js'; // Import the context hook
 
-const TestSize = ({ handleVoteClick }) => { // Add handleVoteClick prop
+const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, multiplePeople, selectedImage }) => {
   const [isActive, setIsActive] = useState(false);
+  const { addTestSizeData } = useTestSizeSubmission(); // Use the context function
 
   const handleClick = () => {
     setIsActive(!isActive);
+    const newEntry = {
+      selectedImage,
+      sliderValue,
+      selectedGender,
+      datingAge,
+      multiplePeople
+    };
+    addTestSizeData(newEntry); // Add data to context
+    console.log('TestSize handleClick clicked!');
+    console.log('New entry:', newEntry);
   };
 
   return (

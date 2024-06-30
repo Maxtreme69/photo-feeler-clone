@@ -1,4 +1,3 @@
-// src/components/MultiStepForm.js
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../Context/AppContext.js';
 import ImageGrid from './ImageGrid.js';
@@ -19,7 +18,7 @@ function MultiStepForm() {
   const [datingAge, setDatingAge] = useState('');
   const [datingGender, setDatingGender] = useState('both');
   const [datingMultiplePeople, setDatingMultiplePeople] = useState('');
-  const [slidingValueProps, setSlidingValueProps] = useState('');
+  const [sliderValue, setSliderValue] = useState(''); // Renamed from slidingValueProps to sliderValue
   const [showImageSectionVote, setShowImageSectionVote] = useState(false);
   const [selectedGender, setSelectedGender] = useState('both'); // Default to 'both'
   const [rectangles, setRectangles] = useState([]);
@@ -55,12 +54,12 @@ function MultiStepForm() {
     setDatingMultiplePeople(people);
   };
 
-  const sliderValueProps = (slider) => {
-    setSlidingValueProps(slider);
+  const handleSliderValue = (slider) => {
+    setSliderValue(slider);
   };
 
   const handleVoteClick = () => {
-    addVote(selectedImage, selectedCategory);
+    addVote(selectedImage, selectedCategory, datingAge, datingGender, datingMultiplePeople, sliderValue);
     console.log('Vote submitted');
   };
 
@@ -93,66 +92,65 @@ function MultiStepForm() {
         <div
           className={`step ${currentStep === 4 ? 'active' : ''}`}
           onClick={() => { if (currentStep >= 4) handleStepChange(4); }}
-        >
+          >
           TEST SIZE
-        </div>
-      </div>
-      <div className="step-content">
-        {currentStep === 1 && (
+          </div>
+          </div>
+          <div className="step-content">
+          {currentStep === 1 && (
           <div className="grid-container">
-            <ImageGrid
-              rectangles={rectangles}
-              setRectangles={setRectangles}
-              setSelectedImage={setSelectedImage}
-              handleStepChange={handleStepChange}
-            />
+          <ImageGrid
+            rectangles={rectangles}
+            setRectangles={setRectangles}
+            setSelectedImage={setSelectedImage}
+            handleStepChange={handleStepChange}
+                  />
           </div>
-        )}
-        {currentStep === 2 && (
+          )}
+          {currentStep === 2 && (
           <div className="category-container">
-            <ImageSection selectedImage={selectedImage} />
-            <Category
-              selectedImage={selectedImage}
-              handleNextClick={handleNextClick}
-              handleSelectedComponent={handleNextClick}
-            />
+          <ImageSection selectedImage={selectedImage} />
+          <Category
+            selectedImage={selectedImage}
+            handleNextClick={handleNextClick}
+            handleSelectedComponent={handleNextClick}
+          />
           </div>
-        )}
-        {currentStep === 3 && selectedCategory && (
+          )}
+          {currentStep === 3 && selectedCategory && (
           <div className="category-container">
-            <ImageSection
-              selectedImage={selectedImage}
-              activeButton={activeButton}
-              businessTitle={businessTitle}
-              socialTitle={socialTitle}
-              datingAge={datingAge}
-              datingGender={datingGender}
-              datingMultiplePeople={datingMultiplePeople}
-              sliderValueProps={slidingValueProps}
+          <ImageSection
+            selectedImage={selectedImage}
+            activeButton={activeButton}
+            businessTitle={businessTitle}
+            socialTitle={socialTitle}
+            datingAge={datingAge}
+            datingGender={datingGender}
+            datingMultiplePeople={datingMultiplePeople}
+            sliderValue={sliderValue}
+          />
+          {selectedCategory === 'DATING' && (
+          <Dating
+            handleNextStep={handleStepChange}
+            handleDatingAge={handleDatingAge}
+            handleDatingGender={handleDatingGender}
+            handleDatingMultiplePeople={handleDatingMultiplePeople}
+            sliderValueProps={handleSliderValue}
+          />
+          )}
+          {selectedCategory === 'SOCIAL' && (
+            <Social
+              handleNextStep={handleStepChange}
+              handleSocialTitleChange={handleSocialTitleChange}
             />
-            {selectedCategory === 'DATING' && (
-              <Dating
-                handleNextStep={handleStepChange}
-                handleDatingAge={handleDatingAge}
-                handleDatingGender={handleDatingGender}
-                handleDatingMultiplePeople={handleDatingMultiplePeople}
-                sliderValueProps={sliderValueProps}
-                handleNextClick={handleNextClick}
-              />
-            )}
-            {selectedCategory === 'SOCIAL' && (
-              <Social
-                handleNextStep={handleStepChange}
-                handleSocialTitleChange={handleSocialTitleChange}
-              />
-            )}
-            {selectedCategory === 'BUSINESS' && (
-              <Business
-                handleNextStep={handleStepChange}
-                handleBusinessTitleChange={handleBusinessTitleChange}
-              />
-            )}
-          </div>
+          )}
+          {selectedCategory === 'BUSINESS' && (
+            <Business
+              handleNextStep={handleStepChange}
+              handleBusinessTitleChange={handleBusinessTitleChange}
+            />
+          )}
+        </div>
         )}
         {currentStep === 4 && (
           <div className="category-container-no-align">
@@ -166,12 +164,21 @@ function MultiStepForm() {
               />
             ) : (
               <ImageSectionVote 
+                selectedImage={selectedImage}
                 activeButton={activeButton}
                 selectedGender={selectedGender}
                 onSubmit={handleSubmit}
               />
             )}
-            <TestSize isStep4={true} handleVoteClick={handleVoteClick} />
+            <TestSize
+              isStep4={true}
+              selectedImage={selectedImage}
+              handleVoteClick={handleVoteClick}
+              sliderValue={sliderValue}
+              selectedGender={datingGender}
+              datingAge={datingAge}
+              multiplePeople={datingMultiplePeople}
+            />
           </div>
         )}
       </div>

@@ -72,9 +72,9 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
               </td>
             </tr>
             <tr>
-              <td>{`smart ${selections.smart !== null ? selections.smart + '%' : ''}`}</td>
+              {/* <td>{`smart ${selections.smart !== null ? selections.smart + '%' : ''}`}</td>
               <td>{`trustworthy ${selections.trustworthy !== null ? selections.trustworthy + '%' : ''}`}</td>
-              <td>{`attractive ${selections.attractive !== null ? selections.attractive + '%' : ''}`}</td>
+              <td>{`attractive ${selections.attractive !== null ? selections.attractive + '%' : ''}`}</td> */}
             </tr>
           </tbody>
         </table>

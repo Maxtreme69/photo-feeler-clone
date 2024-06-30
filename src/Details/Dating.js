@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDatingMultiplePeople, sliderValueProps }) {
   const [showNextContent, setShowNextContent] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // Local state for the slider value
   const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
   const [showDropdown, setShowDropdown] = useState(false); // State to show/hide dropdown
+  const [datingAge, setDatingAge] = useState(null);
+  const [multiplePeople, setMultiplePeople] = useState(null);
+
+  useEffect(() => {
+    console.log('sliderValue:', sliderValue);
+    console.log('selectedGender:', selectedGender);
+    console.log('datingAge', datingAge);
+    console.log('multiplePeople', multiplePeople);
+  }, [sliderValue, selectedGender, datingAge, multiplePeople]);
 
   const handleNextButtonClick = () => {
     setShowNextContent(true);
@@ -27,6 +36,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
 
   const handleDatingAgeItem = (event) => {
     handleDatingAge(event.target.value);
+    setDatingAge(event.target.value);
   };
 
   const handleCheckboxChange = (event) => {
@@ -35,6 +45,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
 
   const handleDatingMultiplePeopleItem = (event) => {
     handleDatingMultiplePeople(event.target.value);
+    setMultiplePeople(event.target.value);
   };
 
   const handleDatingGenderItem = (gender) => {

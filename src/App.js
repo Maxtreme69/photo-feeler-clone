@@ -9,10 +9,11 @@ import Footer from './Components/Footer.js';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RatedPhotos from './Pages/RatedPhotos.js';
 import Vote from './Pages/Vote.js';
-import { SubmissionDataProvider } from './Context/SubmissionDataContext.js'; // Import the SubmissionDataProvider
-import { RectanglesProvider } from './Context/RectanglesContext.js'; // Import RectanglesProvider
+import { SubmissionDataProvider } from './Context/SubmissionDataContext.js';
+import { RectanglesProvider } from './Context/RectanglesContext.js';
 import CardFlip from './Components/CardFlip.js';
-import { AppProvider } from './Context/AppContext.js'; // Import AppProvider
+import { AppProvider } from './Context/AppContext.js';
+import { TestSizeSubmissionProvider } from './Context/TestSizeSubmission.js'; // Corrected import path
 import ImageSlider from './Components/ImageSlider.js';
 import Sort from './Pages/Sort.js';
 
@@ -30,17 +31,19 @@ function App() {
           <Navbar />
           <AppProvider>
             <SubmissionDataProvider>
-              <RectanglesProvider>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Grid />} />
-                  <Route path="/my-tests" element={<MyTests />} />
-                  <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
-                  <Route path="/sort" element={<Sort />} />
-                  <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
-                </Routes>
-              </RectanglesProvider>
+              <TestSizeSubmissionProvider> 
+                <RectanglesProvider>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Grid />} />
+                    <Route path="/my-tests" element={<MyTests />} />
+                    <Route path="/vote" element={<Vote onSubmission={handleSubmissionData} />} />
+                    <Route path="/sort" element={<Sort />} />
+                    <Route path="/rated-photos" element={<RatedPhotos submissionData={submissionData} />} />
+                  </Routes>
+                </RectanglesProvider>
+              </TestSizeSubmissionProvider>
             </SubmissionDataProvider>
           </AppProvider>
         </div>

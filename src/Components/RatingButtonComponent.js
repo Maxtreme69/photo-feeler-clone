@@ -36,7 +36,8 @@ const RatingButtonComponent = ({ backgroundColor, category, onRatingSelect, sele
     border: 'none',
     backgroundColor: selected === 3 - index ? darkenColor(backgroundColor, -30) : backgroundColor,
     position: 'relative',
-    cursor: 'pointer'
+    cursor: 'pointer'    
+    // padding: '15px 0'
   });
 
   return (

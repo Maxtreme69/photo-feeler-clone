@@ -4,7 +4,7 @@ import CustomDropdown from '../Components/CustomDropdown.js';
 import Modal from '../Components/Modal.js';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 import DropdownButton from '../Components/DropDownButton.js';
-import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence from Framer Motion
+import { motion, AnimatePresence } from 'framer-motion';
 
 const RatedPhotos = () => {
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -17,6 +17,7 @@ const RatedPhotos = () => {
   const [selectionCategories, setSelectionCategories] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
   const [previousCategory, setPreviousCategory] = useState('dating');
+  const [hashToBlobUrlMap, setHashToBlobUrlMap] = useState({});
 
   const generateHash = async (blobUrl) => {
     const response = await fetch(blobUrl);
@@ -38,13 +39,19 @@ const RatedPhotos = () => {
         return { ...data, hash: data.selectedOption };
       }));
       setHashedDataList(updatedDataList);
-    };
 
+      const hashToBlobMap = {};
+      updatedDataList.forEach(data => {
+        if (data.selectedOption.startsWith('blob:')) {
+          hashToBlobMap[data.hash] = data.selectedOption;
+        }
+      });
+      setHashToBlobUrlMap(hashToBlobMap);
+    };
     hashImages();
   }, [submissionDataList]);
 
   useEffect(() => {
-    console.log("isSorting", isSorting);
     const selectedData = hashedDataList.find(data => data.selectedCategory === selectedCategory.toLowerCase());
     if (selectedData) {
       setSelectedCategory(selectedData.selectedCategory);
@@ -55,7 +62,7 @@ const RatedPhotos = () => {
 
   const handleCategorySelect = (selectedOption) => {
     if (selectedCategory.toLowerCase() !== selectedOption.toLowerCase()) {
-      setIsSorting(false); // Disable sorting animation when changing category
+      setIsSorting(false);
       setPreviousCategory(selectedCategory);
       setSelectedCategory(selectedOption.toLowerCase());
     }
@@ -64,12 +71,14 @@ const RatedPhotos = () => {
   const getVoteCountsAndRatings = () => {
     const voteCounts = {};
     const ratingsMap = {};
+    const uniqueImages = new Set();
 
     hashedDataList.forEach(data => {
       if (data.selectedCategory === selectedCategory.toLowerCase()) {
         const normalizedOption = data.hash;
 
-        if (!voteCounts[normalizedOption]) {
+        if (!uniqueImages.has(normalizedOption)) {
+          uniqueImages.add(normalizedOption);
           voteCounts[normalizedOption] = 1;
           ratingsMap[normalizedOption] = { ...data.selections };
         } else {
@@ -81,13 +90,11 @@ const RatedPhotos = () => {
       }
     });
 
-    // Calculate average ratings
     for (const image in ratingsMap) {
       for (const key in ratingsMap[image]) {
         ratingsMap[image][key] = ratingsMap[image][key] / voteCounts[image];
       }
     }
-
     return { voteCounts, ratingsMap };
   };
 
@@ -102,7 +109,7 @@ const RatedPhotos = () => {
   const { voteCounts, ratingsMap } = getVoteCountsAndRatings();
 
   const handleImageClick = (image, ratings) => {
-    setSelectedImage(image);
+    setSelectedImage(hashToBlobUrlMap[image] || image);
     setSelectedImageRatings(ratings);
     setIsModalVisible(true);
   };
@@ -114,25 +121,18 @@ const RatedPhotos = () => {
   };
 
   const handleSortByChange = (newSortBy) => {
-    setIsSorting(true); // Indicate that sorting has occurred
+    setIsSorting(true);
     setSortBy(newSortBy);
-    console.log("isSorting", isSorting);
   };
 
-  // Sort images based on the sorting option
-  //  sorts the images alphabetically by their hash values using localeCompare.
   const sortedImages = Object.keys(voteCounts).sort((a, b) => {
     if (sortBy === 'category') {
       return a.localeCompare(b);
-    // When sortBy is set to 'totalScore', the function calculates the total score 
-    // for each image using getTotalScore. It then sorts the images in descending 
-    // order based on their total scores.  
     } else if (sortBy === 'totalScore') {
       const totalScoreA = getTotalScore(ratingsMap[a]);
       const totalScoreB = getTotalScore(ratingsMap[b]);
       return totalScoreB - totalScoreA;
     } else {
-      // Sort images by specific ratings
       const ratingA = ratingsMap[a][sortBy] || 0;
       const ratingB = ratingsMap[b][sortBy] || 0;
       return ratingB - ratingA;
@@ -149,33 +149,33 @@ const RatedPhotos = () => {
             onOptionSelect={handleCategorySelect}
           />
         </div>
-        <div style={{ marginTop: '13.5px' }}>
-        <DropdownButton 
-          category={selectedCategory.toUpperCase()} 
-          setSortBy={handleSortByChange} 
-          selectionCategories={selectionCategories} 
-        />
+        <div style={{ marginTop: '35px' }}>
+          <DropdownButton 
+            category={selectedCategory.toUpperCase()} 
+            setSortBy={handleSortByChange} 
+            selectionCategories={selectionCategories} 
+          />
         </div>
       </div>
-   
+
       {hashedDataList.length > 0 && (
         <motion.div
           className="image-cards"
           style={{ marginTop: '20px', cursor: 'pointer' }}
-          layout // Enable layout animations
+          layout
         >
           <AnimatePresence>
             {sortedImages.map((image, index) => (
               <motion.div
                 key={`${image}-${selectedCategory}`}
-                layout={isSorting ? true : 'position'} // Enable layout animations conditionally based on isSorting
-                initial={{ opacity: isSorting ? 0 : 1, y: isSorting ? 20 : 0 }} // Initial state based on sorting
-                animate={{ opacity: 1, y: 0 }} // Animate to final state
-                exit={{ opacity: 0, y: 0 }} // Animate exit state
-                transition={{ duration: 0.5 }} // Transition duration for each item
+                layout={isSorting ? true : 'position'}
+                initial={{ opacity: isSorting ? 0 : 1, y: isSorting ? 20 : 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <ImageCardComponent
-                  image={image}
+                  image={hashToBlobUrlMap[image] || image}
                   category={selectedCategory.toUpperCase()}
                   ratings={ratingsMap[image]}
                   votes={voteCounts[image]}

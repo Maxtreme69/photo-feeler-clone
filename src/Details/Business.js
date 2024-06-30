@@ -31,4 +31,3 @@ function Business({ handleNextStep, handleBusinessTitleChange }) {
 }
 
 export default Business;
-
