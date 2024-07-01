@@ -22,6 +22,8 @@ function MultiStepForm() {
   const [showImageSectionVote, setShowImageSectionVote] = useState(false);
   const [selectedGender, setSelectedGender] = useState('both');
   const [rectangles, setRectangles] = useState([]);
+  const [multiplePeople, setMultiplePeople] = useState(null); // New state
+  const [multiplePeopleDating, setMultiplePeopleDating] = useState(null); // New state
 
   const handleStepChange = (step) => {
     setCurrentStep(step);
@@ -33,8 +35,8 @@ function MultiStepForm() {
     handleStepChange(3);
   };
 
-  const handleBusinessTitleChange = (event) => {
-    setBusinessTitle(event.target.value);
+  const handleBusinessTitleChange = (value) => {
+    setBusinessTitle(value);
   };
 
   const handleSocialTitleChange = (title) => {
@@ -52,10 +54,15 @@ function MultiStepForm() {
 
   const handleDatingMultiplePeople = (people) => {
     setDatingMultiplePeople(people);
+    setMultiplePeopleDating(people); // Update multiplePeopleDating state
   };
 
   const handleSliderValue = (slider) => {
     setSliderValue(slider);
+  };
+
+  const handleMultiplePeopleChange = (value) => {
+    setMultiplePeople(value); // Update the multiplePeople state
   };
 
   const handleVoteClick = () => {
@@ -92,65 +99,66 @@ function MultiStepForm() {
         <div
           className={`step ${currentStep === 4 ? 'active' : ''}`}
           onClick={() => { if (currentStep >= 4) handleStepChange(4); }}
-          >
+        >
           TEST SIZE
-          </div>
-          </div>
-          <div className="step-content">
-          {currentStep === 1 && (
-          <div className="grid-container">
-          <ImageGrid
-            rectangles={rectangles}
-            setRectangles={setRectangles}
-            setSelectedImage={setSelectedImage}
-            handleStepChange={handleStepChange}
-                  />
-          </div>
-          )}
-          {currentStep === 2 && (
-          <div className="category-container">
-          <ImageSection selectedImage={selectedImage} />
-          <Category
-            selectedImage={selectedImage}
-            handleNextClick={handleNextClick}
-            handleSelectedComponent={handleNextClick}
-          />
-          </div>
-          )}
-          {currentStep === 3 && selectedCategory && (
-          <div className="category-container">
-          <ImageSection
-            selectedImage={selectedImage}
-            activeButton={activeButton}
-            businessTitle={businessTitle}
-            socialTitle={socialTitle}
-            datingAge={datingAge}
-            datingGender={datingGender}
-            datingMultiplePeople={datingMultiplePeople}
-            sliderValue={sliderValue}
-          />
-          {selectedCategory === 'DATING' && (
-          <Dating
-            handleNextStep={handleStepChange}
-            handleDatingAge={handleDatingAge}
-            handleDatingGender={handleDatingGender}
-            handleDatingMultiplePeople={handleDatingMultiplePeople}
-            sliderValueProps={handleSliderValue}
-          />
-          )}
-          {selectedCategory === 'SOCIAL' && (
-            <Social
-              handleNextStep={handleStepChange}
-              handleSocialTitleChange={handleSocialTitleChange}
-            />
-          )}
-          {selectedCategory === 'BUSINESS' && (
-            <Business
-              handleNextStep={handleStepChange}
-              handleBusinessTitleChange={handleBusinessTitleChange}
-            />
-          )}
         </div>
+      </div>
+      <div className="step-content">
+        {currentStep === 1 && (
+          <div className="grid-container">
+            <ImageGrid
+              rectangles={rectangles}
+              setRectangles={setRectangles}
+              setSelectedImage={setSelectedImage}
+              handleStepChange={handleStepChange}
+            />
+          </div>
+        )}
+        {currentStep === 2 && (
+          <div className="category-container">
+            <ImageSection selectedImage={selectedImage} />
+            <Category
+              selectedImage={selectedImage}
+              handleNextClick={handleNextClick}
+              handleSelectedComponent={handleNextClick}
+            />
+          </div>
+        )}
+        {currentStep === 3 && selectedCategory && (
+          <div className="category-container">
+            <ImageSection
+              selectedImage={selectedImage}
+              activeButton={activeButton}
+              businessTitle={businessTitle}
+              socialTitle={socialTitle}
+              datingAge={datingAge}
+              datingGender={datingGender}
+              datingMultiplePeople={datingMultiplePeople}
+              sliderValue={sliderValue}
+            />
+            {selectedCategory === 'DATING' && (
+              <Dating
+                handleNextStep={handleStepChange}
+                handleDatingAge={handleDatingAge}
+                handleDatingGender={handleDatingGender}
+                handleDatingMultiplePeople={handleDatingMultiplePeople}
+                sliderValueProps={handleSliderValue}
+              />
+            )}
+            {selectedCategory === 'SOCIAL' && (
+              <Social
+                handleNextStep={handleStepChange}
+                handleSocialTitleChange={handleSocialTitleChange}
+                handleMultiplePeopleChange={handleMultiplePeopleChange} // Pass handler
+              />
+            )}
+            {selectedCategory === 'BUSINESS' && (
+              <Business
+                handleNextStep={handleStepChange}
+                handleBusinessTitleChange={handleBusinessTitleChange}
+              />
+            )}
+          </div>
         )}
         {currentStep === 4 && (
           <div className="category-container-no-align">
@@ -177,7 +185,9 @@ function MultiStepForm() {
               sliderValue={sliderValue}
               selectedGender={datingGender}
               datingAge={datingAge}
-              multiplePeople={datingMultiplePeople}
+              multiplePeople={multiplePeople} // Pass multiplePeople to TestSize
+              multiplePeopleDating={multiplePeopleDating} // Pass multiplePeopleDating to TestSize
+              businessTitle={businessTitle} // Pass businessTitle to TestSize
             />
           </div>
         )}

@@ -1,7 +1,6 @@
-// Social.js
 import React, { useState } from 'react';
 
-function Social({ handleNextStep, handleSocialTitleChange  }) {
+function Social({ handleNextStep, handleSocialTitleChange, handleMultiplePeopleChange }) {
   const [peopleCount, setPeopleCount] = useState('One');
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -12,6 +11,7 @@ function Social({ handleNextStep, handleSocialTitleChange  }) {
 
   const handleDropdownChange = (event) => {
     handleSocialTitleChange(event.target.value); // Call handleSocialTitleChange with the selected value
+    handleMultiplePeopleChange(event.target.value); // Call handleMultiplePeopleChange with the selected value
   };
   
   const handleNext = () => {

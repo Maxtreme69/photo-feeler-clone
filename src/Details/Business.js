@@ -4,13 +4,14 @@ function Business({ handleNextStep, handleBusinessTitleChange }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-    handleBusinessTitleChange(event); // Call the handler to update business title in MultiStepForm
+    const value = event.target.value;
+    setInputValue(value);
+    handleBusinessTitleChange(value); // Call the handler to update business title in MultiStepForm with the value directly
   };
 
   const handleBusinessNextClick = () => {
     if (inputValue.trim() !== '') {
-      handleNextStep(4); // Change to step 3 (DETAILS) in MultiStepForm
+      handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
     } else {
       alert('Please fill in the input field.');
     }

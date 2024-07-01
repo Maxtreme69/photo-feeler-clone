@@ -24,7 +24,6 @@ const Navbar = () => {
           <NavLink exact to="/" style={{ textDecoration: 'none' }}><p className="logo">Photofeeler</p></NavLink>
         </div>
         <div className="buttons-container">
-            {authenticated && <NavLink to="/sort" className="navbar-item-styling">Sort</NavLink>}
             {authenticated && <NavLink to="/vote" className="navbar-item-styling">Vote</NavLink>}
             {authenticated && <NavLink to="/rated-photos" className="navbar-item-styling">Rated Photos</NavLink>}
             {authenticated && <NavLink to="/my-tests" className="navbar-item-styling">My Tests</NavLink>}

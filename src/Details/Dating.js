@@ -6,14 +6,14 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
   const [showDropdown, setShowDropdown] = useState(false); // State to show/hide dropdown
   const [datingAge, setDatingAge] = useState(null);
-  const [multiplePeople, setMultiplePeople] = useState(null);
+  const [multiplePeopleDating, setMultiplePeopleDating] = useState(null);
 
   useEffect(() => {
     console.log('sliderValue:', sliderValue);
     console.log('selectedGender:', selectedGender);
     console.log('datingAge', datingAge);
-    console.log('multiplePeople', multiplePeople);
-  }, [sliderValue, selectedGender, datingAge, multiplePeople]);
+    console.log('multiplePeopleDating', multiplePeopleDating);
+  }, [sliderValue, selectedGender, datingAge, multiplePeopleDating]);
 
   const handleNextButtonClick = () => {
     setShowNextContent(true);
@@ -31,7 +31,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
       return;
     }
     handleDatingGender(selectedGender); // Update the selected gender
-    handleNextStep(4, selectedGender); // Change to step 4 (TEST SIZE) in MultiStepForm
+    handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
 
   const handleDatingAgeItem = (event) => {
@@ -45,7 +45,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
 
   const handleDatingMultiplePeopleItem = (event) => {
     handleDatingMultiplePeople(event.target.value);
-    setMultiplePeople(event.target.value);
+    setMultiplePeopleDating(event.target.value);
   };
 
   const handleDatingGenderItem = (gender) => {

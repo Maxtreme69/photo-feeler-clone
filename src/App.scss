@@ -959,8 +959,20 @@ button:last-child {
   font-family: 'Roboto', sans-serif;
   font-size: 13.5px;
   font-weight: 200;
-  color: rgb(122, 119, 119);
+  color: #333;
   margin: 0px;
+  padding-top: 5px;
+}
+
+.image-details-dating {
+  color: #a3a3a3;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 2px 0 -1px 0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-family: 'Roboto', sans-serif;
+  padding-top: 5px;
 }
 
 .dating-subject-details {

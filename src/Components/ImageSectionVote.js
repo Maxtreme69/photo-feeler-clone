@@ -3,7 +3,6 @@ import CustomDropdown from './CustomDropdown.js';
 import CommentComponent from './CommentComponent.js';
 import Rating from './Rating.js';
 import { AppContext } from '../Context/AppContext.js';
-import ImageCardComponent from './ImageCardComponent.js';
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
   const { myTestsData, testSizeData } = useContext(AppContext); // Destructure testSizeData from context
@@ -131,15 +130,19 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
           <div className="container">
             <div className="card" style={{ transform: `rotateY(${angle}deg)` }}>
               {selectedOption && <img src={selectedOption} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
-              {imageDetails && (
-                <div className="image-details">
-                  <p>Slider Value: {imageDetails.sliderValue}</p>
-                  <p>Selected Gender: {imageDetails.selectedGender}</p>
-                  <p>Dating Age: {imageDetails.datingAge}</p>
-                  <p>Multiple People: {imageDetails.multiplePeople}</p>
+            </div>
+            {imageDetails && selectedCategory === 'business' ? (
+                <div >
+                  <p className="image-details-dating">TITLE</p>
+                  <p className="image-details">{imageDetails.businessTitle}</p>
+                </div>
+              ) : imageDetails && (selectedCategory === 'dating' || selectedCategory === 'social') && (
+                <div >
+                  <p className="image-details-dating">SUBJECT</p>
+                  <p className="image-details">{imageDetails.multiplePeople}</p>
+                  <p className="image-details">{imageDetails.multiplePeopleDating}</p>
                 </div>
               )}
-            </div>
           </div>
         </div>
         <div>
