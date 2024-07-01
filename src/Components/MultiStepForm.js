@@ -18,9 +18,9 @@ function MultiStepForm() {
   const [datingAge, setDatingAge] = useState('');
   const [datingGender, setDatingGender] = useState('both');
   const [datingMultiplePeople, setDatingMultiplePeople] = useState('');
-  const [sliderValue, setSliderValue] = useState(''); // Renamed from slidingValueProps to sliderValue
+  const [sliderValue, setSliderValue] = useState('');
   const [showImageSectionVote, setShowImageSectionVote] = useState(false);
-  const [selectedGender, setSelectedGender] = useState('both'); // Default to 'both'
+  const [selectedGender, setSelectedGender] = useState('both');
   const [rectangles, setRectangles] = useState([]);
 
   const handleStepChange = (step) => {

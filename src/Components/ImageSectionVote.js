@@ -6,7 +6,7 @@ import { AppContext } from '../Context/AppContext.js';
 import ImageCardComponent from './ImageCardComponent.js';
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
-  const { myTestsData } = useContext(AppContext);
+  const { myTestsData, testSizeData } = useContext(AppContext); // Destructure testSizeData from context
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -16,6 +16,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [submissionData, setSubmissionData] = useState(null);
   const [angle, setAngle] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
+  const [imageDetails, setImageDetails] = useState(null); // State for storing image details
 
   const initialSelections = {
     dating: { smart: null, trustworthy: null, attractive: null },
@@ -56,16 +57,28 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
 
     const myTestsDataImages = myTestsData
       .filter(item => item.category.toLowerCase() === category.toLowerCase())
-      .map(item => URL.createObjectURL(item.image));
+      .map(item => item.image); // Use original image objects
 
     availableImages = [...availableImages, ...myTestsDataImages];
 
-    const unusedImages = availableImages.filter((img) => !submittedImages.includes(img));
+    const unusedImages = availableImages.filter((img) => !submittedImages.includes(typeof img === 'string' ? img : URL.createObjectURL(img)));
     if (unusedImages.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
 
     const selectedImage = unusedImages[randomIndex];
-    return selectedImage.startsWith('blob:') ? selectedImage : imagesContext(selectedImage);
+    console.log('Selected image before blob URL:', selectedImage); // Log selected image before blob URL
+
+    // Check for a match in testSizeData
+    const matchedTestData = testSizeData.find(entry => entry.originalFileName === selectedImage.name);
+    if (matchedTestData) {
+      console.log('Match found for image:', selectedImage.name);
+      setImageDetails(matchedTestData);
+    } else {
+      setImageDetails(null);
+    }
+
+    const selectedImageBlobUrl = typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage);
+    return selectedImageBlobUrl.startsWith('blob:') ? selectedImageBlobUrl : imagesContext(selectedImageBlobUrl);
   };
 
   const handleOptionSelect = (option) => {
@@ -118,6 +131,14 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
           <div className="container">
             <div className="card" style={{ transform: `rotateY(${angle}deg)` }}>
               {selectedOption && <img src={selectedOption} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
+              {imageDetails && (
+                <div className="image-details">
+                  <p>Slider Value: {imageDetails.sliderValue}</p>
+                  <p>Selected Gender: {imageDetails.selectedGender}</p>
+                  <p>Dating Age: {imageDetails.datingAge}</p>
+                  <p>Multiple People: {imageDetails.multiplePeople}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

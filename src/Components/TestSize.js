@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { ActiveTest } from './ActiveTest.js';
-import { useTestSizeSubmission } from '../Context/TestSizeSubmission.js'; // Import the context hook
+import { AppContext } from '../Context/AppContext.js'; // Import AppContext
 
 const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, multiplePeople, selectedImage }) => {
   const [isActive, setIsActive] = useState(false);
-  const { addTestSizeData } = useTestSizeSubmission(); // Use the context function
+  const { addTestSizeData } = useContext(AppContext); // Use the AppContext
 
   const handleClick = () => {
     setIsActive(!isActive);
