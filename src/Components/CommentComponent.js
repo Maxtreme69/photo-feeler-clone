@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
+import generateHash from '../utils/GenerateHash.js';
 
 const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -35,15 +36,32 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     setTextareaContent(e.target.value);
   };
 
-  const handleSubmitClick = () => {
-    const newSubmissionData = {
-      selectedCategory,
-      selectedOption,
-      textareaContent,
-      selections
-    };
+  const handleSubmitClick = async () => {
+    const hash = await generateHash(selectedOption);
+    
+    let existingSubmission = submissionDataList.find(submission => submission.selectedOptionHash === hash);
+    let newSubmissionData;
+    
+    if (existingSubmission) {
+      newSubmissionData = {
+        selectedCategory,
+        selectedOption: existingSubmission.selectedOption,
+        selectedOptionHash: hash,
+        textareaContent,
+        selections
+      };
+    } else {
+      newSubmissionData = {
+        selectedCategory,
+        selectedOption,
+        selectedOptionHash: hash,
+        textareaContent,
+        selections
+      };
+    }
 
     setSubmissionDataList((prevList) => [...prevList, newSubmissionData]);
+    console.log('SubmissionDataList:', [...submissionDataList, newSubmissionData]);
     setSubmitDisabled(true);
     handleFlip();
     setTimeout(() => {
@@ -51,16 +69,34 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     }, 450); // Delay to match the flip animation duration
   };
 
-  const handleSkipClick = () => {
+  const handleSkipClick = async () => {
+    const hash = await generateHash(selectedOption);
+
     setTextareaContent('');
     setSelectedButton('');
     setSubmitDisabled(false);
-    const newSubmissionData = {
-      selectedCategory,
-      selectedOption,
-      textareaContent,
-      selections
-    };
+
+    let existingSubmission = submissionDataList.find(submission => submission.selectedOptionHash === hash);
+    let newSubmissionData;
+
+    if (existingSubmission) {
+      newSubmissionData = {
+        selectedCategory,
+        selectedOption: existingSubmission.selectedOption,
+        selectedOptionHash: hash,
+        textareaContent,
+        selections
+      };
+    } else {
+      newSubmissionData = {
+        selectedCategory,
+        selectedOption,
+        selectedOptionHash: hash,
+        textareaContent,
+        selections
+      };
+    }
+
     setTimeout(() => {
       onSubmit(newSubmissionData);
     }, 450); // Delay to match the flip animation duration

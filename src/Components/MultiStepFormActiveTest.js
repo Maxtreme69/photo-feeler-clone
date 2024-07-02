@@ -7,7 +7,6 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons'; // Import the do
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import html2canvas from 'html2canvas';
 
-
 const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [hashedImage, setHashedImage] = useState(hash || null);
@@ -33,7 +32,6 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
         setHashedImage(image);
       }
     };
-
     hashBlobImage();
   }, [image]);
 
@@ -208,6 +206,7 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
 
   const renderSelectionCounts = () => {
     return Object.entries(selectionCounts).map(([label, counts]) => {
+      console.log('Object entries', Object)
       // Determine the color based on the label
       let color;
       switch (label.toLowerCase()) {
