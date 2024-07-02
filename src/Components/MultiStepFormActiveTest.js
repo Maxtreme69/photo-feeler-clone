@@ -74,11 +74,15 @@ const MultiStepFormActiveTest = ({ ratings, category, image, hash }) => {
     }
   
     const renderRatingRow = (width, height, label, value, color) => {
+      width='670px';
+      height='30px';
       let descriptionSpan;
       let adjustedValue = value; // Create a variable to store the adjusted value
     
       // Adjust value for descriptionSpan if currentStep is 4
       if (currentStep === 4) {
+        width='360px';
+        height='15px';
         adjustedValue /= 2; // Divide value by 2
       }
     

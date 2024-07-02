@@ -736,7 +736,6 @@ button:last-child {
   line-height: 1.42857143;
   color: #333;
   display: flex;
-  width: 100%;
   max-width: 6000px; /* Adjust max-width as needed */
   border-bottom: 1px solid #dbd6d6;
 }
@@ -1618,6 +1617,12 @@ button:hover {
     display: flex;
     justify-content: center;
   }
+
+  .image-container-modal {
+    width: '400px';
+    height: '500px';
+  }
+  
   
   .image-container img {
     max-width: 100%;
@@ -1741,7 +1746,6 @@ button:hover {
   }
 }
 
-
 /* Modal.css */
 .modal-overlay {
   position: fixed;
@@ -1759,7 +1763,8 @@ button:hover {
 .modal-content {
   display: flex;
   flex-direction: row;
-  width: 40%;
+  height: 700px;
+  width: 45%;
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -1782,14 +1787,23 @@ button:hover {
   flex-direction: column;
 }
 
-.close-button {
+#close-button {
+  color: #cdcfd1;
   align-self: flex-end;
   margin-bottom: 10px;
+  font-size: 28px;
   background: none;
-  border: none;
-  font-size: 18px;
   cursor: pointer;
+  visibility: visible; /* Ensure the button is always visible */
+  transition: color 0.5s ease, background-color 0.5s ease, transform 0.3s ease; /* Add smooth transition for background color and transform */
 }
+
+#close-button:hover {
+  background-color: rgba(241, 12, 12, 0.7); /* Change color on hover */
+  color: rgb(97, 96, 96);
+  transition: color 0.5s ease, background-color 0.5s ease, transform 0.3s ease; /* Add smooth transition for background color and transform */
+}
+
 
 // Triangle descriptionSpan
 .description {
