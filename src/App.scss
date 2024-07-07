@@ -1633,13 +1633,13 @@ button:hover {
   .custom-dropdown {
     position: relative;
     display: inline-block;
-    width: 200px;
     width: 100%;
   }
   
   .custom-dropdown-header {
+    align-items: center;
+    justify-content: center; /* Center the text */
     padding: 5px 0;
-    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #393f4f;
@@ -1648,6 +1648,18 @@ button:hover {
     text-align: center;
     font-family: 'Roboto', sans-serif;
     margin-top: 20px;
+    position: relative; /* Needed for icon positioning */
+  }
+  
+  .custom-dropdown-text {
+    flex: 1; /* Ensures the text takes available space */
+    text-align: center;
+  }
+  
+  .custom-dropdown-icon {
+    position: absolute;
+    right: 10px; /* Adjust as needed to position icon */
+    color: white;
   }
   
   .custom-dropdown-list {
@@ -1670,11 +1682,12 @@ button:hover {
     background-color: white;
     color: black;
   }
-
+  
   .custom-dropdown-option.disabled {
     color: gray;
     pointer-events: none; /* Prevent clicking on the disabled option */
   }
+  
   
   
   .custom-dropdown-option:hover {

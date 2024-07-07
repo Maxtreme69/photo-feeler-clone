@@ -4,7 +4,7 @@ import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 import generateHash from '../utils/GenerateHash.js';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip, imageDetailsSubmit }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -48,7 +48,8 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         selectedOption: existingSubmission.selectedOption,
         selectedOptionHash: hash,
         textareaContent,
-        selections
+        selections,
+        imageDetailsSubmit
       };
     } else {
       newSubmissionData = {
@@ -56,7 +57,8 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         selectedOption,
         selectedOptionHash: hash,
         textareaContent,
-        selections
+        selections,
+        imageDetailsSubmit
       };
     }
 
@@ -85,7 +87,8 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         selectedOption: existingSubmission.selectedOption,
         selectedOptionHash: hash,
         textareaContent,
-        selections
+        selections,
+        imageDetailsSubmit
       };
     } else {
       newSubmissionData = {
@@ -93,7 +96,8 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         selectedOption,
         selectedOptionHash: hash,
         textareaContent,
-        selections
+        selections,
+        imageDetailsSubmit
       };
     }
 
@@ -180,6 +184,11 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
           Submit Vote
         </button>
       </div>
+      {imageDetailsSubmit && (
+        <div className="image-details-submit">
+          <p>{imageDetailsSubmit}</p>
+        </div>
+      )}
     </div>
   );
 };

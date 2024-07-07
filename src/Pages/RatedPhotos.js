@@ -13,6 +13,7 @@ const RatedPhotos = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageRatings, setSelectedImageRatings] = useState(null);
+  const [selectedImageDetailsSubmit, setSelectedImageDetailsSubmit] = useState(null);
   const [sortBy, setSortBy] = useState('category');
   const [selectionCategories, setSelectionCategories] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
@@ -30,6 +31,7 @@ const RatedPhotos = () => {
   };
 
   useEffect(() => {
+    console.log('submissionDataContext', submissionDataList);
     const hashImages = async () => {
       const updatedDataList = await Promise.all(submissionDataList.map(async (data) => {
         if (data.selectedOption.startsWith('blob:')) {
@@ -109,15 +111,29 @@ const RatedPhotos = () => {
   const { voteCounts, ratingsMap } = getVoteCountsAndRatings();
 
   const handleImageClick = (image, ratings) => {
+    console.log('Image clicked:', image);
+  
+    // Search for the matching entry in submissionDataList
+    const selectedData = submissionDataList.find(data => data.selectedOptionHash === image);
+  
+    if (selectedData) {
+      console.log('Image Details Submit:', selectedData.imageDetailsSubmit);
+      setSelectedImageDetailsSubmit(selectedData.imageDetailsSubmit); // Set image details
+    } else {
+      console.log('No matching data found for the selected image.');
+      setSelectedImageDetailsSubmit(null); // Reset if no match is found
+    }
+  
     setSelectedImage(hashToBlobUrlMap[image] || image);
     setSelectedImageRatings(ratings);
     setIsModalVisible(true);
-  };
+  };  
 
   const closeModal = () => {
     setIsModalVisible(false);
     setSelectedImage(null);
     setSelectedImageRatings(null);
+    setSelectedImageDetailsSubmit(null); // Reset image details
   };
 
   const handleSortByChange = (newSortBy) => {
@@ -193,6 +209,7 @@ const RatedPhotos = () => {
           image={selectedImage}
           ratings={selectedImageRatings}
           category={selectedCategory}
+          selectedImageDetailsSubmit={selectedImageDetailsSubmit}
         />
       )}
       <div style={{ marginTop: '60vh' }}></div>

@@ -5,7 +5,7 @@ import Rating from './Rating.js';
 import { AppContext } from '../Context/AppContext.js';
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
-  const { myTestsData, testSizeData } = useContext(AppContext); // Destructure testSizeData from context
+  const { myTestsData, testSizeData } = useContext(AppContext);
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -15,7 +15,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [submissionData, setSubmissionData] = useState(null);
   const [angle, setAngle] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
-  const [imageDetails, setImageDetails] = useState(null); // State for storing image details
+  const [imageDetails, setImageDetails] = useState(null);
+  const [imageDetailsSubmit, setImageDetailsSubmit] = useState(null);
 
   const initialSelections = {
     dating: { smart: null, trustworthy: null, attractive: null },
@@ -37,6 +38,22 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   useEffect(() => {
     setSelections(initialSelections[selectedCategory.toLowerCase()]);
   }, [selectedCategory]);
+
+  useEffect(() => {
+    if (imageDetails) {
+      if (selectedCategory === 'business') {
+        setImageDetailsSubmit(imageDetails.businessTitle);
+      } else if (selectedCategory === 'social') {
+        setImageDetailsSubmit(imageDetails.multiplePeople);
+      } else if (selectedCategory === 'dating') {
+        setImageDetailsSubmit(imageDetails.multiplePeopleDating);
+      } else {
+        setImageDetailsSubmit(null);
+      }
+    } else {
+      setImageDetailsSubmit(null);
+    }
+  }, [imageDetails, selectedCategory, imageDetailsSubmit]);
 
   const getRandomImage = (category, gender) => {
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
@@ -132,12 +149,12 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
               {selectedOption && <img src={selectedOption} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
             </div>
             {imageDetails && selectedCategory === 'business' ? (
-                <div >
+                <div>
                   <p className="image-details-dating">TITLE</p>
                   <p className="image-details">{imageDetails.businessTitle}</p>
                 </div>
               ) : imageDetails && (selectedCategory === 'dating' || selectedCategory === 'social') && (
-                <div >
+                <div>
                   <p className="image-details-dating">SUBJECT</p>
                   <p className="image-details">{imageDetails.multiplePeople}</p>
                   <p className="image-details">{imageDetails.multiplePeopleDating}</p>
@@ -161,6 +178,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             selectedOption={selectedOption} 
             selectedCategory={selectedCategory}
             handleFlip={handleFlip}
+            imageDetailsSubmit={imageDetailsSubmit} // Pass the image details
           />
         </div>
       </div>
