@@ -1438,7 +1438,6 @@ button:hover {
 // Comment Container
 .comment-component-container {
 
-  margin-left: 20px;
 
   p {
     text-align: left;
@@ -1474,7 +1473,7 @@ button:hover {
   .skip-button {
     display: flex;
     align-items: center;
-    margin-left: 67.5%;
+    margin-left: 60%;
     margin-right: 10px;
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
@@ -1894,6 +1893,49 @@ button:hover {
   }
 }
 
+.toggle-button {
+  background-color: lightgray;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 20px;
+  position: relative;
+  width: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.toggle-button:hover {
+  background-color: lightgray;
+}
+
+.toggle-button:focus,
+.toggle-button:active {
+  outline: none;
+}
+
+.toggle-button::-moz-focus-inner {
+  border: 0;
+}
+
+.pin {
+  background-color: white;
+  border-radius: 19.6px;
+  height: 18.8px;
+  left: 0.8px;
+  position: absolute;
+  top: 0.6px;
+  width: 19.6px;
+  transition: left ease 0.5s;
+}
+
+.toggle-button.on {
+  background-color: rgb(245, 177, 5);
+}
+
+.toggle-button.on .pin {
+  left: 19.6px;
+}
 
 
 

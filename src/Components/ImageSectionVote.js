@@ -3,6 +3,7 @@ import CustomDropdown from './CustomDropdown.js';
 import CommentComponent from './CommentComponent.js';
 import Rating from './Rating.js';
 import { AppContext } from '../Context/AppContext.js';
+import ToggleButton from '../Components/ToggleButton.js';
 
 const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
   const { myTestsData, testSizeData } = useContext(AppContext);

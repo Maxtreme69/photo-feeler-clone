@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForwardStep } from '@fortawesome/free-solid-svg-icons';
 import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 import generateHash from '../utils/GenerateHash.js';
+import ToggleButton from './ToggleButton.js';
 
 const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip, imageDetailsSubmit }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -65,7 +66,6 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
     setSubmissionDataList((prevList) => [...prevList, newSubmissionData]);
     console.log('SubmissionDataList:', [...submissionDataList, newSubmissionData]);
     setSubmitDisabled(true);
-    handleFlip();
     setTimeout(() => {
       onSubmit(newSubmissionData);
     }, 450); // Delay to match the flip animation duration
@@ -171,22 +171,28 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
           </div>
         </>
       )}
-      <div className="button-container">
-        <div className="skip-button" onClick={handleSkipClick}>
-          <FontAwesomeIcon icon={faForwardStep} />
-          <p>Skip</p>
-        </div>
-        <button 
+
+      <div className="button-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <p style={{ margin: '0 10px 0 0', fontFamily: 'roboto', color: 'grey' }}>VOTERS</p>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ marginRight: '5px' }}>F</span><ToggleButton /><span style={{ marginRight: '5px', marginLeft: '5px' }}>M</span><ToggleButton />
+          </div>
+          <div className="skip-button" onClick={handleSkipClick} style={{ gap: '10px' }}>
+            <FontAwesomeIcon icon={faForwardStep} />
+            <p>Skip</p>
+            <button 
           className="new-test-button" 
           onClick={handleSubmitClick}
           disabled={submitDisabled || isSubmitDisabled}
         >
           Submit Vote
         </button>
+        </div>
+        </div>
       </div>
       {imageDetailsSubmit && (
         <div className="image-details-submit">
-          <p>{imageDetailsSubmit}</p>
         </div>
       )}
     </div>
