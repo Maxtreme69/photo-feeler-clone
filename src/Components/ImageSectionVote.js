@@ -5,7 +5,7 @@ import Rating from './Rating.js';
 import { AppContext } from '../Context/AppContext.js';
 import ToggleButton from '../Components/ToggleButton.js';
 
-const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => {
+const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
   const { myTestsData, testSizeData } = useContext(AppContext);
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
@@ -20,6 +20,18 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [imageDetailsSubmit, setImageDetailsSubmit] = useState(null);
   const [maleToggle, setMaleToggle] = useState(true);
   const [femaleToggle, setFemaleToggle] = useState(true);
+  const [selectedGender, setSelectedGender] = useState('both');
+
+  useEffect(() => {
+    if (testSizeData.length > 0) {
+      const lastEntry = testSizeData[testSizeData.length - 1];
+      if (lastEntry.selectedGender) {
+        setSelectedGender(lastEntry.selectedGender);
+        setMaleToggle(lastEntry.selectedGender === 'male' || lastEntry.selectedGender === 'both');
+        setFemaleToggle(lastEntry.selectedGender === 'female' || lastEntry.selectedGender === 'both');
+      }
+    }
+  }, [testSizeData]);
 
   const initialSelections = {
     dating: { smart: null, trustworthy: null, attractive: null },
