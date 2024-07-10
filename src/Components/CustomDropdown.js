@@ -24,11 +24,11 @@ const CustomDropdown = ({ options, selectedOption, onOptionSelect, activeButton 
       {isOpen && (
         <div className="custom-dropdown-list">
           {options.map((option, index) => (
-            <div
-              key={index}
-              className={`custom-dropdown-option ${option === selectedOption ? 'disabled' : ''}`}
-              onClick={() => handleOptionClick(option)}
-            >
+              <div
+                key={index}
+                className={`custom-dropdown-option ${option === selectedOption ? 'disabled' : ''}`}
+                onClick={() => handleOptionClick(option)}
+              >
               {option}
             </div>
           ))}

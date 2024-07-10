@@ -18,6 +18,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const [isFlipping, setIsFlipping] = useState(false);
   const [imageDetails, setImageDetails] = useState(null);
   const [imageDetailsSubmit, setImageDetailsSubmit] = useState(null);
+  const [maleToggle, setMaleToggle] = useState(true);
+  const [femaleToggle, setFemaleToggle] = useState(true);
 
   const initialSelections = {
     dating: { smart: null, trustworthy: null, attractive: null },
@@ -26,8 +28,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   };
 
   useEffect(() => {
-    setSelectedOption(getRandomImage(selectedCategory, selectedGender));
-  }, [selectedCategory, selectedGender, submittedImages]);
+    setSelectedOption(getRandomImage(selectedCategory, getSelectedGender()));
+  }, [selectedCategory, maleToggle, femaleToggle, submittedImages]);
 
   useEffect(() => {
     if (reset) {
@@ -56,6 +58,13 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     }
   }, [imageDetails, selectedCategory, imageDetailsSubmit]);
 
+  const getSelectedGender = () => {
+    if (maleToggle && femaleToggle) return 'both';
+    if (maleToggle) return 'males';
+    if (femaleToggle) return 'females';
+    return 'none';
+  };
+
   const getRandomImage = (category, gender) => {
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
 
@@ -65,7 +74,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
         const maleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/males`));
         const femaleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/females`));
         availableImages = [...maleImages, ...femaleImages];
-      } else {
+      } else if (gender !== 'none') {
         availableImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/${gender}`));
       }
     } else {
@@ -74,7 +83,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
 
     const myTestsDataImages = myTestsData
       .filter(item => item.category.toLowerCase() === category.toLowerCase())
-      .map(item => item.image); // Use original image objects
+      .map(item => item.image);
 
     availableImages = [...availableImages, ...myTestsDataImages];
 
@@ -83,9 +92,8 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
 
     const selectedImage = unusedImages[randomIndex];
-    console.log('Selected image before blob URL:', selectedImage); // Log selected image before blob URL
+    console.log('Selected image before blob URL:', selectedImage);
 
-    // Check for a match in testSizeData
     const matchedTestData = testSizeData.find(entry => entry.originalFileName === selectedImage.name);
     if (matchedTestData) {
       console.log('Match found for image:', selectedImage.name);
@@ -109,7 +117,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
   const handleSubmit = (data) => {
     if (selectedOption) {
       setSubmittedImages((prevSubmittedImages) => [...prevSubmittedImages, selectedOption]);
-      const newSelectedOption = getRandomImage(selectedCategory, selectedGender);
+      const newSelectedOption = getRandomImage(selectedCategory, getSelectedGender());
       setSelectedOption(newSelectedOption);
       setVoteReceived(true);
       onSubmit(data);
@@ -129,7 +137,7 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
       setAngle(prevAngle => prevAngle - 180);
       setTimeout(() => {
         setIsFlipping(false);
-      }, 400); // Set the delay time to match the flip animation duration
+      }, 400);
     }
   };
 
@@ -179,7 +187,11 @@ const ImageSectionVote = ({ activeButton, selectedGender, onSubmit, reset }) => 
             selectedOption={selectedOption} 
             selectedCategory={selectedCategory}
             handleFlip={handleFlip}
-            imageDetailsSubmit={imageDetailsSubmit} // Pass the image details
+            imageDetailsSubmit={imageDetailsSubmit}
+            maleToggle={maleToggle}
+            femaleToggle={femaleToggle}
+            setMaleToggle={setMaleToggle}
+            setFemaleToggle={setFemaleToggle}
           />
         </div>
       </div>

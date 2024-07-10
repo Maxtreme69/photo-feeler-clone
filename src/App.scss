@@ -1893,6 +1893,12 @@ button:hover {
   }
 }
 
+.toggle-button-container {
+  display: inline-flex;
+  align-items: center;
+  margin: 0.5rem;
+}
+
 .toggle-button {
   background-color: lightgray;
   border: 0;
@@ -1936,6 +1942,7 @@ button:hover {
 .toggle-button.on .pin {
   left: 19.6px;
 }
+
 
 
 

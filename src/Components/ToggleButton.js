@@ -1,11 +1,8 @@
 import React from 'react';
 
-const ToggleButton = () => {
-  const [on, setOnState] = React.useState(false);
-  const toggle = () => setOnState(o => !o);
-
+const ToggleButton = ({ isOn, onToggle }) => {
   return (
-    <button className={`toggle-button ${on ? 'on' : 'off'}`} onClick={toggle}>
+    <button className={`toggle-button ${isOn ? 'on' : 'off'}`} onClick={onToggle}>
       <span className="pin" />
     </button>
   );

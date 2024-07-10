@@ -5,7 +5,7 @@ import { SubmissionDataContext } from '../Context/SubmissionDataContext.js';
 import generateHash from '../utils/GenerateHash.js';
 import ToggleButton from './ToggleButton.js';
 
-const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip, imageDetailsSubmit }) => {
+const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, selectedCategory, selections, handleFlip, imageDetailsSubmit, setMaleToggle, setFemaleToggle, maleToggle, femaleToggle }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
@@ -70,6 +70,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
       onSubmit(newSubmissionData);
     }, 450); // Delay to match the flip animation duration
   };
+
 
   const handleSkipClick = async () => {
     const hash = await generateHash(selectedOption);
@@ -176,12 +177,15 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <p style={{ margin: '0 10px 0 0', fontFamily: 'roboto', color: 'grey' }}>VOTERS</p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: '5px' }}>F</span><ToggleButton /><span style={{ marginRight: '5px', marginLeft: '5px' }}>M</span><ToggleButton />
+            <span style={{ marginRight: '5px' }}>F</span>
+            <ToggleButton isOn={femaleToggle} onToggle={() => setFemaleToggle(!femaleToggle)} />
+            <span style={{ marginRight: '5px', marginLeft: '5px' }}>M</span>
+            <ToggleButton isOn={maleToggle} onToggle={() => setMaleToggle(!maleToggle)} />
           </div>
-          <div className="skip-button" onClick={handleSkipClick} style={{ gap: '10px' }}>
-            <FontAwesomeIcon icon={faForwardStep} />
-            <p>Skip</p>
-            <button 
+          <div className="skip-button" onClick={handleSkipClick} style={{ gap: '10px', paddingLeft: '60px' }}>
+          <FontAwesomeIcon icon={faForwardStep} />
+          <p>Skip</p>
+          <button 
           className="new-test-button" 
           onClick={handleSubmitClick}
           disabled={submitDisabled || isSubmitDisabled}
