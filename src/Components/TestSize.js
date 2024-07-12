@@ -4,7 +4,7 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { ActiveTest } from './ActiveTest.js';
 import { AppContext } from '../Context/AppContext.js'; // Import AppContext
 
-const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, multiplePeople, multiplePeopleDating, selectedImage, businessTitle }) => {
+const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, multiplePeople, multiplePeopleDating, selectedImage, businessTitle, selectedGenderDropdown }) => {
   const [isActive, setIsActive] = useState(false);
   const { addTestSizeData } = useContext(AppContext); // Use the AppContext
 
@@ -17,7 +17,8 @@ const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, mul
       datingAge,
       multiplePeople,
       multiplePeopleDating,
-      businessTitle // Include businessTitle in newEntry
+      businessTitle, // Include businessTitle in newEntry
+      selectedGenderDropdown, // Include selectedGenderDropdown in newEntry
     };
     addTestSizeData(newEntry); // Add data to context
     console.log('TestSize handleClick clicked!');
@@ -25,6 +26,7 @@ const TestSize = ({ handleVoteClick, sliderValue, selectedGender, datingAge, mul
     console.log('Multiple People', multiplePeople);
     console.log('Multiple People Dating', multiplePeopleDating);
     console.log('Business Title', businessTitle); // Log business title
+    console.log('Selected Gender Dropdown', selectedGenderDropdown); // Log selected gender dropdown
   };
 
   return (

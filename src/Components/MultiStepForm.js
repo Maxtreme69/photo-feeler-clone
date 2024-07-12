@@ -21,6 +21,7 @@ function MultiStepForm() {
   const [sliderValue, setSliderValue] = useState('');
   const [showImageSectionVote, setShowImageSectionVote] = useState(false);
   const [selectedGender, setSelectedGender] = useState('both');
+  const [selectedGenderDropdown, setSelectedGenderDropdown] = useState(null); // New state
   const [rectangles, setRectangles] = useState([]);
   const [multiplePeople, setMultiplePeople] = useState(null); // New state
   const [multiplePeopleDating, setMultiplePeopleDating] = useState(null); // New state
@@ -50,6 +51,10 @@ function MultiStepForm() {
   const handleDatingGender = (gender) => {
     setDatingGender(gender);
     setSelectedGender(gender);
+  };
+
+  const handleSelectedGenderDropdown = (gender) => {
+    setSelectedGenderDropdown(gender); // Update selectedGenderDropdown state
   };
 
   const handleDatingMultiplePeople = (people) => {
@@ -143,6 +148,7 @@ function MultiStepForm() {
                 handleDatingGender={handleDatingGender}
                 handleDatingMultiplePeople={handleDatingMultiplePeople}
                 sliderValueProps={handleSliderValue}
+                handleSelectedGenderDropdown={handleSelectedGenderDropdown}
               />
             )}
             {selectedCategory === 'SOCIAL' && (
@@ -188,6 +194,7 @@ function MultiStepForm() {
               multiplePeople={multiplePeople} // Pass multiplePeople to TestSize
               multiplePeopleDating={multiplePeopleDating} // Pass multiplePeopleDating to TestSize
               businessTitle={businessTitle} // Pass businessTitle to TestSize
+              selectedGenderDropdown={selectedGenderDropdown} // Pass selectedGenderDropdown to TestSize
             />
           </div>
         )}

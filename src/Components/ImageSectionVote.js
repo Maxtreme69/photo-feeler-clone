@@ -3,10 +3,9 @@ import CustomDropdown from './CustomDropdown.js';
 import CommentComponent from './CommentComponent.js';
 import Rating from './Rating.js';
 import { AppContext } from '../Context/AppContext.js';
-import ToggleButton from '../Components/ToggleButton.js';
 
 const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
-  const { myTestsData, testSizeData } = useContext(AppContext);
+  const { myTestsData, testSizeData, selectedGenderDropdown } = useContext(AppContext);
   const [selectedOption, setSelectedOption] = useState(null);
   const [submittedImages, setSubmittedImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('dating');
@@ -78,45 +77,82 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
   };
 
   const getRandomImage = (category, gender) => {
+    // Require images context from the images directory
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
-
+  
     let availableImages = [];
+  
+    // Filter images based on category and gender
     if (category.toLowerCase() === 'dating') {
       if (gender === 'both') {
+        // Include both male and female images
         const maleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/males`));
         const femaleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/females`));
         availableImages = [...maleImages, ...femaleImages];
       } else if (gender !== 'none') {
+        // Include images based on specific gender
         availableImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/${gender}`));
       }
     } else {
+      // Include images based on category
       availableImages = imagesContext.keys().filter((key) => key.startsWith(`./${category.toLowerCase()}`));
     }
-
-    const myTestsDataImages = myTestsData
-      .filter(item => item.category.toLowerCase() === category.toLowerCase())
-      .map(item => item.image);
-
+  
+    // Map myTestsData images to the availableImages array
+    const myTestsDataImages = myTestsData.filter(item => item.category.toLowerCase() === category.toLowerCase())
+      .map(item => ({
+        category: item.category,
+        gender: item.gender,
+        image: item.image
+      }));
+  
+    // Combine available images from imagesContext and myTestsDataImages
     availableImages = [...availableImages, ...myTestsDataImages];
-
-    const unusedImages = availableImages.filter((img) => !submittedImages.includes(typeof img === 'string' ? img : URL.createObjectURL(img)));
+  
+    // Filter out images that have already been submitted and don't match the gender filter
+    const unusedImages = availableImages.filter((img) => {
+      const imgUrl = typeof img === 'string' ? img : URL.createObjectURL(img.image || img);
+      const matchedTestData = testSizeData.find(entry => entry.originalFileName === (img.image ? img.image.name : img.name));
+      if (matchedTestData) {
+        if (gender === 'males' && matchedTestData.selectedGenderDropdown === 'male') {
+          return !submittedImages.includes(imgUrl);
+        }
+        if (gender === 'females' && matchedTestData.selectedGenderDropdown === 'female') {
+          return !submittedImages.includes(imgUrl);
+        }
+        if (gender === 'both') {
+          return !submittedImages.includes(imgUrl);
+        }
+        return false;
+      }
+      return !submittedImages.includes(imgUrl);
+    });
+  
+    // If no unused images are available, return null
     if (unusedImages.length === 0) return null;
+  
+    // Select a random image from the unused images
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
-
     const selectedImage = unusedImages[randomIndex];
-    console.log('Selected image before blob URL:', selectedImage);
-
-    const matchedTestData = testSizeData.find(entry => entry.originalFileName === selectedImage.name);
+  
+    // Get the Blob URL for the selected image
+    const selectedImageBlobUrl = typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage.image || selectedImage);
+    const matchedTestData = testSizeData.find(entry => entry.originalFileName === (selectedImage.image ? selectedImage.image.name : selectedImage.name));
+  
+    // If a match is found in the test size data, log it and set the image details
     if (matchedTestData) {
-      console.log('Match found for image:', selectedImage.name);
+      console.log('Match found for image:', selectedImage.name, 'SelectedGenderDropdown:', matchedTestData.selectedGenderDropdown);
       setImageDetails(matchedTestData);
     } else {
       setImageDetails(null);
     }
-
-    const selectedImageBlobUrl = typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage);
-    return selectedImageBlobUrl.startsWith('blob:') ? selectedImageBlobUrl : imagesContext(selectedImageBlobUrl);
+  
+    // Return the URL and gender of the selected image
+    return {
+      url: selectedImageBlobUrl.startsWith('blob:') ? selectedImageBlobUrl : imagesContext(selectedImageBlobUrl)
+    };
   };
+  
 
   const handleOptionSelect = (option) => {
     const newCategory = option.toLowerCase();
@@ -128,7 +164,7 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
 
   const handleSubmit = (data) => {
     if (selectedOption) {
-      setSubmittedImages((prevSubmittedImages) => [...prevSubmittedImages, selectedOption]);
+      setSubmittedImages((prevSubmittedImages) => [...prevSubmittedImages, selectedOption.url]);
       const newSelectedOption = getRandomImage(selectedCategory, getSelectedGender());
       setSelectedOption(newSelectedOption);
       setVoteReceived(true);
@@ -160,14 +196,14 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
           <div className="dropdown-container">
             <CustomDropdown
               options={['DATING', 'SOCIAL', 'BUSINESS']}
-              selectedOption={selectedOption}
+              selectedOption={selectedOption?.url}
               onOptionSelect={handleOptionSelect}
               activeButton={selectedCategory.toUpperCase()}
             />
           </div>
           <div className="container">
             <div className="card" style={{ transform: `rotateY(${angle}deg)` }}>
-              {selectedOption && <img src={selectedOption} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
+              {selectedOption && <img src={selectedOption.url} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
             </div>
             {imageDetails && selectedCategory === 'business' ? (
                 <div>
@@ -196,7 +232,7 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
             isSubmitDisabled={isSubmitDisabled} 
             reset={reset}
             selections={selections} 
-            selectedOption={selectedOption} 
+            selectedOption={selectedOption?.url} 
             selectedCategory={selectedCategory}
             handleFlip={handleFlip}
             imageDetailsSubmit={imageDetailsSubmit}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDatingMultiplePeople, sliderValueProps }) {
+function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDatingMultiplePeople, sliderValueProps, handleSelectedGenderDropdown }) {
   const [showNextContent, setShowNextContent] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // Local state for the slider value
   const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
+  const [selectedGenderDropdown, setSelectedGenderDropdown] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false); // State to show/hide dropdown
   const [datingAge, setDatingAge] = useState(null);
   const [multiplePeopleDating, setMultiplePeopleDating] = useState(null);
@@ -11,9 +12,10 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   useEffect(() => {
     console.log('sliderValue:', sliderValue);
     console.log('selectedGender:', selectedGender);
+    console.log('selectedGenderDropdown:', selectedGenderDropdown);
     console.log('datingAge', datingAge);
     console.log('multiplePeopleDating', multiplePeopleDating);
-  }, [sliderValue, selectedGender, datingAge, multiplePeopleDating]);
+  }, [sliderValue, selectedGender, selectedGenderDropdown, datingAge, multiplePeopleDating]);
 
   const handleNextButtonClick = () => {
     setShowNextContent(true);
@@ -31,6 +33,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
       return;
     }
     handleDatingGender(selectedGender); // Update the selected gender
+    handleSelectedGenderDropdown(selectedGenderDropdown); // Update the selected gender dropdown
     handleNextStep(4); // Change to step 4 (TEST SIZE) in MultiStepForm
   };
 
@@ -48,6 +51,10 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
     setMultiplePeopleDating(event.target.value);
   };
 
+  const handleDatingGenderItemDropdown = (gender) => {
+    setSelectedGenderDropdown(gender); // Update selected gender state
+  };
+
   const handleDatingGenderItem = (gender) => {
     setSelectedGender(gender); // Update selected gender state
   };
@@ -59,7 +66,7 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
           <div className="dating-centre-container">
             <h2 className="dating-title">Who is in the photo?</h2>
             <div className="form-group">
-              <select style={{ backgroundColor: 'white' }} id="gender" name="gender" onChange={(e) => handleDatingGenderItem(e.target.value)}>
+              <select style={{ backgroundColor: 'white' }} id="gender" name="gender" onChange={(e) => handleDatingGenderItemDropdown(e.target.value)}>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
