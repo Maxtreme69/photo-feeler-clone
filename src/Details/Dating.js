@@ -4,9 +4,9 @@ function Dating({ handleNextStep, handleDatingAge, handleDatingGender, handleDat
   const [showNextContent, setShowNextContent] = useState(false);
   const [sliderValue, setSliderValue] = useState(0); // Local state for the slider value
   const [selectedGender, setSelectedGender] = useState(null); // State for selected gender
-  const [selectedGenderDropdown, setSelectedGenderDropdown] = useState(null);
+  const [selectedGenderDropdown, setSelectedGenderDropdown] = useState('female');
   const [showDropdown, setShowDropdown] = useState(false); // State to show/hide dropdown
-  const [datingAge, setDatingAge] = useState(null);
+  const [datingAge, setDatingAge] = useState(18);
   const [multiplePeopleDating, setMultiplePeopleDating] = useState(null);
 
   useEffect(() => {
