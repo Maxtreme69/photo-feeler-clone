@@ -121,11 +121,6 @@ const Rating = ({ selectedCategory, onSelectionChange, reset, voteReceived }) =>
                 />
               </td>
             </tr>
-            <tr>
-              <td>{`Confident ${selections.confident !== null ? selections.confident + '%' : ''}`}</td>
-              <td>{`Authentic ${selections.authentic !== null ? selections.authentic + '%' : ''}`}</td>
-              <td>{`Fun ${selections.fun !== null ? selections.fun + '%' : ''}`}</td>
-            </tr>
           </tbody>
         </table>
       )}

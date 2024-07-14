@@ -28,6 +28,7 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
         setSelectedGender(lastEntry.selectedGender);
         setMaleToggle(lastEntry.selectedGender === 'male' || lastEntry.selectedGender === 'both');
         setFemaleToggle(lastEntry.selectedGender === 'female' || lastEntry.selectedGender === 'both');
+        setSelectedCategory(lastEntry.selectedCategory);
       }
     }
   }, [testSizeData]);
@@ -206,17 +207,16 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
               {selectedOption && <img src={selectedOption.url} alt="Selected Option" style={{ width: '100%', height: '100%' }} />}
             </div>
             {imageDetails && selectedCategory === 'business' ? (
-                <div>
-                  <p className="image-details-dating">TITLE</p>
-                  <p className="image-details">{imageDetails.businessTitle}</p>
-                </div>
-              ) : imageDetails && (selectedCategory === 'dating' || selectedCategory === 'social') && (
-                <div>
-                  <p className="image-details-dating">SUBJECT</p>
-                  <p className="image-details">{imageDetails.multiplePeople}</p>
-                  <p className="image-details">{imageDetails.multiplePeopleDating}</p>
-                </div>
-              )}
+              <div>
+                <p className="image-details-dating">TITLE</p>
+                <p className="image-details">{imageDetails.businessTitle}</p>
+              </div>
+            ) : imageDetails && (selectedCategory === 'dating' || selectedCategory === 'social') && (
+              <div>
+                {imageDetails.multiplePeopleDating && <p className="image-details-dating">SUBJECT</p> || imageDetails.multiplePeople && <p className="image-details-dating">SUBJECT</p>}
+                <p className="image-details">{selectedCategory === 'dating' ? imageDetails.multiplePeopleDating : imageDetails.multiplePeople}</p>
+              </div>
+            )}
           </div>
         </div>
         <div>

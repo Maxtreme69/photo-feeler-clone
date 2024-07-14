@@ -186,6 +186,7 @@ function MultiStepForm() {
             )}
             <TestSize
               isStep4={true}
+              selectedCategory={selectedCategory}
               selectedImage={selectedImage}
               handleVoteClick={handleVoteClick}
               sliderValue={sliderValue}

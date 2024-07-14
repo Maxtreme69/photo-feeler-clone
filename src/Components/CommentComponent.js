@@ -10,6 +10,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
   const [textareaContent, setTextareaContent] = useState('');
   const [selectedButton, setSelectedButton] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(false);
+  const [isVisible, setIsVisible] = useState(selectedCategory === 'dating');
   const { submissionDataList, setSubmissionDataList } = useContext(SubmissionDataContext);
 
   useEffect(() => {
@@ -23,6 +24,10 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
       setSubmitDisabled(false);
     }
   }, [reset]);
+
+  useEffect(() => {
+    setIsVisible(selectedCategory === 'dating');
+  }, [selectedCategory]);
 
   const handleTabClick = (tabIndex) => {
     setActiveTab(tabIndex);
@@ -174,7 +179,9 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
       )}
 
       <div className="button-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
         <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className={`${isVisible ? 'fade-in-toggle visible' : 'fade-out-toggle hidden'}`}>
           <p style={{ margin: '0 10px 0 0', fontFamily: 'roboto', color: 'grey' }}>VOTERS</p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span style={{ marginRight: '5px' }}>F</span>
@@ -182,6 +189,7 @@ const CommentComponent = ({ onSubmit, isSubmitDisabled, reset, selectedOption, s
             <span style={{ marginRight: '5px', marginLeft: '5px' }}>M</span>
             <ToggleButton isOn={maleToggle} onToggle={() => setMaleToggle(!maleToggle)} />
           </div>
+        </div>
           <div className="skip-button" onClick={handleSkipClick} style={{ gap: '10px', paddingLeft: '60px' }}>
           <FontAwesomeIcon icon={faForwardStep} />
           <p>Skip</p>
