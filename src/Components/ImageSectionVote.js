@@ -28,7 +28,7 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
         setSelectedGender(lastEntry.selectedGender);
         setMaleToggle(lastEntry.selectedGender === 'male' || lastEntry.selectedGender === 'both');
         setFemaleToggle(lastEntry.selectedGender === 'female' || lastEntry.selectedGender === 'both');
-        setSelectedCategory(lastEntry.selectedCategory);
+        setSelectedCategory(lastEntry.selectedCategory.toLowerCase());
       }
     }
   }, [testSizeData]);
@@ -78,39 +78,31 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
   };
 
   const getRandomImage = (category, gender) => {
-    // Require images context from the images directory
     const imagesContext = require.context('../images', true, /\.(png|jpe?g|gif|webp)$/);
-  
+
     let availableImages = [];
-  
-    // Filter images based on category and gender
+
     if (category.toLowerCase() === 'dating') {
       if (gender === 'both') {
-        // Include both male and female images
         const maleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/males`));
         const femaleImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/females`));
         availableImages = [...maleImages, ...femaleImages];
       } else if (gender !== 'none') {
-        // Include images based on specific gender
         availableImages = imagesContext.keys().filter((key) => key.startsWith(`./dating/${gender}`));
       }
     } else {
-      // Include images based on category
       availableImages = imagesContext.keys().filter((key) => key.startsWith(`./${category.toLowerCase()}`));
     }
-  
-    // Map myTestsData images to the availableImages array
+
     const myTestsDataImages = myTestsData.filter(item => item.category.toLowerCase() === category.toLowerCase())
       .map(item => ({
         category: item.category,
         gender: item.gender,
         image: item.image
       }));
-  
-    // Combine available images from imagesContext and myTestsDataImages
+
     availableImages = [...availableImages, ...myTestsDataImages];
-  
-    // Filter out images that have already been submitted and don't match the gender filter
+
     const unusedImages = availableImages.filter((img) => {
       const imgUrl = typeof img === 'string' ? img : URL.createObjectURL(img.image || img);
       const matchedTestData = testSizeData.find(entry => entry.originalFileName === (img.image ? img.image.name : img.name));
@@ -128,32 +120,26 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
       }
       return !submittedImages.includes(imgUrl);
     });
-  
-    // If no unused images are available, return null
+
     if (unusedImages.length === 0) return null;
-  
-    // Select a random image from the unused images
+
     const randomIndex = Math.floor(Math.random() * unusedImages.length);
     const selectedImage = unusedImages[randomIndex];
-  
-    // Get the Blob URL for the selected image
+
     const selectedImageBlobUrl = typeof selectedImage === 'string' ? selectedImage : URL.createObjectURL(selectedImage.image || selectedImage);
     const matchedTestData = testSizeData.find(entry => entry.originalFileName === (selectedImage.image ? selectedImage.image.name : selectedImage.name));
-  
-    // If a match is found in the test size data, log it and set the image details
+
     if (matchedTestData) {
       console.log('Match found for image:', selectedImage.name, 'SelectedGenderDropdown:', matchedTestData.selectedGenderDropdown);
       setImageDetails(matchedTestData);
     } else {
       setImageDetails(null);
     }
-  
-    // Return the URL and gender of the selected image
+
     return {
       url: selectedImageBlobUrl.startsWith('blob:') ? selectedImageBlobUrl : imagesContext(selectedImageBlobUrl)
     };
   };
-  
 
   const handleOptionSelect = (option) => {
     const newCategory = option.toLowerCase();
@@ -220,13 +206,15 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
           </div>
         </div>
         <div>
-          <Rating 
-            selectedCategory={selectedCategory} 
-            onSelectionChange={handleRatingSelectionChange} 
-            voteReceived={voteReceived} 
-            reset={reset} 
-            selections={selections}
-          />
+          {selectedCategory && (
+            <Rating 
+              selectedCategory={selectedCategory} 
+              onSelectionChange={handleRatingSelectionChange} 
+              voteReceived={voteReceived} 
+              reset={reset} 
+              selections={selections}
+            />
+          )}
           <CommentComponent 
             onSubmit={handleSubmit} 
             isSubmitDisabled={isSubmitDisabled} 
