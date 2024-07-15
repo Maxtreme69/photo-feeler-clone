@@ -212,7 +212,7 @@ const RatedPhotos = () => {
           selectedImageDetailsSubmit={selectedImageDetailsSubmit}
         />
       )}
-      <div style={{ marginTop: '60vh' }}></div>
+      <div style={{ marginTop: '78vh' }}></div>
     </div>
   );
 };

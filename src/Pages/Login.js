@@ -25,7 +25,7 @@ const Login = () => {
     if (user) {
       localStorage.setItem('token', 'your_generated_token'); // Save the token to local storage
       navigate('/my-tests'); // Redirect to MyTests page
-      window.location.reload(); // Refresh the page
+      // window.location.reload(); // Refresh the page
     } else {
       setFlashMessage('Invalid email or password');
     }

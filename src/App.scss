@@ -491,6 +491,7 @@ button:last-child {
 .login-container {
   display: grid;
   place-items: center;
+  margin-bottom: 7vh;
 }
 
 .login-header {
@@ -557,7 +558,7 @@ button:last-child {
 
 // My Tests Page
 .my-tests-container {
-  height: 80vh;
+  height: 80.5vh;
   width: 100%;
   padding: 20px;
 }

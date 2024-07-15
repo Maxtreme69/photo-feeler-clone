@@ -40,7 +40,7 @@ const Grid = () => {
               <h3>Log in</h3>
             </Link>
           </div>
-          <div style={{ marginTop: '550px', marginLeft: '100px' }}>
+          <div style={{ marginTop: '50px'}}>
             <DotGrid
               dotColor="#8e56cb 3px,transparent 0"
               dotWidthVal1={18}
