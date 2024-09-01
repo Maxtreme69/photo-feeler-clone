@@ -28,7 +28,7 @@ const Vote = ({ onSubmission }) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid 1px grey', marginTop: 'auto' }} className="karma-container">
+      <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: 'solid 1px grey', marginTop: '' }} className="karma-container">
         <h1 style={{ fontSize: '24px' }}>Is this person portrayed as?</h1>
         <p>Karma: <span style={{ color: 'orange' }}>Medium </span><FaQuestionCircle style={{ color: 'grey' }} className="icon" /></p>
       </div>
