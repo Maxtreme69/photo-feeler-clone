@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import DotGrid from '../Components/DotGrid.js';
 import ImageSlider from '../Components/ImageSlider.js';
 import ProgressBar from '../Components/ProgressBar.js';
@@ -75,8 +76,16 @@ function Home() {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
   const [intervalId, setIntervalId] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // check if token exists in local storage to verify if user is logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+
     console.log('PhotoData', photosData);
     const id = setInterval(() => {
       setCurrentStep((prevStep) => (prevStep === 3 ? 1 : prevStep + 1));
@@ -114,6 +123,17 @@ function Home() {
   };
 
   const { ratings, colors } = photosData[currentPhotoIndex];
+
+  // navigate to my-tests if logged in function.
+  const handleTestMyPhotosClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login'); // Redirect to the login page if the user is not logged in
+    } else {
+      // Proceed with the photo testing logic
+      console.log('Testing photos...');
+      navigate('/my-tests'); // Redirect to the login page if the user is not logged in
+    }
+  };
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -244,7 +264,7 @@ function Home() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <button className="test-photos-button">Test my photos</button>
+                <button onClick={handleTestMyPhotosClick} className="test-photos-button">Test my photos</button>
                 <h6>Get Started Rating Photos</h6>
               </div>
               <div>
