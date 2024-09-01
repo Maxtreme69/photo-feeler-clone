@@ -177,7 +177,7 @@ const ImageSectionVote = ({ activeButton, onSubmit, reset }) => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', marginBottom: '28.5vh' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', marginBottom: '28.5vh', marginTop: '5%' }}>
       <div style={{ display: 'flex' }}>
         <div className="image-section-vote" style={{ marginRight: '20px' }}>
           <div className="dropdown-container">
